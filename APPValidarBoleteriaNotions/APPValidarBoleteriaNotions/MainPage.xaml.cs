@@ -2,24 +2,22 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void btnGoTo_Clicked(object sender, EventArgs e)
         {
-            count++;
+            var tcs = new TaskCompletionSource<string>();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            var pageParams = new Dictionary<string, object>{ { "Parametro", tcs} };
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            await Shell.Current.GoToAsync("BarcodePage", pageParams);
+
+
+            string scannedValue = await tcs.Task;
+            await DisplayAlert("Escaneo completado", $"Valor escaneado: {scannedValue}", "OK");
         }
     }
-
 }

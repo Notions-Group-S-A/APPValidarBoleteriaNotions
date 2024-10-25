@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BarcodeScanner.Mobile;
+using Microsoft.Extensions.Logging;
 
 namespace APPValidarBoleteriaNotions
 {
@@ -13,10 +14,14 @@ namespace APPValidarBoleteriaNotions
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                }).ConfigureMauiHandlers(handlers =>
+                {
+                    handlers.AddBarcodeScannerHandler();
                 });
 
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
