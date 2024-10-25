@@ -80,7 +80,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\APPValidarBoleteriaClientService\APPValidarBoleteriaClientService.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="BarcodePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -7,6 +7,7 @@
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(BarcodePage), typeof(BarcodePage));
+            Routing.RegisterRoute(nameof(login), typeof(login));
         }
     }
 }
