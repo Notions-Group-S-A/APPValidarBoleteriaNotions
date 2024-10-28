@@ -2,15 +2,15 @@ using BarcodeScanner.Mobile;
 using System.Reflection.Metadata;
 using static Microsoft.Maui.ApplicationModel.Permissions;
 
-namespace APPValidarBoleteriaNotions
+namespace APPValidarBoleteriaNotions.Pages
 {
 
     [QueryProperty(nameof(Parametro), "Parametro")]
     public partial class BarcodePage : ContentPage
     {
-        private TaskCompletionSource<string> _taskCompletionSource;
+        private TaskCompletionSource<List<BarcodeResult>> _taskCompletionSource;
 
-        public TaskCompletionSource<string> Parametro
+        public TaskCompletionSource<List<BarcodeResult>> Parametro
         {
             get
             {
@@ -33,10 +33,11 @@ namespace APPValidarBoleteriaNotions
 #endif
         }
 
-        private void CameraView_OnDetected(object sender, BarcodeScanner.Mobile.OnDetectedEventArg e)
+        async private void CameraView_OnDetected(object sender, BarcodeScanner.Mobile.OnDetectedEventArg e)
         {
-            List<BarcodeResult> obj = e.BarcodeResults;
+            List<BarcodeResult> result = e.BarcodeResults;
 
+            /*
             string result = string.Empty;
             for (int i = 0; i < obj.Count; i++)
             {
@@ -54,6 +55,9 @@ namespace APPValidarBoleteriaNotions
 
                 await Shell.Current.GoToAsync("..");
             });
+            */
+            _taskCompletionSource.TrySetResult(result);
+            await Shell.Current.GoToAsync("..");
         }
 
         void SwitchCameraButton_Clicked(object sender, EventArgs e)

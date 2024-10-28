@@ -54,6 +54,14 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\app_logo.png">
+		  <Resize>True</Resize>
+		  <BaseSize>300,185</BaseSize>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\head_login.png">
+		  <Resize>True</Resize>
+		  <BaseSize>300,185</BaseSize>
+		</MauiImage>
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
@@ -61,6 +69,14 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Fonts\Font Awesome 6 Brands-Regular-400.otf" />
+	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf" />
+	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf" />
+	  <None Remove="Resources\Images\app_logo.png" />
+	  <None Remove="Resources\Images\head_login.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,10 +100,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="BarcodePage.xaml">
+	  <Compile Update="Pages\BarcodePage.xaml.cs">
+	    <DependentUpon>BarcodePage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\LoginPage.xaml.cs">
+	    <DependentUpon>LoginPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\BarcodePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="login.xaml">
+	  <MauiXaml Update="Pages\ConfiguracionPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

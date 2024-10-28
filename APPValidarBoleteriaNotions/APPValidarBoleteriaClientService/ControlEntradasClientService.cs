@@ -1,56 +1,73 @@
 ﻿using APPValidarBoleteriaClientService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace APPValidarBoleteriaClientService
+namespace APPValidarBoleteriaClientService;
+
+//Boleteria.API
+public class ControlEntradasClientService
 {
-    //Boleteria.API
-    public class ControlEntradasClientService
+    #region
+    //string urlBase = "https://api.boleteriadigital.com.ar";
+    //http://desa-api.boleteriadigital.com.ar/swagger/ui/index#/ControlEntradas
+    //http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/Get?Codigo=1&Usuario=1
+    //http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/QuemarEntrada/
+    //http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/Get?Codigo=ES88292900&Usuario=123132
+    //curl "http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/Get?Codigo=ES88292900&Usuario=123132"
+    #endregion
+
+    string urlBase = "http://desa-api.boleteriadigital.com.ar";
+
+    async public Task<DTO_Respuesta<DTO_Entrada>> GetValidarEntrada(string codigo, string usuario)
     {
-        //string urlBase = "https://api.boleteriadigital.com.ar";
-        //http://desa-api.boleteriadigital.com.ar/swagger/ui/index#/ControlEntradas
-        //http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/Get?Codigo=1&Usuario=1
-        //http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/QuemarEntrada/
+        string resource = $"/api/ControlEntradas/Get?Codigo={codigo}&Usuario={usuario}";
+        string url = $"{urlBase}{resource}";
 
-        string urlBase = "http://desa-api.boleteriadigital.com.ar";
+        var dto = new DTO_Respuesta<DTO_Entrada>();
 
-        async public Task<DTO_ControlEntrada_Respuesta> GetEnpoint(string codigo, string usuario)
+        try
         {
-            string resource = $"/api/ControlEntradas/Get?Codigo={codigo}&Usuario={usuario}";
-            string url = $"{urlBase}{resource}";
-
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode == true)
                 {
-                    var objContent = await response.Content.ReadFromJsonAsync<DTO_ControlEntrada_Respuesta>();
-                    return objContent;
+                    dto = await response.Content.ReadFromJsonAsync<DTO_Respuesta<DTO_Entrada>>();
                 }
             }
-            return null;
         }
-
-        async public Task GetEnpoint(long id, string usuario)
+        catch (Exception ex)
         {
-            string resource = $"/api/ControlEntradas/QuemarEntrada/{id}?Usuario={usuario}";
-            string url = $"{urlBase}{resource}";
+            dto.mensaje = ex.Message;
+        }
+        return dto;
+    }
 
+    async public Task<DTO_ControlEntrada_Respuesta> GetQuemarEntrada(long id, string usuario)
+    {
+        var dto = new DTO_ControlEntrada_Respuesta();
+
+        string resource = $"/api/ControlEntradas/QuemarEntrada/{id}?Usuario={usuario}";
+        string url = $"{urlBase}{resource}";
+
+        try
+        {
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.PostAsync(url, new StringContent(""));
 
                 if (response.IsSuccessStatusCode == true)
                 {
-                    return;
+                    dto= new DTO_ControlEntrada_Respuesta();
                 }
             }
+        } 
+        catch (Exception ex)
+        {
+            dto = new DTO_ControlEntrada_Respuesta();
+            dto.mensaje = ex.Message;
         }
 
+        return dto;
     }
 }
