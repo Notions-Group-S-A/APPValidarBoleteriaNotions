@@ -2,33 +2,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.ConfiguracionPage"
-             Title="ConfiguracionPage">
-    
-    <Grid RowDefinitions=".3*,.7*">
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False"
+             Title="Configuración">
+
+    <Grid RowDefinitions=".25*,.75*">
+
+        <!--head-->
         <Image Aspect="AspectFill" Source="head_login.png"/>
-        <Grid BackgroundColor="#1E90FF" Opacity=".8"/>
+        <Grid BackgroundColor="#dae6f2" Opacity=".8"/>
         <Grid ColumnDefinitions="*,*">
             <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
+
+            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Validar" TextColor="#2D2D2D"/>
+                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entrada" TextColor="#1E90FF"/>
+            </VerticalStackLayout>
         </Grid>
+
+        <!--content-->
 
         <Grid Grid.Row="1">
             <RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0" Fill="White"/>
-            <VerticalStackLayout>
-                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Medium" Text="Bienvenido" TextColor="#2D2D2D"/>
-                <Label FontFamily="medium" Text="Log in to continue" TextColor="#2D2D2D"/>
-               
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
-                    <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
-                    <Image HorizontalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf084;" Size="44" Color="#4F3F9B"/>
-                        </Image.Source>
-                    </Image>
-                    <Entry  x:Name="enEnte" Grid.Column="1" Placeholder="Ente" Text="000000" VerticalOptions="Center"/>
-                </Grid>
 
-                <Button x:Name="btnSincronizar" Margin="0,20,0,0" BackgroundColor="#4F3F9B" HeightRequest="60" Text="Sincronizar" TextColor="#FBF5FD" Clicked="btnSincronizar_Clicked"/>
-            </VerticalStackLayout>
+            <Grid RowDefinitions=".2*,.8*">
+
+                <!--panel del error-->
+                <VerticalStackLayout x:Name="PanelMensaje" IsVisible="False" HorizontalOptions="FillAndExpand">
+                    <Grid ColumnDefinitions=".2*,.8*">
+                        <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
+                        <Image HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource x:Name="mensajeIcono" FontFamily="AwesomeSolid" Glyph="&#xe1e1;" Size="44" Color="#edf25c"/>
+                            </Image.Source>
+                        </Image>
+                        <VerticalStackLayout Grid.Column="1"  HorizontalOptions="Start" >
+                            <Label x:Name="lbMensajeTitulo" FontSize="Title" Text=""/>
+                            <ScrollView HeightRequest="100">
+                                <Label x:Name="lbMensajeDetalle" FontSize="Body" Text=""/>
+                            </ScrollView >
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Row="1">
+                    <!--formulario-->
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                        <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
+                        <Image HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xe1bd;" Size="44" Color="#1E90FF"/>
+                            </Image.Source>
+                        </Image>
+                        <Entry  x:Name="enEnte" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
+                    </Grid>
+
+                    <!--barra de botones-->
+                    <Grid HorizontalOptions="Center">
+                        <Button x:Name="btnSincronizar" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Sincronizar" Clicked="btnSincronizar_Clicked">
+                            <Button.ImageSource>
+                                <FontImageSource Glyph="&#xf2f1;" FontFamily="AwesomeSolid"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </Grid>
+                </VerticalStackLayout>
+            </Grid>
         </Grid>
     </Grid>
 </ContentPage>

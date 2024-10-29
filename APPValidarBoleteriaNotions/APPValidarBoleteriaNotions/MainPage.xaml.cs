@@ -6,7 +6,7 @@ namespace APPValidarBoleteriaNotions
 {
     public partial class MainPage : ContentPage
     {
-        bool logueado = false;
+        
 
         public MainPage()
         {
@@ -16,6 +16,8 @@ namespace APPValidarBoleteriaNotions
         async protected override void OnAppearing()
         {
             base.OnAppearing();
+
+
 
             if (Contexto.Logueado == false)
             {
@@ -28,58 +30,21 @@ namespace APPValidarBoleteriaNotions
                 await Shell.Current.GoToAsync("ConfiguracionPage");
                 return;
             }
+
         }
 
         private async void btnValidarQR_Clicked(object sender, EventArgs e)
         {
-            #region leer QR
-            var tcs = new TaskCompletionSource<List<BarcodeResult>>();
+            Panel1.IsVisible = false;
+            Panel2.IsVisible = true;
 
-            var pageParams = new Dictionary<string, object>{ { "Parametro", tcs} };
+            var qr = await LeerQR();
 
-            await Shell.Current.GoToAsync("BarcodePage", pageParams);
-
-            List<BarcodeResult> barCodes = await tcs.Task;
-
-
-            string valor = barCodes[0].DisplayValue;
-            #endregion
-
-            #region ValidarEntrada
-            var usuario = Contexto.Usuario;
-            var respuesta = await new ControlEntradasClientService().GetValidarEntrada(valor, usuario);
-
-            switch( respuesta.codigo )
-            {
-                case DTO_Codigo.Valido:
-                    {
-                        ProcesarRespuestaValida(respuesta,usuario);
-                    }
-                    break;
-                case DTO_Codigo.Invalido:
-                    {
-                        ProcesarRespuestaNoValida(respuesta);
-                    }
-                    break;
-                case DTO_Codigo.Quemada:
-                    {
-                        ProcesarRespuestaNoValida(respuesta);
-                    }
-                    break;
-                case DTO_Codigo.Inexistente:
-                    {
-                        ProcesarRespuestaNoValida(respuesta);
-                    }
-                    break;
-                default: 
-                    {
-                    }break;
-            }
-            #endregion
+            await ValidarQR(qr);
         }
 
 
-        async private void ProcesarRespuestaValida(DTO_Respuesta<DTO_Entrada> respuesta,string usuario)
+        async private void ProcesarRespuestaValida(DTO_RespuestaEntrada<DTO_Entrada> respuesta,string usuario)
         {
             var validacion = respuesta?.datos;
 
@@ -100,11 +65,11 @@ namespace APPValidarBoleteriaNotions
             };
 
             #region quemar
-            var respuesta2 = await new ControlEntradasClientService().GetQuemarEntrada(idRelacionCarrito, usuario);
+            var respuesta2 = await new ControlEntradasClientService().QuemarEntrada(idRelacionCarrito, usuario);
             #endregion
         }
 
-        private void ProcesarRespuestaNoValida(DTO_Respuesta<DTO_Entrada> respuesta)
+        private void ProcesarRespuestaNoValida(DTO_RespuestaEntrada<DTO_Entrada> respuesta)
         {
             var validacion = respuesta?.datos;
 
@@ -122,6 +87,56 @@ namespace APPValidarBoleteriaNotions
                 Color = Color.FromArgb("#01003B")
             };////
 
+        }
+
+        async Task<string> LeerQR()
+        {
+            var tcs = new TaskCompletionSource<List<BarcodeResult>>();
+
+            var pageParams = new Dictionary<string, object> { { "Parametro", tcs } };
+
+            await Shell.Current.GoToAsync("BarcodePage", pageParams);
+
+            List<BarcodeResult> barCodes = await tcs.Task;
+
+            string valor = barCodes[0].DisplayValue;
+
+            return valor;
+        }
+
+        async Task ValidarQR(string qr)
+        {
+            var usuario = Contexto.Usuario;
+            var respuesta = await new ControlEntradasClientService().ValidarEntrada(qr, usuario);
+
+            switch (respuesta.codigo)
+            {
+                case DTO_CodigoEntrada.Valido://ha quemado el qr
+                    {
+                        //mostrar el boton de quemar
+                        ProcesarRespuestaValida(respuesta, usuario);
+                    }
+                    break;
+                case DTO_CodigoEntrada.Invalido://la entrada caducada - existe es no vigente
+                    {
+                        ProcesarRespuestaNoValida(respuesta);
+                    }
+                    break;
+                case DTO_CodigoEntrada.Quemada://es valida
+                    {
+                        ProcesarRespuestaNoValida(respuesta);
+                    }
+                    break;
+                case DTO_CodigoEntrada.Inexistente://no se encontro 
+                    {
+                        ProcesarRespuestaNoValida(respuesta);
+                    }
+                    break;
+                default:
+                    {
+                    }
+                    break;
+            }
         }
     }
 }

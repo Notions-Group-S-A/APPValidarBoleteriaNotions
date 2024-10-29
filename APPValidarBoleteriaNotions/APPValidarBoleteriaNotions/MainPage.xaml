@@ -4,35 +4,52 @@
              x:Class="APPValidarBoleteriaNotions.MainPage">
 
     <ScrollView HorizontalOptions="Center">
-        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="30,0" Spacing="25">
 
-            <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
-            <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entrada" TextColor="Aqua" />
+        <Grid RowDefinitions="*">
 
-            <Image x:Name="Imagen" HorizontalOptions="Center">
-                <Image.Source>
-                    <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf058;" Size="88" Color="#5f945e"/>
-                </Image.Source>
-            </Image>
+            <!--panel 1-->
+            <VerticalStackLayout x:Name="Panel1" IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" Padding="30,0" Spacing="25">
 
-            <Label x:Name="lbTicket" Text="#937" HorizontalOptions="Center"  HorizontalTextAlignment="Center" FontSize="Medium"/>
+                <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
+                
+                <Button x:Name="btnComenzarValidarQR" Text="Validar otro QR" SemanticProperties.Hint="Validar QR" Clicked="btnValidarQR_Clicked"
+                        HorizontalOptions="Center"  />
 
-            <Label x:Name="lbEvento" Text="Festival con Combos" HorizontalOptions="Center" FontSize="Title"/>
+            </VerticalStackLayout>
+        
+        
+            <!--panel 2-->
 
-            <Label x:Name="lbFuncion" Text="Dia 1" HorizontalOptions="Center" FontSize="Medium"/>
+            <VerticalStackLayout x:Name="Panel2" IsVisible="false" HorizontalOptions="Center" VerticalOptions="Center" Padding="30,0" Spacing="25">
 
-            <Label x:Name="lbSector" Text="Ingreso al Sector a las 12:42" HorizontalOptions="Center" FontSize="Medium" />
+                <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
+                <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entrada" TextColor="Aqua" />
 
-            <Label x:Name="lbTipoUbicacion" Text="Jubilados" HorizontalOptions="Center" FontSize="Medium" />
+                <Image x:Name="Imagen" HorizontalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf058;" Size="88" Color="#5f945e"/>
+                    </Image.Source>
+                </Image>
 
-            <Label x:Name="lbTextoEntrada" Text="Jubilados" HorizontalOptions="Center" FontSize="Medium" />
+                <Label x:Name="lbTicket" Text="#937" HorizontalOptions="Center"  HorizontalTextAlignment="Center" FontSize="Medium"/>
 
-            <Label x:Name="lbIngresoSector" Text="Jubilados" HorizontalOptions="Center" FontSize="Medium" />
+                <Label x:Name="lbEvento" Text="Festival con Combos" HorizontalOptions="Center" FontSize="Title"/>
 
-            <Button x:Name="btnValidarQR" Text="Validar otro QR" SemanticProperties.Hint="Escanear QR" Clicked="btnValidarQR_Clicked"
-                    HorizontalOptions="Center"  />
+                <Label x:Name="lbFuncion" Text="Dia 1" HorizontalOptions="Center" FontSize="Medium"/>
 
-        </VerticalStackLayout>
+                <Label x:Name="lbSector" Text="Ingreso al Sector a las 12:42" HorizontalOptions="Center" FontSize="Medium" />
+
+                <Label x:Name="lbTipoUbicacion" Text="Jubilados" HorizontalOptions="Center" FontSize="Medium" />
+
+                <Label x:Name="lbTextoEntrada" Text="Jubilados" HorizontalOptions="Center" FontSize="Medium" />
+
+                <Label x:Name="lbIngresoSector" Text="Jubilados" HorizontalOptions="Center" FontSize="Medium" />
+
+                <Button x:Name="btnValidarQR" Text="Validar otro QR" SemanticProperties.Hint="Escanear QR" Clicked="btnValidarQR_Clicked"
+                 HorizontalOptions="Center"  />
+
+            </VerticalStackLayout>
+        </Grid>
     </ScrollView>
 
 </ContentPage>

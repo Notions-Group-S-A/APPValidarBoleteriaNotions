@@ -1,6 +1,6 @@
 ﻿namespace APPValidarBoleteriaClientService.Models
 {
-    public enum DTO_Codigo
+    public enum DTO_CodigoEntrada
     {
         Valido = 200,
         Invalido = 300,

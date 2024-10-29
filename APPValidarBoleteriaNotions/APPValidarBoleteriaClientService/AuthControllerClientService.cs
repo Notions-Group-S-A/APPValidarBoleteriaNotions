@@ -6,8 +6,8 @@ namespace APPValidarBoleteriaClientService;
 //Boleteria.Gateway.API
 public class AuthControllerClientService
 {
-    //http://desa-apigateway.boleteriadigital.com.ar/swagger/ui/index#/AuthController
-    //string urlBase = "apigateway.boleteriadigital.com.ar";
+    //
+    //string URL_Base = "apigateway.boleteriadigital.com.ar";
     string urlBase = "http://desa-apigateway.boleteriadigital.com.ar";
 
     async public Task<DTO_Respuesta<DTO_Endpoint>> GetEnpoint(string ente)
@@ -37,6 +37,7 @@ public class AuthControllerClientService
         }
         catch (Exception ex) 
         {
+            dto.codigo = DTO_CodigoResultado.Error;
             dto.mensaje = ex.Message+ "|"+ex?.StackTrace?.ToString();
         }
         return dto;
