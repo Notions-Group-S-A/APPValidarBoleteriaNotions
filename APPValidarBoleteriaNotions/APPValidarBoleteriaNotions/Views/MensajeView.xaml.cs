@@ -9,7 +9,7 @@ public partial class MensajeView : ContentView
 		InitializeComponent();
 	}
 
-	async public Task MostrarMensaje(string contenido, string titulo, Icono icono)
+	async public Task Show(string contenido, string titulo, Icono icono)
 	{
         lbMensajeTitulo.Text = titulo;
         lbMensajeDetalle.Text = contenido;
@@ -31,4 +31,5 @@ public class Icono
 static public class SetIconos
 {
 	static public  Icono ICONO_ERROR = new Icono { Color= "#FF0000", Glyph="\ue560" };
+    static public Icono ICONO_CONEXION = new Icono { Color = "#FF0000", Glyph = "\ue560" };
 }

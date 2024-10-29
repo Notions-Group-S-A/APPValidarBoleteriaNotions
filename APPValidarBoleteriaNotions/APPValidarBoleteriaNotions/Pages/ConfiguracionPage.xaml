@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.ConfiguracionPage"
+             xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              Title="Configuración">
@@ -27,24 +28,9 @@
 
             <Grid RowDefinitions=".2*,.8*">
 
-                <!--panel del error-->
-                <VerticalStackLayout x:Name="PanelMensaje" IsVisible="False" HorizontalOptions="FillAndExpand">
-                    <Grid ColumnDefinitions=".2*,.8*">
-                        <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
-                        <Image HorizontalOptions="Center">
-                            <Image.Source>
-                                <FontImageSource x:Name="mensajeIcono" FontFamily="AwesomeSolid" Glyph="&#xe1e1;" Size="44" Color="#edf25c"/>
-                            </Image.Source>
-                        </Image>
-                        <VerticalStackLayout Grid.Column="1"  HorizontalOptions="Start" >
-                            <Label x:Name="lbMensajeTitulo" FontSize="Title" Text=""/>
-                            <ScrollView HeightRequest="100">
-                                <Label x:Name="lbMensajeDetalle" FontSize="Body" Text=""/>
-                            </ScrollView >
-                        </VerticalStackLayout>
-                    </Grid>
-                </VerticalStackLayout>
-
+                <!--panel de mensajes-->
+                <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
+               
                 <VerticalStackLayout Grid.Row="1">
                     <!--formulario-->
                     <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">

@@ -1,6 +1,9 @@
 
 using APPValidarBoleteriaClientService;
 using APPValidarBoleteriaClientService.Models;
+using APPValidarBoleteriaNotions.Services;
+using APPValidarBoleteriaNotions.Views;
+using System.Net;
 
 namespace APPValidarBoleteriaNotions.Pages;
 
@@ -13,49 +16,40 @@ public partial class ConfiguracionPage : ContentPage
 
     async private void btnSincronizar_Clicked(object sender, EventArgs e)
     {
-        PanelMensaje.IsVisible = false;
-        lbMensajeTitulo.Text = "";
-        lbMensajeDetalle.Text = "";
+        Mensaje.IsVisible = false;
 
-        string ente = enEnte.Text;
+        string ente = enEnte.Text.Trim();
 
         var respuesta=await new AuthControllerClientService().GetEnpoint(ente);
 
-        if (respuesta != null && respuesta.codigo == DTO_CodigoResultado.Success)
+        if (respuesta.codigo == DTO_CodigoResultado.Success)
         {
             string? enteT = respuesta.datos?.Ente;
             string? endpoint = respuesta.datos?.Endpoint;
 
             if (string.IsNullOrEmpty(enteT) == false && string.IsNullOrEmpty(endpoint) == false)
             {
-                Contexto.Ente = enteT;
-                Contexto.URLEndPoint = endpoint;
-                Contexto.Sincronizado = true;
+                #region persistencia
+                var contexto = await new ContextoService().CargarContextoAsync();
+                contexto.Ente = enteT;
+                contexto.URLEndPoint = endpoint;
+                contexto.Sincronizado = true;
+                await new ContextoService().GuardarContextoAsync(contexto);
+                #endregion
 
                 await Shell.Current.GoToAsync("..");
             }
             else
             {
-                PanelMensaje.IsVisible = true;
-                string mensaje = $"Algunos de los campos son nulos: Ente:{enteT}, EndPoint:{endpoint}";
-                
-                lbMensajeTitulo.Text = "Error en la Respuesta";
-                lbMensajeDetalle.Text = mensaje;
-                mensajeIcono.Glyph = "\uf273";
+                await Mensaje.Show($"Algunos de los campos son nulos: Ente:{enteT}, EndPoint:{endpoint}", "Error en la Respuesta",SetIconos.ICONO_ERROR);
+                Mensaje.IsVisible = true;
             }
-        }
-        else
-        {
-            PanelMensaje.IsVisible = true;
-            lbMensajeTitulo.Text = "Error en la Conexión";
-            lbMensajeDetalle.Text = respuesta.mensaje ;
-            mensajeIcono.Glyph = "\ue560";
-            mensajeIcono.Color = Color.FromArgb("#FF0000");
         }
     }
 
     protected override bool OnBackButtonPressed()
     {
+        //evita el boton de forward 
         return true; 
     }
 }

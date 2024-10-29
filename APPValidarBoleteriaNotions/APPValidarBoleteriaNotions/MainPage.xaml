@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="APPValidarBoleteriaNotions.MainPage">
+             x:Class="APPValidarBoleteriaNotions.MainPage"
+             xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views">
 
     <ScrollView HorizontalOptions="Center">
+
+        <!--panel de mensajes-->
+        <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
 
         <Grid RowDefinitions="*">
 
@@ -12,12 +16,11 @@
 
                 <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
                 
-                <Button x:Name="btnComenzarValidarQR" Text="Validar otro QR" SemanticProperties.Hint="Validar QR" Clicked="btnValidarQR_Clicked"
-                        HorizontalOptions="Center"  />
+                <Button x:Name="btnComenzarValidarQR" Text="Comenzar a Validar" SemanticProperties.Hint="Validar QR" Clicked="btnValidarQR_Clicked"
+                        HorizontalOptions="Center" HeightRequest="60" WidthRequest="200" BackgroundColor="#1E90FF" />
 
             </VerticalStackLayout>
-        
-        
+                
             <!--panel 2-->
 
             <VerticalStackLayout x:Name="Panel2" IsVisible="false" HorizontalOptions="Center" VerticalOptions="Center" Padding="30,0" Spacing="25">

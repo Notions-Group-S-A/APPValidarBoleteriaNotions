@@ -6,6 +6,7 @@ public class DTO_RespuestaEntrada<T>
     public string mensaje { get; set; }
     public T datos { get; set; }
 }
+//{"codigo":200,"mensaje":null,"datos":null}
 
 public class DTO_RespuestaEntrada : DTO_RespuestaEntrada<object>
 {

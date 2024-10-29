@@ -1,5 +1,6 @@
 ﻿using APPValidarBoleteriaClientService.Models;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace APPValidarBoleteriaClientService;
 
@@ -68,24 +69,40 @@ public class ControlEntradasClientService
     {
         var dto = new DTO_RespuestaEntrada();
 
-        string resource = $"/api/ControlEntradas/Login?Usuario={usuario}&=Clave{clave}";
+        //string resource = $"/api/ControlEntradas/Login?Usuario={usuario}&Clave={clave}";
+        string resource = $"Login?Usuario={usuario}&Clave={clave}";
         string url = $"{URL_Base}{resource}";
+        //$"http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/Login?Usuario={usuario}&Clave={clave}";
+        //$"
 
         try
         {
             using (HttpClient client = new HttpClient())
             {
-                var response = await client.PostAsync(url, new StringContent(""));
+                //client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+
+
+                var response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode == true)
                 {
-                    dto = new DTO_RespuestaEntrada();
+                    //dto = await response.Content.ReadFromJsonAsync<DTO_RespuestaEntrada<bool>>();
+                    var content = await response.Content.ReadAsStringAsync();
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = false // Ignora mayúsculas/minúsculas
+                    };
+                    dto = JsonSerializer.Deserialize<DTO_RespuestaEntrada>(content, options);
+                    return dto;
                 }
+
+                return new DTO_RespuestaEntrada() { codigo = DTO_CodigoEntrada.NO_SUCESS };
             }
         }
         catch (Exception ex)
         {
             dto = new DTO_RespuestaEntrada();
+            dto.codigo = DTO_CodigoEntrada.NO_SUCESS;
             dto.mensaje = ex.Message;
         }
 

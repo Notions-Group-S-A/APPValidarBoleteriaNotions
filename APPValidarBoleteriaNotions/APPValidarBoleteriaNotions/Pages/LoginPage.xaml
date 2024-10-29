@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.LoginPage"
-             
+             xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              Title="login">
@@ -29,7 +29,9 @@
         <Grid Grid.Row="1">
             <RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0" Fill="White"/>
             <VerticalStackLayout>
-                
+
+                <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
+
                 <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
                     <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
                     <Image HorizontalOptions="Center">
@@ -37,7 +39,7 @@
                             <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf007;" Size="44" Color="#1E90FF"/>
                         </Image.Source>
                     </Image>
-                    <Entry x:Name="enUsuario" Grid.Column="1" Placeholder="Usuario" Text="" VerticalOptions="Center"/>
+                    <Entry x:Name="enUsuario" Grid.Column="1" Placeholder="Usuario" Text="validar" VerticalOptions="Center"/>
                 </Grid>
 
                 <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
@@ -47,7 +49,7 @@
                             <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf084;" Size="44" Color="#1E90FF"/>
                         </Image.Source>
                     </Image>
-                    <Entry x:Name="enClave" Grid.Column="1" Placeholder="" Text="123" IsPassword="True" VerticalOptions="Center"/>
+                    <Entry x:Name="enClave" Grid.Column="1" Placeholder="" Text="entrada" IsPassword="True" VerticalOptions="Center"/>
                 </Grid>
 
                 <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200" BackgroundColor="#1E90FF" Text="Ingresar" TextColor="#FBF5FD" Clicked="btnLogin_Clicked"/>

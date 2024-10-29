@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
 	<domain-config cleartextTrafficPermitted="true">
-		<domain includeSubdomains="true">boleteriadigital.com.ar</domain>
+		<domain includeSubdomains="true">desa-apigateway.boleteriadigital.com.ar</domain>
+		<domain includeSubdomains="true">desa-api.boleteriadigital.com.ar</domain>
 	</domain-config>
 </network-security-config>
