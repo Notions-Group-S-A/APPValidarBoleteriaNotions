@@ -15,9 +15,18 @@
             <VerticalStackLayout x:Name="Panel1" IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" Padding="30,0" Spacing="25">
 
                 <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
-                
-                <Button x:Name="btnComenzarValidarQR" Text="Comenzar a Validar" SemanticProperties.Hint="Validar QR" Clicked="btnValidarQR_Clicked"
-                        HorizontalOptions="Center" HeightRequest="60" WidthRequest="200" BackgroundColor="#1E90FF" />
+              
+                <Button x:Name="btnComenzarValidarHash" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Validar Código" Clicked="btnValidarHash_Clicked">
+                    <Button.ImageSource>
+                        <FontImageSource Glyph="&#xe33c;" FontFamily="AwesomeSolid"/>
+                    </Button.ImageSource>
+                </Button>
+
+                <Button x:Name="btnComenzarValidarQR" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Validar QR" Clicked="btnValidarQR_Clicked">
+                    <Button.ImageSource>
+                        <FontImageSource Glyph="&#xf029;" FontFamily="AwesomeSolid"/>
+                    </Button.ImageSource>
+                </Button>
 
             </VerticalStackLayout>
                 
@@ -48,8 +57,11 @@
 
                 <Label x:Name="lbIngresoSector" Text="Jubilados" HorizontalOptions="Center" FontSize="Medium" />
 
-                <Button x:Name="btnValidarQR" Text="Validar otro QR" SemanticProperties.Hint="Escanear QR" Clicked="btnValidarQR_Clicked"
-                 HorizontalOptions="Center"  />
+                <Button x:Name="btnValidarQR" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Validar Siguiente QR" Clicked="btnValidarQR_Clicked">
+                    <Button.ImageSource>
+                        <FontImageSource Glyph="&#xf029;" FontFamily="AwesomeSolid"/>
+                    </Button.ImageSource>
+                </Button>
 
             </VerticalStackLayout>
         </Grid>

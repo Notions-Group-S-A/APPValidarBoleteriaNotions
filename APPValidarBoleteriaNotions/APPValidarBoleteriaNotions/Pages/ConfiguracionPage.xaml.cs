@@ -37,7 +37,14 @@ public partial class ConfiguracionPage : ContentPage
                 await new ContextoService().GuardarContextoAsync(contexto);
                 #endregion
 
-                await Shell.Current.GoToAsync("..");
+                if (contexto.IsAuthenticated == true)
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+                }
             }
             else
             {
@@ -47,6 +54,7 @@ public partial class ConfiguracionPage : ContentPage
         }
     }
 
+    
     protected override bool OnBackButtonPressed()
     {
         //evita el boton de forward 

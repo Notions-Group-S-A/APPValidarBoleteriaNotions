@@ -17,7 +17,7 @@ public partial class LoginPage : ContentPage
     {
         var contexto = await new ContextoService().CargarContextoAsync();
 
-        Mensaje.IsVisible = false;
+        
 
         string usuario = enUsuario.Text.Trim();
         string clave = enClave.Text.Trim();
@@ -27,17 +27,20 @@ public partial class LoginPage : ContentPage
         if (respuesta.codigo == DTO_CodigoEntrada.Valido)
         {
             #region persistencia
-            contexto.Logueado = true;
+            contexto.IsAuthenticated = true;
             await new ContextoService().GuardarContextoAsync(contexto);
             #endregion
 
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+
         }
         else
         {
             await Mensaje.Show(respuesta.mensaje, "Error en la Respuesta", SetIconos.ICONO_ERROR);
             Mensaje.IsVisible = true;
         }
+
+        Mensaje.IsVisible = false;
     }
 
     protected override bool OnBackButtonPressed()

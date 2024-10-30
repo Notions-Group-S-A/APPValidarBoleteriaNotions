@@ -7,10 +7,16 @@ public class ContextoService
 {
     private const string FileName = "contexto.json";
 
-    private string FilePath => Path.Combine(FileSystem.AppDataDirectory, FileName);
-
-        public async Task GuardarContextoAsync(Contexto contexto)
+    private string FilePath 
+    {
+        get 
         {
+            return Path.Combine(FileSystem.AppDataDirectory, FileName);
+        }
+    }
+
+    public async Task GuardarContextoAsync(Contexto contexto)
+    {
         try
         {
             string json = JsonSerializer.Serialize(contexto);
@@ -26,7 +32,7 @@ public class ContextoService
     {
         try
         {
-            if (File.Exists(FilePath)==false)
+            if (File.Exists(FilePath) == false)
             {
                 return new Contexto();
             }
@@ -37,7 +43,7 @@ public class ContextoService
         catch (Exception ex)
         {
             Console.WriteLine($"Error al cargar el contexto: {ex.Message}");
-            return null;
+            return new Contexto();
         }
     }
 }

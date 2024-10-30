@@ -25,14 +25,13 @@ public class AuthControllerClientService
             };
             */
             //using (HttpClient client = new HttpClient(handler))
-            using (HttpClient client = new HttpClient())
-            {
-                var response = await client.GetAsync(url);
+            using var client = new HttpClient();
+            
+            var response = await client.GetAsync(url);
 
-                if (response.IsSuccessStatusCode == true)
-                {
-                    dto = await response.Content.ReadFromJsonAsync<DTO_Respuesta<DTO_Endpoint>>();                     
-                }
+            if (response.IsSuccessStatusCode == true)
+            {
+                dto = await response.Content.ReadFromJsonAsync<DTO_Respuesta<DTO_Endpoint>>();                     
             }
         }
         catch (Exception ex) 

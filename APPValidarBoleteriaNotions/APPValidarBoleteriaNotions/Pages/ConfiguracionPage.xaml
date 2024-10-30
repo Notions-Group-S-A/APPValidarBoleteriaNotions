@@ -40,7 +40,7 @@
                                 <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xe1bd;" Size="44" Color="#1E90FF"/>
                             </Image.Source>
                         </Image>
-                        <Entry  x:Name="enEnte" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
+                        <Entry  x:Name="enEnte" Keyboard="Numeric" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
                     </Grid>
 
                     <!--barra de botones-->

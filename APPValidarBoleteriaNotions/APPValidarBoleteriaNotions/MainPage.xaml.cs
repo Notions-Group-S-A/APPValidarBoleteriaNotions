@@ -1,6 +1,8 @@
 ﻿using APPValidarBoleteriaClientService;
 using APPValidarBoleteriaClientService.Models;
+using APPValidarBoleteriaNotions.Pages;
 using APPValidarBoleteriaNotions.Services;
+using APPValidarBoleteriaNotions.Utils;
 using BarcodeScanner.Mobile;
 using System.Net;
 
@@ -22,34 +24,52 @@ namespace APPValidarBoleteriaNotions
 
             if(contexto == null || contexto?.Sincronizado==false)
             {
-                await Shell.Current.GoToAsync("ConfiguracionPage");
+                await Shell.Current.GoToAsync($"{nameof(ConfiguracionPage)}");
                 return;
             }
 
-            if (contexto == null || contexto?.Logueado == false)
+            if (contexto == null || contexto?.IsAuthenticated == false)
             {
-                await Shell.Current.GoToAsync("LoginPage");
+                await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
                 return;
             }
         }
 
         private async void btnValidarQR_Clicked(object sender, EventArgs e)
         {
+
+            Panel1.IsVisible = true;
+            Panel2.IsVisible = false;
+
+            var codigo = await LeerQR();
+
+            await ValidarCodigo(codigo);
+
             Panel1.IsVisible = false;
             Panel2.IsVisible = true;
-
-            var qr = await LeerQR();
-
-            await ValidarQR(qr);
         }
-      
+
+        private async void btnValidarHash_Clicked(object sender, EventArgs e)
+        {
+
+            Panel1.IsVisible = true;
+            Panel2.IsVisible = false;
+
+            var codigo = await LeerHash();
+
+            await ValidarCodigo(codigo);
+
+            Panel1.IsVisible = false;
+            Panel2.IsVisible = true;
+        }
+
         async Task<string> LeerQR()
         {
             var tcs = new TaskCompletionSource<List<BarcodeResult>>();
 
             var pageParams = new Dictionary<string, object> { { "Parametro", tcs } };
 
-            await Shell.Current.GoToAsync("BarcodePage", pageParams);
+            await Shell.Current.GoToAsync($"{nameof(BarcodePage)}", pageParams);
 
             List<BarcodeResult> barCodes = await tcs.Task;
 
@@ -58,7 +78,7 @@ namespace APPValidarBoleteriaNotions
             return valor;
         }
 
-        async Task ValidarQR(string qr)
+        async Task ValidarCodigo(string qr)
         {
             #region persistencia
             var contexto = await new ContextoService().CargarContextoAsync();
@@ -94,6 +114,21 @@ namespace APPValidarBoleteriaNotions
                     }
                     break;
             }
+        }
+
+        async Task<string> LeerHash()
+        {
+            var tcs = new TaskCompletionSource<List<HashResult>>();
+
+            var pageParams = new Dictionary<string, object> { { "Parametro", tcs } };
+
+            await Shell.Current.GoToAsync($"{nameof(HashPage)}", pageParams);
+
+            List<HashResult> hashCodes = await tcs.Task;
+
+            string valor = hashCodes[0].DisplayValue;
+
+            return valor;
         }
 
         async private void ProcesarRespuestaValida(DTO_RespuestaEntrada<DTO_Entrada> respuesta,string usuario)

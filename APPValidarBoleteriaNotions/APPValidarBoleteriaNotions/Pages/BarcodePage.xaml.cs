@@ -37,27 +37,8 @@ namespace APPValidarBoleteriaNotions.Pages
         {
             List<BarcodeResult> result = e.BarcodeResults;
 
-            /*
-            string result = string.Empty;
-            for (int i = 0; i < obj.Count; i++)
-            {
-                result += $"Type : {obj[i].BarcodeType}, Value : {obj[i].DisplayValue}{Environment.NewLine} ";
-            }
-
             _taskCompletionSource.TrySetResult(result);
-            Dispatcher.Dispatch(async () =>
-            {
-                //await DisplayAlert("Result", result, "OK");
-
-                ResultLabel.Text = result;
-
-                Camera.IsScanning = true;
-
-                await Shell.Current.GoToAsync("..");
-            });
-            */
-            _taskCompletionSource.TrySetResult(result);
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
 
         void SwitchCameraButton_Clicked(object sender, EventArgs e)

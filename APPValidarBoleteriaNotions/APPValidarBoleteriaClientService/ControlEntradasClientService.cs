@@ -20,14 +20,13 @@ public class ControlEntradasClientService
 
         try
         {
-            using (HttpClient client = new HttpClient())
-            {
-                var response = await client.GetAsync(url);
+            using var client = new HttpClient();
+            
+            var response = await client.GetAsync(url);
 
-                if (response.IsSuccessStatusCode == true)
-                {
-                    dto = await response.Content.ReadFromJsonAsync<DTO_RespuestaEntrada<DTO_Entrada>>();
-                }
+            if (response.IsSuccessStatusCode == true)
+            {
+                dto = await response.Content.ReadFromJsonAsync<DTO_RespuestaEntrada<DTO_Entrada>>();
             }
         }
         catch (Exception ex)
@@ -46,14 +45,13 @@ public class ControlEntradasClientService
 
         try
         {
-            using (HttpClient client = new HttpClient())
-            {
-                var response = await client.PostAsync(url, new StringContent(""));
+            using var client = new HttpClient();
+            
+            var response = await client.PostAsync(url, new StringContent(""));
 
-                if (response.IsSuccessStatusCode == true)
-                {
-                    dto= new DTO_RespuestaEntrada();
-                }
+            if (response.IsSuccessStatusCode == true)
+            {
+                dto= new DTO_RespuestaEntrada();
             }
         } 
         catch (Exception ex)
@@ -77,27 +75,26 @@ public class ControlEntradasClientService
 
         try
         {
-            using (HttpClient client = new HttpClient())
+            using var client = new HttpClient();
+            
+            //client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+
+            var response = await client.GetAsync(url);
+
+            if (response.IsSuccessStatusCode == true)
             {
-                //client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-
-
-                var response = await client.GetAsync(url);
-
-                if (response.IsSuccessStatusCode == true)
+                //dto = await response.Content.ReadFromJsonAsync<DTO_RespuestaEntrada<bool>>();
+                var content = await response.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions
                 {
-                    //dto = await response.Content.ReadFromJsonAsync<DTO_RespuestaEntrada<bool>>();
-                    var content = await response.Content.ReadAsStringAsync();
-                    var options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = false // Ignora mayúsculas/minúsculas
-                    };
-                    dto = JsonSerializer.Deserialize<DTO_RespuestaEntrada>(content, options);
-                    return dto;
-                }
-
-                return new DTO_RespuestaEntrada() { codigo = DTO_CodigoEntrada.NO_SUCESS };
+                    PropertyNameCaseInsensitive = false // Ignora mayúsculas/minúsculas
+                };
+                dto = JsonSerializer.Deserialize<DTO_RespuestaEntrada>(content, options);
+                return dto;
             }
+
+            return new DTO_RespuestaEntrada() { codigo = DTO_CodigoEntrada.NO_SUCESS };
+            
         }
         catch (Exception ex)
         {
