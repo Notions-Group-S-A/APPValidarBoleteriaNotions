@@ -4,87 +4,49 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:APPValidarBoleteriaNotions"
-    xmlns:pages="clr-namespace:APPValidarBoleteriaNotions.Pages"
-  
-    Shell.TabBarIsVisible="True"
-    Title="Validar Entrada">
+    xmlns:page="clr-namespace:APPValidarBoleteriaNotions.Pages"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.NavBarIsVisible="True"
+    Title="APPValidarBoleteriaNotions">
 
-    <!--<Shell.FlyoutHeader>
+    <Shell.FlyoutHeader>
         <VerticalStackLayout>
             <Image Source="app_logo.png" WidthRequest="100"></Image>
-            <Label Text="flyout Header" HorizontalTextAlignment="Center"></Label>
+            <Label Text="Validar Entrada" FontSize="Title" HorizontalTextAlignment="Center"></Label>
         </VerticalStackLayout>
     </Shell.FlyoutHeader>
 
-    <Shell.FlyoutFooter>
-        <VerticalStackLayout>
-            <Image Source="app_logo.png" WidthRequest="100"></Image>
-            <Label Text="flyout Footer" HorizontalTextAlignment="Center"></Label>
-        </VerticalStackLayout>
-    </Shell.FlyoutFooter>
-    
     <Shell.ItemTemplate>
         <DataTemplate>
             <Grid ColumnDefinitions=".30*, .70*" RowDefinitions="*,*,*" RowSpacing="10" ColumnSpacing="10">
                 <HorizontalStackLayout Grid.Row="0" Spacing="10">
                     <Image Source="{Binding FlyoutIcon}" WidthRequest="50" HeightRequest="50"></Image>
-                    <Label Text="{Binding Title}"></Label>
+                    <Label Text="{Binding Title}" FontSize="Body" ></Label>
                 </HorizontalStackLayout>
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
 
-    <FlyoutItem Title="Inicio" FlyoutDisplayOptions="AsMultipleItems">
-        <ShellContent
-            Title="Inicio"        
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage">
-            <ShellContent.Icon><FontImageSource Glyph="&#xf2b9;" FontFamily="AwesomeSolid" /></ShellContent.Icon>
-        </ShellContent>
-
-        <ShellContent
-            Title="Configuracion"        
-            ContentTemplate="{DataTemplate pages:ConfiguracionPage}"
-            Route="ConfiguracionPage">
-            <ShellContent.Icon><FontImageSource Glyph="&#xf013;" FontFamily="AwesomeSolid" /></ShellContent.Icon>
-        </ShellContent>
-
-        <ShellContent
-            Title="Logout"        
-            ContentTemplate="{DataTemplate pages:LoginPage}"
-            Route="Cerrar sesión">
-            <ShellContent.Icon><FontImageSource Glyph="&#xf2f5;" FontFamily="AwesomeSolid" /></ShellContent.Icon>
-        </ShellContent>
-
-    </FlyoutItem>-->
-   
-    <TabBar>
-        <ShellContent
-            Title="Inicio"        
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage">
+    <FlyoutItem Title="Home" FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Inicio" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="&#xf015;" FontFamily="AwesomeSolid" />
+                <FontImageSource Glyph="&#xf2b9;" FontFamily="AwesomeSolid" />
             </ShellContent.Icon>
         </ShellContent>
 
-        <ShellContent
-            Title="Configuracion"        
-            ContentTemplate="{DataTemplate pages:ConfiguracionPage}"
-            Route="ConfiguracionPage">
+        <ShellContent Title="Configuracion" ContentTemplate="{DataTemplate page:ConfiguracionPage}" Route="ConfiguracionPage">
             <ShellContent.Icon>
                 <FontImageSource Glyph="&#xf013;" FontFamily="AwesomeSolid" />
             </ShellContent.Icon>
         </ShellContent>
 
-        <ShellContent
-            Title="Logout"        
-            ContentTemplate="{DataTemplate pages:LoginPage}"
-            Route="LoginPage">
+        <ShellContent Title="Cerrar" ContentTemplate="{DataTemplate page:LoginPage}" Route="LoginPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="&#xf2f5;" FontFamily="AwesomeSolid" />
+                <FontImageSource Glyph="&#xf2b9;" FontFamily="AwesomeSolid" />
             </ShellContent.Icon>
         </ShellContent>
-    </TabBar>
-
+    </FlyoutItem>
+    
+   
+    
 </Shell>

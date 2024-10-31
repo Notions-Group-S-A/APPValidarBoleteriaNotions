@@ -4,7 +4,6 @@ using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace APPValidarBoleteriaNotions.Pages
 {
-
     [QueryProperty(nameof(Parametro), "Parametro")]
     public partial class BarcodePage : ContentPage
     {
@@ -21,7 +20,6 @@ namespace APPValidarBoleteriaNotions.Pages
                 _taskCompletionSource = value;
             }
         }
-
 
         public BarcodePage()
         {

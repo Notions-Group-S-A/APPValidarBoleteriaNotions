@@ -3,8 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.LoginPage"
              xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views"
+             xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
              Title="login">
 
     <Grid RowDefinitions=".25*,.75*">

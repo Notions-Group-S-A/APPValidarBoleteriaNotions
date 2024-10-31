@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.MainPage"
-             xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views">
+             xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views"
+             xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils">
 
     <ScrollView HorizontalOptions="Center">
 
@@ -15,21 +16,21 @@
             <VerticalStackLayout x:Name="Panel1" IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" Padding="30,0" Spacing="25">
 
                 <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
-              
+
                 <Button x:Name="btnComenzarValidarHash" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Validar Código" Clicked="btnValidarHash_Clicked">
                     <Button.ImageSource>
-                        <FontImageSource Glyph="&#xe33c;" FontFamily="AwesomeSolid"/>
+                        <FontImageSource Glyph="{x:Static util:Iconos.SolidKeyboard}" FontFamily="AwesomeSolid"/>
                     </Button.ImageSource>
                 </Button>
 
                 <Button x:Name="btnComenzarValidarQR" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Validar QR" Clicked="btnValidarQR_Clicked">
                     <Button.ImageSource>
-                        <FontImageSource Glyph="&#xf029;" FontFamily="AwesomeSolid"/>
+                        <FontImageSource Glyph="{x:Static util:Iconos.SolidQR}" FontFamily="AwesomeSolid"/>
                     </Button.ImageSource>
                 </Button>
 
             </VerticalStackLayout>
-                
+
             <!--panel 2-->
 
             <VerticalStackLayout x:Name="Panel2" IsVisible="false" HorizontalOptions="Center" VerticalOptions="Center" Padding="30,0" Spacing="25">
@@ -59,7 +60,7 @@
 
                 <Button x:Name="btnValidarQR" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Validar Siguiente QR" Clicked="btnValidarQR_Clicked">
                     <Button.ImageSource>
-                        <FontImageSource Glyph="&#xf029;" FontFamily="AwesomeSolid"/>
+                        <FontImageSource Glyph="{x:Static util:Iconos.SolidQR}" FontFamily="AwesomeSolid"/>
                     </Button.ImageSource>
                 </Button>
 

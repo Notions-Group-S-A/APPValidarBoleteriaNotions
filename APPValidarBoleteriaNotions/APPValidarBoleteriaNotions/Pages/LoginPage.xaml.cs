@@ -15,10 +15,10 @@ public partial class LoginPage : ContentPage
 
     async private void btnLogin_Clicked(object sender, EventArgs e)
     {
+        Mensaje.IsVisible = false;
+
         var contexto = await new ContextoService().CargarContextoAsync();
-
         
-
         string usuario = enUsuario.Text.Trim();
         string clave = enClave.Text.Trim();
 
@@ -32,15 +32,12 @@ public partial class LoginPage : ContentPage
             #endregion
 
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-
         }
         else
         {
             await Mensaje.Show(respuesta.mensaje, "Error en la Respuesta", SetIconos.ICONO_ERROR);
             Mensaje.IsVisible = true;
         }
-
-        Mensaje.IsVisible = false;
     }
 
     protected override bool OnBackButtonPressed()

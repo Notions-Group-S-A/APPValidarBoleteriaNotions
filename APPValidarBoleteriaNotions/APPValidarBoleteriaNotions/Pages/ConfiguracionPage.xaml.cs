@@ -53,8 +53,7 @@ public partial class ConfiguracionPage : ContentPage
             }
         }
     }
-
-    
+        
     protected override bool OnBackButtonPressed()
     {
         //evita el boton de forward 

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.ConfiguracionPage"
              xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views"
+             xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              Title="Configuración">

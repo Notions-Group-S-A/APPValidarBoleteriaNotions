@@ -57,7 +57,8 @@ namespace APPValidarBoleteriaNotions
 
             var codigo = await LeerHash();
 
-            await ValidarCodigo(codigo);
+            if(codigo!=null)//null ha cancelado
+                await ValidarCodigo(codigo);
 
             Panel1.IsVisible = false;
             Panel2.IsVisible = true;
@@ -116,7 +117,7 @@ namespace APPValidarBoleteriaNotions
             }
         }
 
-        async Task<string> LeerHash()
+        async Task<string?> LeerHash()
         {
             var tcs = new TaskCompletionSource<List<HashResult>>();
 
@@ -126,7 +127,9 @@ namespace APPValidarBoleteriaNotions
 
             List<HashResult> hashCodes = await tcs.Task;
 
-            string valor = hashCodes[0].DisplayValue;
+            string valor = null;
+            if (hashCodes!=null && hashCodes.Count>0)
+                valor = hashCodes[0].DisplayValue;
 
             return valor;
         }

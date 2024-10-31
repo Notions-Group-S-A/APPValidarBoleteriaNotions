@@ -2,40 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.HashPage"
+             xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
              Title="HashPage">
     
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
 
         <Label Text="Validar la Entrada manualmente" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center"/>
 
-        <!--<Entry x:Name="enHash" TextColor="#000000" Margin="10" HeightRequest="50" BackgroundColor="#F0F0F0" />-->
-
-        <!--<Entry x:Name="entryHash" Placeholder="XX-XX-XX-XX" TextChanged="EntryHash_TextChanged" MaxLength="14"  Keyboard="Numeric" FontSize="24"/>-->
-
-        <!--<HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Entry x:Name="entry1" WidthRequest="50" MaxLength="2" TextChanged="Entry_TextChanged" />
-            <Label Text="-" VerticalOptions="Center" />
-            <Entry x:Name="entry2" WidthRequest="50" MaxLength="2" TextChanged="Entry_TextChanged" />
-            <Label Text="-" VerticalOptions="Center" />
-            <Entry x:Name="entry3" WidthRequest="50" MaxLength="2" TextChanged="Entry_TextChanged" />
-            <Label Text="-" VerticalOptions="Center" />
-            <Entry x:Name="entry4" WidthRequest="50" MaxLength="2" TextChanged="Entry_TextChanged" />
-        </HorizontalStackLayout>-->
-
         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Entry x:Name="entry1" WidthRequest="50" MaxLength="2" Completed="OnEntryCompleted" />
+            <Entry x:Name="entry1" WidthRequest="50" MaxLength="2" TextChanged="entry1_TextChanged" />
             <Label Text="-" VerticalOptions="Center" />
-            <Entry x:Name="entry2" WidthRequest="50" MaxLength="2" Completed="OnEntryCompleted" />
+            <Entry x:Name="entry2" WidthRequest="50" MaxLength="2"  Completed="OnEntryCompleted" />
             <Label Text="-" VerticalOptions="Center" />
             <Entry x:Name="entry3" WidthRequest="50" MaxLength="2" Completed="OnEntryCompleted" />
             <Label Text="-" VerticalOptions="Center" />
             <Entry x:Name="entry4" WidthRequest="50" MaxLength="2" Completed="OnEntryCompleted" />
         </HorizontalStackLayout>
 
-
         <Button x:Name="btnConfirmar" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Sincronizar" Clicked="btnConfirmar_Clicked">
             <Button.ImageSource>
-                <FontImageSource Glyph="&#xe33c;" FontFamily="AwesomeSolid"/>
+                <FontImageSource Glyph="{x:Static util:Iconos.SolidCheck}" FontFamily="AwesomeSolid"/>
+            </Button.ImageSource>
+        </Button>
+
+        <Button x:Name="btnVolver" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Volver" Clicked="btnVolver_Clicked">
+            <Button.ImageSource>
+                <FontImageSource Glyph="{x:Static util:Iconos.SolidBackward}" FontFamily="AwesomeSolid"/>
             </Button.ImageSource>
         </Button>
 

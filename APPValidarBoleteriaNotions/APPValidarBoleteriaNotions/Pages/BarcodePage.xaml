@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.BarcodePage"
              xmlns:gv="clr-namespace:BarcodeScanner.Mobile;assembly=BarcodeScanner.Mobile.Maui"
+             xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
             Title="BarcodePage"
             BackgroundColor="#000000">
     
