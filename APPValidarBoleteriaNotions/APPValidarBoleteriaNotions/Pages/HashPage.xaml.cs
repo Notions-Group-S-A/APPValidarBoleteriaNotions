@@ -72,7 +72,7 @@ public partial class HashPage : ContentPage
     private void OnEntryCompleted(object sender, EventArgs e)
     {
         var entry = sender as Entry;
-
+        /*
         // Verificar si se completaron 2 caracteres
         if (entry.Text.Length == 2)
         {
@@ -86,6 +86,7 @@ public partial class HashPage : ContentPage
         }
 
         hashCode = $"{entry1.Text}{entry2.Text}{entry3.Text}{entry4.Text}";
+        */
     }
 
     // Manejar el evento de eliminación de texto
@@ -98,7 +99,7 @@ public partial class HashPage : ContentPage
     private void Entry_TextChanged(object sender, TextChangedEventArgs e)
     {
         var entry = sender as Entry;
-
+        /*
         // Si el texto se ha eliminado, mover el foco al anterior
         if (e.NewTextValue.Length < e.OldTextValue.Length)
         {
@@ -110,6 +111,7 @@ public partial class HashPage : ContentPage
                 entry3.Focus();
         }
         hashCode = $"{entry1.Text}{entry2.Text}{entry3.Text}{entry4.Text}";
+        */
     }
 
     //private void Entry_TextChanged(object sender, TextChangedEventArgs e)
