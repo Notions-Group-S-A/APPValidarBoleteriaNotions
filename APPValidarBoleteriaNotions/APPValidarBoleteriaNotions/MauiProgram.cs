@@ -17,6 +17,7 @@ namespace APPValidarBoleteriaNotions
                     fonts.AddFont("Font Awesome 6 Brands-Regular-400.otf", "AwesomeBrandRegular");
                     fonts.AddFont("Font Awesome 6 Free-Regular-400.otf", "AwesomeRegular");
                     fonts.AddFont("Font Awesome 6 Free-Solid-900.otf", "AwesomeSolid");
+                    fonts.AddFont("Roboto-Regular.ttf", "RobotoRegular"); 
                 }).ConfigureMauiHandlers(handlers =>
                 {
                     handlers.AddBarcodeScannerHandler();

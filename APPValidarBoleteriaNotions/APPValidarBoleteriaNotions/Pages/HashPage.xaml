@@ -9,14 +9,12 @@
 
         <Label Text="Validar la Entrada manualmente" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center"/>
 
-        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
-            <Entry x:Name="entry1" WidthRequest="50" MaxLength="2" TextChanged="entry1_TextChanged" />
-            <Label Text="-" VerticalOptions="Center" />
-            <Entry x:Name="entry2" WidthRequest="50" MaxLength="2"  Completed="OnEntryCompleted" />
-            <Label Text="-" VerticalOptions="Center" />
-            <Entry x:Name="entry3" WidthRequest="50" MaxLength="2" Completed="OnEntryCompleted" />
-            <Label Text="-" VerticalOptions="Center" />
-            <Entry x:Name="entry4" WidthRequest="50" MaxLength="2" Completed="OnEntryCompleted" />
+        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+            <Entry x:Name="enHashCode" FontSize="45" FontAutoScalingEnabled="True" BackgroundColor="#ecfeff"
+                   WidthRequest="300" 
+                   FontFamily="RobotoRegular" 
+                   HorizontalTextAlignment="Center"
+                   MaxLength="6" TextChanged="enHashCode_TextChanged"/>
         </HorizontalStackLayout>
 
         <Button x:Name="btnConfirmar" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Sincronizar" Clicked="btnConfirmar_Clicked">

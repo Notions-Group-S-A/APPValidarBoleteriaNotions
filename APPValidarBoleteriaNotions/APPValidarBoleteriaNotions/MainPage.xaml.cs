@@ -127,7 +127,8 @@ namespace APPValidarBoleteriaNotions
 
             List<HashResult> hashCodes = await tcs.Task;
 
-            string valor = null;
+            string? valor = null;
+
             if (hashCodes!=null && hashCodes.Count>0)
                 valor = hashCodes[0].DisplayValue;
 

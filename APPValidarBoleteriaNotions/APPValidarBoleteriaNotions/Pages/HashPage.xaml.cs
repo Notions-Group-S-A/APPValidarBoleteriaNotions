@@ -24,12 +24,14 @@ public partial class HashPage : ContentPage
     public HashPage()
 	{
 		InitializeComponent();
-        SetUpEventHandlers();
+        enHashCode.Focus();
     }
        
     async private void btnConfirmar_Clicked(object sender, EventArgs e)
     {
         var result = new List<HashResult>();
+
+        result.Add(new HashResult {DisplayValue=enHashCode.Text });
 
         _taskCompletionSource.TrySetResult(result);
 
@@ -42,45 +44,15 @@ public partial class HashPage : ContentPage
         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
     }
 
-
-    string hashCode;
-
-    private void SetUpEventHandlers()
+    private void enHashCode_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entry1.Focus();
-    }
-
-    private void OnEntryCompleted(object sender, EventArgs e)
-    {
-        if (sender == entry1 && entry1.Text.Length == entry1.MaxLength)
-            entry2.Focus();
-        else if (sender == entry2 && entry2.Text.Length == entry2.MaxLength)
-            entry3.Focus();
-        else if (sender == entry3 && entry3.Text.Length == entry3.MaxLength)
-            entry4.Focus();
-    }
-
-    private void OnEntryTextChanged(object sender, TextChangedEventArgs e)
-    {
-        var currentEntry = sender as Entry;
-
-        if (string.IsNullOrEmpty(currentEntry.Text) && e.OldTextValue?.Length == 1)
+        if (e.NewTextValue.Length == enHashCode.MaxLength)
         {
-            if (currentEntry == entry4)
-                entry3.Focus();
-            else if (currentEntry == entry3)
-                entry2.Focus();
-            else if (currentEntry == entry2)
-                entry1.Focus();
+            enHashCode.BackgroundColor = Color.FromArgb("#d1e7dd");
         }
-    }
-
-    private void entry1_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        if (sender == entry1 && entry1.Text.Length == entry1.MaxLength)
+        else
         {
-            entry2.Focus();
-
+            enHashCode.BackgroundColor = Color.FromArgb("#ecfeff");
         }
     }
 }

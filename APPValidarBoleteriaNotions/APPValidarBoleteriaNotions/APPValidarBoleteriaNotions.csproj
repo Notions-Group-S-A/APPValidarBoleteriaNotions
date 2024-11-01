@@ -97,6 +97,7 @@
 	  <None Remove="Resources\Fonts\Font Awesome 6 Brands-Regular-400.otf" />
 	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf" />
 	  <None Remove="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf" />
+	  <None Remove="Resources\Fonts\Roboto-Regular.ttf" />
 	  <None Remove="Resources\Images\app_logo.png" />
 	  <None Remove="Resources\Images\head_login.png" />
 	</ItemGroup>
