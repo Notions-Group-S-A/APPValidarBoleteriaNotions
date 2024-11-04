@@ -22,12 +22,28 @@ public partial class LoginPage : ContentPage
         string usuario = enUsuario.Text.Trim();
         string clave = enClave.Text.Trim();
 
+        if (string.IsNullOrEmpty(usuario) == true || string.IsNullOrEmpty(clave) == true)
+        {
+            await Mensaje.Show("", "Complete los campos", SetIconos.ICONO_ERROR);
+            Mensaje.IsVisible = true;
+            return;
+        }
+
+        if (contexto == null)
+        {
+            await Mensaje.Show("", "Error en la persistencia", SetIconos.ICONO_ERROR);
+            Mensaje.IsVisible = true;
+            return;
+        }
+
         var respuesta=await new ControlEntradasClientService() {URL_Base= contexto?.URLEndPoint }.Login(usuario, clave);
 
         if (respuesta.codigo == DTO_CodigoEntrada.Valido)
         {
             #region persistencia
             contexto.IsAuthenticated = true;
+            contexto.Usuario = usuario;
+
             await new ContextoService().GuardarContextoAsync(contexto);
             #endregion
 
@@ -44,5 +60,11 @@ public partial class LoginPage : ContentPage
     {
         //evita el boton de forward 
         return true;
+    }
+
+    private void OnTogglePasswordClicked(object sender, EventArgs e)
+    {
+        enClave.IsPassword = !enClave.IsPassword;
+        btnTogglePassword.Text = enClave.IsPassword ? "Mostrar" : "Ocultar";
     }
 }

@@ -9,23 +9,25 @@
 
         <Label Text="Validar la Entrada manualmente" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center"/>
 
-        <HorizontalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
-            <Entry x:Name="enHashCode" FontSize="45" FontAutoScalingEnabled="True" BackgroundColor="#ecfeff"
+        <Grid HorizontalOptions="FillAndExpand" >
+            <Entry x:Name="enHashCode" FontAutoScalingEnabled="True" BackgroundColor="#ecfeff"
                    WidthRequest="300" 
-                   FontFamily="RobotoRegular" 
+                   Text="WQ26948937"
+                   FontSize="45"  FontFamily="RobotoRegular" 
                    HorizontalTextAlignment="Center"
-                   MaxLength="6" TextChanged="enHashCode_TextChanged"/>
-        </HorizontalStackLayout>
+                   MaxLength="10" TextChanged="enHashCode_TextChanged"
+                   TextTransform="Uppercase" />
+        </Grid>
 
-        <Button x:Name="btnConfirmar" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Sincronizar" Clicked="btnConfirmar_Clicked">
+        <Button x:Name="btnConfirmar" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60"  TextColor="#FBF5FD" Text="Confirmar" Clicked="btnConfirmar_Clicked" VerticalOptions="CenterAndExpand">
             <Button.ImageSource>
-                <FontImageSource Glyph="{x:Static util:Iconos.SolidCheck}" FontFamily="AwesomeSolid"/>
+                <FontImageSource Glyph="check" FontFamily="AwesomeSolid"/>
             </Button.ImageSource>
         </Button>
 
-        <Button x:Name="btnVolver" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Volver" Clicked="btnVolver_Clicked">
+        <Button x:Name="btnVolver" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60"  TextColor="#FBF5FD" Text="Volver" Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand">
             <Button.ImageSource>
-                <FontImageSource Glyph="{x:Static util:Iconos.SolidBackward}" FontFamily="AwesomeSolid"/>
+                <FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/>
             </Button.ImageSource>
         </Button>
 

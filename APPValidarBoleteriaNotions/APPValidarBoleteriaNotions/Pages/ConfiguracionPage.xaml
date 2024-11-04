@@ -38,10 +38,11 @@
                         <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
                         <Image HorizontalOptions="Center">
                             <Image.Source>
-                                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xe1bd;" Size="44" Color="#1E90FF"/>
+                                <FontImageSource FontFamily="AwesomeSolid" Glyph="keyboard" Color="#1E90FF"/>
                             </Image.Source>
                         </Image>
-                        <Entry  x:Name="enEnte" Keyboard="Numeric" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
+                        <Entry  x:Name="enEnte"
+                                Keyboard="Numeric" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
                     </Grid>
 
                     <!--barra de botones-->

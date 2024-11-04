@@ -14,6 +14,14 @@ public partial class ConfiguracionPage : ContentPage
 		InitializeComponent();
 	}
 
+    async protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        var contexto = await new ContextoService().CargarContextoAsync();
+        enEnte.Text= contexto?.Ente;
+    }
+
     async private void btnSincronizar_Clicked(object sender, EventArgs e)
     {
         Mensaje.IsVisible = false;

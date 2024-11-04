@@ -2,10 +2,10 @@
 {
     public enum DTO_CodigoEntrada
     {
-        Valido = 200,
-        Invalido = 300,
-        Quemada = 400,
-        Inexistente = 500,
+        Valido = 200,         //vigente, puede pasar. 
+        Invalido = 300,       //vencida
+        Quemada = 400,        //usada  
+        Inexistente = 500,    //no encontrada 
         //
         NO_SUCESS=600,
     }

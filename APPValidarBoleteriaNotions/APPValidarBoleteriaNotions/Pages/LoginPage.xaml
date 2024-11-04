@@ -26,7 +26,6 @@
             </VerticalStackLayout>
         </Grid>
 
-
         <!--content-->
 
         <Grid Grid.Row="1">
@@ -45,14 +44,24 @@
                     <Entry x:Name="enUsuario" Grid.Column="1" Placeholder="Usuario" Text="validar" VerticalOptions="Center"/>
                 </Grid>
 
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*" HorizontalOptions="FillAndExpand" >
                     <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
                     <Image HorizontalOptions="Center">
                         <Image.Source>
                             <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf084;" Size="44" Color="#1E90FF"/>
                         </Image.Source>
                     </Image>
-                    <Entry x:Name="enClave" Grid.Column="1" Placeholder="" Text="entrada" IsPassword="True" VerticalOptions="Center"/>
+
+                    <Grid Grid.Column="1" ColumnDefinitions=".8*,.2*" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+                        
+                        <Entry x:Name="enClave" Placeholder="" Text="entrada" HorizontalOptions="FillAndExpand"  IsPassword="True" VerticalOptions="Center"/>
+
+                        <Button Grid.Column="1" x:Name="btnTogglePassword" Text="" Clicked="OnTogglePasswordClicked"  BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="68">
+                            <Button.ImageSource>
+                                <FontImageSource Glyph="eye" FontFamily="AwesomeSolid" Color="#1E90FF"/>
+                            </Button.ImageSource>
+                        </Button>
+                    </Grid>
                 </Grid>
 
                 <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200" BackgroundColor="#1E90FF" Text="Ingresar" TextColor="#FBF5FD" Clicked="btnLogin_Clicked"/>

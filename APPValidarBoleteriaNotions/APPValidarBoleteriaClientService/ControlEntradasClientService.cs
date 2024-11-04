@@ -26,6 +26,7 @@ public class ControlEntradasClientService
 
             if (response.IsSuccessStatusCode == true)
             {
+                string content= await response.Content.ReadAsStringAsync();
                 dto = await response.Content.ReadFromJsonAsync<DTO_RespuestaEntrada<DTO_Entrada>>();
             }
         }

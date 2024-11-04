@@ -3,8 +3,10 @@ using APPValidarBoleteriaClientService.Models;
 using APPValidarBoleteriaNotions.Pages;
 using APPValidarBoleteriaNotions.Services;
 using APPValidarBoleteriaNotions.Utils;
+using APPValidarBoleteriaNotions.Views;
 using BarcodeScanner.Mobile;
-using System.Net;
+using Microsoft.Maui.Graphics.Text;
+using System.Drawing;
 
 namespace APPValidarBoleteriaNotions
 {
@@ -15,14 +17,43 @@ namespace APPValidarBoleteriaNotions
             InitializeComponent();
         }
 
+        public const int INICIO = 1;
+        public const int PRINCIPAL = 2;
+        public const int MENSAJE = 3;
+        private void HabilitarPanel(int n)
+        {
+            switch (n)
+            {
+                case INICIO: 
+                    {
+                        Panel1.IsVisible = true;
+                        Panel2.IsVisible = false;
+                        Panel3.IsVisible = false;
+                    } break;
+                case PRINCIPAL:
+                    {
+                        Panel1.IsVisible = false;
+                        Panel2.IsVisible = true;
+                        Panel3.IsVisible = false;
+                    }
+                    break;
+                case MENSAJE:
+                    {
+                        Panel1.IsVisible = false;
+                        Panel2.IsVisible = false;
+                        Panel3.IsVisible = true;
+                    }
+                    break;
+            }
+        }
+
         async protected override void OnAppearing()
         {
             base.OnAppearing();
 
             var contexto = await new ContextoService().CargarContextoAsync();
 
-
-            if(contexto == null || contexto?.Sincronizado==false)
+            if (contexto == null || contexto?.Sincronizado == false)
             {
                 await Shell.Current.GoToAsync($"{nameof(ConfiguracionPage)}");
                 return;
@@ -33,35 +64,28 @@ namespace APPValidarBoleteriaNotions
                 await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
                 return;
             }
+
+            HabilitarPanel(INICIO);
         }
 
-        private async void btnValidarQR_Clicked(object sender, EventArgs e)
+        private async void btnValidar_Clicked(object sender, EventArgs e)
         {
+            HabilitarPanel(MENSAJE);
 
-            Panel1.IsVisible = true;
-            Panel2.IsVisible = false;
-
-            var codigo = await LeerQR();
+            string? codigo = "";
+            if (sender == btnValidarQR || sender == btnComenzarValidarQR)
+            { 
+                codigo = await LeerQR();
+            }
+            else if (sender == btnValidarHash || sender==btnComenzarValidarHash)
+            { 
+                codigo = await LeerHash();
+            }
+            else return;
 
             await ValidarCodigo(codigo);
 
-            Panel1.IsVisible = false;
-            Panel2.IsVisible = true;
-        }
-
-        private async void btnValidarHash_Clicked(object sender, EventArgs e)
-        {
-
-            Panel1.IsVisible = true;
-            Panel2.IsVisible = false;
-
-            var codigo = await LeerHash();
-
-            if(codigo!=null)//null ha cancelado
-                await ValidarCodigo(codigo);
-
-            Panel1.IsVisible = false;
-            Panel2.IsVisible = true;
+            HabilitarPanel(PRINCIPAL);
         }
 
         async Task<string> LeerQR()
@@ -87,34 +111,15 @@ namespace APPValidarBoleteriaNotions
 
             var respuesta = await new ControlEntradasClientService().ValidarEntrada(qr, contexto.Usuario);
 
-            switch (respuesta.codigo)
-            {
-                case DTO_CodigoEntrada.Valido://ha quemado el qr
-                    {
-                        //mostrar el boton de quemar
-                        ProcesarRespuestaValida(respuesta, contexto.Usuario);
-                    }
-                    break;
-                case DTO_CodigoEntrada.Invalido://la entrada caducada - existe es no vigente
-                    {
-                        ProcesarRespuestaNoValida(respuesta);
-                    }
-                    break;
-                case DTO_CodigoEntrada.Quemada://es valida
-                    {
-                        ProcesarRespuestaNoValida(respuesta);
-                    }
-                    break;
-                case DTO_CodigoEntrada.Inexistente://no se encontro 
-                    {
-                        ProcesarRespuestaNoValida(respuesta);
-                    }
-                    break;
-                default:
-                    {
-                    }
-                    break;
-            }
+            #region
+            Mensaje.IsVisible = false;
+
+            if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
+                await MostrarError(respuesta?.codigo as int?, respuesta?.mensaje);
+
+            MostrarRespuesta(respuesta);
+            
+            #endregion
         }
 
         async Task<string?> LeerHash()
@@ -129,30 +134,27 @@ namespace APPValidarBoleteriaNotions
 
             string? valor = null;
 
-            if (hashCodes!=null && hashCodes.Count>0)
+            if (hashCodes != null && hashCodes.Count > 0)
                 valor = hashCodes[0].DisplayValue;
 
             return valor;
         }
 
-        async private void ProcesarRespuestaValida(DTO_RespuestaEntrada<DTO_Entrada> respuesta,string usuario)
+        async private void ProcesarRespuestaValida(DTO_RespuestaEntrada<DTO_Entrada> respuesta, string usuario)
         {
             var validacion = respuesta?.datos;
-
             lbEvento.Text = validacion?.Evento;
-
             lbFuncion.Text = validacion?.Funcion;
-
             lbSector.Text = validacion?.Sector;
 
             long idRelacionCarrito = Convert.ToInt64(validacion?.Id_Relacion_Entradas_ItemCarrito);
 
-
-            Imagen.Source = new FontImageSource() {
+            Imagen.Source = new FontImageSource() 
+            {
                 FontFamily = "AwesomeSolid",
                 Glyph = "\uf058",//"&#xf058;",
                 Size = 88,
-                Color = Color.FromArgb("#5f945e")
+                Color = Microsoft.Maui.Graphics.Color.FromArgb("#5f945e")
             };
 
             #region quemar
@@ -160,25 +162,110 @@ namespace APPValidarBoleteriaNotions
             #endregion
         }
 
-        private void ProcesarRespuestaNoValida(DTO_RespuestaEntrada<DTO_Entrada> respuesta)
+        private void MostrarRespuesta(DTO_RespuestaEntrada<DTO_Entrada> respuesta)
         {
-            var validacion = respuesta?.datos;
+            btnQuemarQR.IsVisible = false;
 
-            lbEvento.Text = validacion?.Evento;
+            btnQuemarQR.IsVisible = false;
 
-            lbFuncion.Text = validacion?.Funcion;
+            bool mostrarDatosEntrada = false;
+            string glyph = "";
+            string color = "";
 
-            lbSector.Text = validacion?.Sector;
+            #region icono
+            if (respuesta?.codigo == DTO_CodigoEntrada.Valido) //vigente, puede pasar. 
+            {
+                glyph = "circle-check";
+                color = "#009900";
+                mostrarDatosEntrada = true;
+                lbSector.Text = respuesta?.datos?.Sector;
+                lbSector.TextColor = Colors.Green;
+
+                if (respuesta?.datos?.Quemada == false)
+                {
+                    btnQuemarQR.IsVisible = true;
+                }
+            }
+            else if (respuesta?.codigo == DTO_CodigoEntrada.Invalido) //vencida
+            {
+                glyph = "calendar-xmark";
+                color = "#CC0000";
+                mostrarDatosEntrada = true;
+                lbSector.Text = respuesta?.datos?.Sector;
+            }
+            else if (respuesta?.codigo == DTO_CodigoEntrada.Quemada)//ya fue usada
+            {
+                glyph = "calendar-xmark";
+                color = "#CC0000";
+                mostrarDatosEntrada = true;
+                lbSector.Text = respuesta.mensaje;
+                lbSector.TextColor = Colors.Red;
+            }
+            else if (respuesta?.codigo == DTO_CodigoEntrada.Inexistente)//no encontrada
+            {
+                glyph = "circle-xmark";
+                color = "#CC0000";
+                mostrarDatosEntrada = false;
+                lbSector.Text = respuesta?.datos?.Sector;
+                lbSector.TextColor = Colors.Green;
+            }
+            #endregion
 
             Imagen.Source = new FontImageSource()
             {
                 FontFamily = "AwesomeSolid",
-                Glyph = "\uf273",//"&#xf058;",
+                Glyph = glyph,
                 Size = 88,
-                Color = Color.FromArgb("#01003B")
-            };////
+                Color = Microsoft.Maui.Graphics.Color.FromArgb(color)
+            };
 
+            if (mostrarDatosEntrada == true)
+            {
+                lbEntrada.Text = respuesta?.datos?.Codigo;
+
+                lbEvento.Text = respuesta?.datos?.Evento;
+
+                lbFuncion.Text = respuesta?.datos?.Funcion;
+            }
         }
- 
+
+        int idEntrada;
+        async private void btnQuemarQR_Clicked(object sender, EventArgs e)
+        {
+            #region persistencia
+            var contexto = await new ContextoService().CargarContextoAsync();
+            #endregion
+
+            var respuesta = await new ControlEntradasClientService().QuemarEntrada(idEntrada, contexto.Usuario);
+
+            if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
+            {
+                MostrarError(respuesta?.codigo as int?, respuesta?.mensaje);
+            }
+            else
+            {
+                //mensaje de ok
+                btnQuemarQR.IsVisible = false;
+
+                lbSector.Text = "ok!";
+            }
+        }
+
+        async private Task<bool> MostrarError(int? codigo, string? mensaje)
+        {
+            if (codigo == null)
+            {
+                await Mensaje.Show("Respuesta nula", "Error", SetIconos.ICONO_ERROR);
+                Mensaje.IsVisible = true;
+                return false;
+            }
+            else if (codigo == (int?) DTO_CodigoEntrada.NO_SUCESS)
+            {
+                await Mensaje.Show(mensaje, "Error en la conexión", SetIconos.ICONO_ERROR);
+                Mensaje.IsVisible = true;
+                return false;
+            }
+            return true;
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace APPValidarBoleteriaNotions.Utils
         public static string SolidKeyboard => "\uf11c";
         public static string SolidQR => "\uf029";
         public static string SolidCheck => "\uf00c";
+        public static string SolidGear => "\uf013";
+ 
     }
 }
 

@@ -24,7 +24,6 @@ public class ContextoService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al guardar el contexto: {ex.Message}");
         }
     }
 
@@ -42,8 +41,8 @@ public class ContextoService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al cargar el contexto: {ex.Message}");
-            return new Contexto();
         }
+
+        return new Contexto();
     }
 }
