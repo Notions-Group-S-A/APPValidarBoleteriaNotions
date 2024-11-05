@@ -26,22 +26,28 @@ namespace APPValidarBoleteriaNotions
             {
                 case INICIO: 
                     {
-                        Panel1.IsVisible = true;
-                        Panel2.IsVisible = false;
-                        Panel3.IsVisible = false;
+                        PanelPrincipal.IsVisible = true;
+                        PanelResultado.IsVisible = false;
+                        PanelEspera.IsVisible = false;
+
+                        lbEvento.Text = "";
+                        lbFuncion.Text = "";
+                        lbSector.Text = "";
+                        lbSector.Text = "";
+
                     } break;
                 case PRINCIPAL:
                     {
-                        Panel1.IsVisible = false;
-                        Panel2.IsVisible = true;
-                        Panel3.IsVisible = false;
+                        PanelPrincipal.IsVisible = false;
+                        PanelResultado.IsVisible = true;
+                        PanelEspera.IsVisible = false;
                     }
                     break;
                 case MENSAJE:
                     {
-                        Panel1.IsVisible = false;
-                        Panel2.IsVisible = false;
-                        Panel3.IsVisible = true;
+                        PanelPrincipal.IsVisible = false;
+                        PanelResultado.IsVisible = false;
+                        PanelEspera.IsVisible = true;
                     }
                     break;
             }
@@ -74,14 +80,19 @@ namespace APPValidarBoleteriaNotions
 
             string? codigo = "";
             if (sender == btnValidarQR || sender == btnComenzarValidarQR)
-            { 
+            {
                 codigo = await LeerQR();
             }
-            else if (sender == btnValidarHash || sender==btnComenzarValidarHash)
-            { 
+
+            else if (/*sender == btnValidarHash || */sender == btnComenzarValidarHash)
+            {
                 codigo = await LeerHash();
             }
-            else return;
+            else
+            {
+                HabilitarPanel(INICIO);
+                return;
+            }
 
             await ValidarCodigo(codigo);
 
@@ -165,49 +176,81 @@ namespace APPValidarBoleteriaNotions
         private void MostrarRespuesta(DTO_RespuestaEntrada<DTO_Entrada> respuesta)
         {
             btnQuemarQR.IsVisible = false;
-
-            btnQuemarQR.IsVisible = false;
-
-            bool mostrarDatosEntrada = false;
+            
             string glyph = "";
             string color = "";
 
             #region icono
-            if (respuesta?.codigo == DTO_CodigoEntrada.Valido) //vigente, puede pasar. 
+            if (respuesta?.codigo == DTO_CodigoEntrada.Valido) 
             {
+                #region caso entrada vigente 
                 glyph = "circle-check";
                 color = "#009900";
-                mostrarDatosEntrada = true;
+
+                lbEntradaLabel.Text = "Ticket: ";
+                lbEntradaNumero.Text = $"{respuesta?.datos?.Id}";
+                lbEntradaNumero.TextColor = Microsoft.Maui.Graphics.Color.FromArgb("#11b2cf");
+                lbEntradaMensaje.Text = "";
+
+                lbEvento.Text = respuesta?.datos?.Evento;
+                lbFuncion.Text = respuesta?.datos?.Funcion;
                 lbSector.Text = respuesta?.datos?.Sector;
                 lbSector.TextColor = Colors.Green;
+                btnQuemarQR.IsVisible = respuesta?.datos?.Quemada == false;
+                #endregion
+            }
+            else if (respuesta?.codigo == DTO_CodigoEntrada.Invalido)
+            {
+                #region entrada vencida
+                glyph = "calendar-xmark";
+                color = "#CC0000";
 
-                if (respuesta?.datos?.Quemada == false)
-                {
-                    btnQuemarQR.IsVisible = true;
-                }
-            }
-            else if (respuesta?.codigo == DTO_CodigoEntrada.Invalido) //vencida
-            {
-                glyph = "calendar-xmark";
-                color = "#CC0000";
-                mostrarDatosEntrada = true;
+                lbEntradaLabel.Text = "Ticket: ";
+                lbEntradaNumero.Text = $"{respuesta?.datos?.Id}";
+                lbEntradaNumero.TextColor = Microsoft.Maui.Graphics.Color.FromArgb("#11b2cf");
+                lbEntradaMensaje.Text = $"{respuesta?.mensaje}";
+                lbEntradaMensaje.TextColor = Colors.Red;
+
+                lbEvento.Text = respuesta?.datos?.Evento;
+                lbFuncion.Text = respuesta?.datos?.Funcion;
                 lbSector.Text = respuesta?.datos?.Sector;
+                lbSector.TextColor = Colors.Green;
+                #endregion
             }
-            else if (respuesta?.codigo == DTO_CodigoEntrada.Quemada)//ya fue usada
+            else if (respuesta?.codigo == DTO_CodigoEntrada.Quemada)
             {
+                #region fue usada
                 glyph = "calendar-xmark";
                 color = "#CC0000";
-                mostrarDatosEntrada = true;
-                lbSector.Text = respuesta.mensaje;
-                lbSector.TextColor = Colors.Red;
+
+                lbEntradaLabel.Text = "Ticket: ";
+                lbEntradaNumero.Text = $"{respuesta?.datos?.Id}";
+                lbEntradaNumero.TextColor = Microsoft.Maui.Graphics.Color.FromArgb("#11b2cf");
+                lbEntradaMensaje.Text = $"{respuesta?.mensaje}";
+                lbEntradaMensaje.TextColor = Colors.Red;
+
+                lbEvento.Text = respuesta?.datos?.Evento;
+                lbFuncion.Text = respuesta?.datos?.Funcion;
+                lbSector.Text = respuesta?.datos?.Sector;
+                lbSector.TextColor = Colors.Green;
+                #endregion
             }
             else if (respuesta?.codigo == DTO_CodigoEntrada.Inexistente)//no encontrada
             {
+                #region no encontrada
                 glyph = "circle-xmark";
                 color = "#CC0000";
-                mostrarDatosEntrada = false;
-                lbSector.Text = respuesta?.datos?.Sector;
-                lbSector.TextColor = Colors.Green;
+
+                lbEntradaLabel.Text = "";
+                lbEntradaNumero.Text = "";
+                lbEntradaMensaje.Text = $"{respuesta?.mensaje}";
+                lbEntradaMensaje.TextColor = Colors.Red;
+
+                lbEvento.Text = "";
+                lbFuncion.Text = "";
+                lbSector.Text = "";
+                lbSector.Text = "";
+                #endregion
             }
             #endregion
 
@@ -218,15 +261,6 @@ namespace APPValidarBoleteriaNotions
                 Size = 88,
                 Color = Microsoft.Maui.Graphics.Color.FromArgb(color)
             };
-
-            if (mostrarDatosEntrada == true)
-            {
-                lbEntrada.Text = respuesta?.datos?.Codigo;
-
-                lbEvento.Text = respuesta?.datos?.Evento;
-
-                lbFuncion.Text = respuesta?.datos?.Funcion;
-            }
         }
 
         int idEntrada;
@@ -246,7 +280,6 @@ namespace APPValidarBoleteriaNotions
             {
                 //mensaje de ok
                 btnQuemarQR.IsVisible = false;
-
                 lbSector.Text = "ok!";
             }
         }
@@ -266,6 +299,14 @@ namespace APPValidarBoleteriaNotions
                 return false;
             }
             return true;
+        }
+
+        async private void btnVolver_Clicked(object sender, EventArgs e)
+        {
+            HabilitarPanel(INICIO);
+            
+            //var result = new List<HashResult>();
+            //await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
     }
 }

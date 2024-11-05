@@ -17,8 +17,8 @@
             <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
 
             <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Validar" TextColor="#2D2D2D"/>
-                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entrada" TextColor="#1E90FF"/>
+                <Label FontAttributes="Bold" FontSize="Title" Text="Validar" TextColor="#2D2D2D"/>
+                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entrada" TextColor="#11b2cf"/>
             </VerticalStackLayout>
         </Grid>
 
