@@ -38,7 +38,8 @@
                     <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
                     <Image HorizontalOptions="Center">
                         <Image.Source>
-                            <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf007;" Size="44" Color="#1E90FF"/>
+                            <FontImageSource FontFamily="AwesomeSolid" 
+                                             Glyph="&#xf007;" Size="44" Color="#1E90FF"/>
                         </Image.Source>
                     </Image>
                     <Entry x:Name="enUsuario" Grid.Column="1" Placeholder="Usuario" Text="validar" VerticalOptions="Center"/>

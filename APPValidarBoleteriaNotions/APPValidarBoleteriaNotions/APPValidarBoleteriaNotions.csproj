@@ -152,4 +152,25 @@
 	  <Folder Include="Resources\Splash\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiFont Update="Resources\Fonts\Font Awesome 6 Brands-Regular-400.otf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiFont>
+	  <MauiFont Update="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiFont>
+	  <MauiFont Update="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiFont>
+	  <MauiFont Update="Resources\Fonts\OpenSans-Regular.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiFont>
+	  <MauiFont Update="Resources\Fonts\OpenSans-Semibold.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiFont>
+	  <MauiFont Update="Resources\Fonts\Roboto-Regular.ttf">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiFont>
+	</ItemGroup>
+
 </Project>
