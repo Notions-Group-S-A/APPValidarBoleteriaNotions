@@ -154,23 +154,31 @@
 
 	<ItemGroup>
 	  <MauiFont Update="Resources\Fonts\Font Awesome 6 Brands-Regular-400.otf">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiFont>
 	  <MauiFont Update="Resources\Fonts\Font Awesome 6 Free-Regular-400.otf">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiFont>
 	  <MauiFont Update="Resources\Fonts\Font Awesome 6 Free-Solid-900.otf">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiFont>
 	  <MauiFont Update="Resources\Fonts\OpenSans-Regular.ttf">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiFont>
 	  <MauiFont Update="Resources\Fonts\OpenSans-Semibold.ttf">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiFont>
 	  <MauiFont Update="Resources\Fonts\Roboto-Regular.ttf">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiFont>
 	</ItemGroup>
-
+	
+	<ItemGroup>
+		<MauiAsset Include="Resources/Fonts/Font Awesome 6 Brands-Regular-400.otf" Alias="OpenSansRegular" />
+		<MauiAsset Include="Resources/Fonts/Font Awesome 6 Free-Regular-400.otf" Alias="OpenSansSemibold" />
+		<MauiAsset Include="Resources/Fonts/Font Awesome 6 Free-Solid-900.otf" Alias="AwesomeBrandRegular" />
+		<MauiAsset Include="Resources/Fonts/OpenSans-Regular.ttf" Alias="AwesomeRegular" />
+		<MauiAsset Include="Resources/Fonts/OpenSans-Semibold.ttf" Alias="AwesomeSolid" />
+		<MauiAsset Include="Resources/Fonts/Roboto-Regular.ttf" Alias="RobotoRegular" />
+	</ItemGroup>
 </Project>
