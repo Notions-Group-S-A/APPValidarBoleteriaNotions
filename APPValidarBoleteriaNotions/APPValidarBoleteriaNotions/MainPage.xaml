@@ -42,16 +42,6 @@
                     </Button.ImageSource>
                 </Button>
 
-                <Button x:Name="btnReValidarQR" Margin="0,20,0,0" 
-                        BackgroundColor="#1E90FF" 
-                        TextColor="#FBF5FD" Text="Reingreso QR" 
-                        Clicked="btnValidar_Clicked"
-                        VerticalOptions="CenterAndExpand">
-                    <Button.ImageSource>
-                        <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/>
-                    </Button.ImageSource>
-                </Button>
-
             </VerticalStackLayout>
 
             <!--panel 2 resultado de la validación-->
@@ -104,19 +94,17 @@
 
                 </VerticalStackLayout>
 
-                <Button x:Name="btnValidarQR" Margin="0,20,0,0" BackgroundColor="#1E90FF" 
-                        Text="Siguiente QR"
-                        TextColor="#FBF5FD" Clicked="btnValidar_Clicked" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                <Button x:Name="btnValidarQR" Margin="0,20,0,0" Text="Siguiente QR"
+                        Clicked="btnValidar_Clicked" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                     <Button.ImageSource>
-                        <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/>
+                        <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
                     </Button.ImageSource>
                 </Button>
 
-                <Button x:Name="btnVolver" Margin="0,20,0,0" BackgroundColor="#1E90FF" 
-                        HeightRequest="60"  TextColor="#FBF5FD" Text="Volver" 
+                <Button x:Name="btnVolver" Margin="0,20,0,0" HeightRequest="60" Text="Volver" 
                         Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand">
                     <Button.ImageSource>
-                        <FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/>
+                        <FontImageSource Glyph="backward" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
                     </Button.ImageSource>
                 </Button>
 

@@ -21,15 +21,16 @@
             <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
 
             <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                <Label FontAttributes="Bold" FontSize="Title" Text="" TextColor="#2D2D2D"/>
-                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="" TextColor="#11b2cf"/>
+                <Label FontAttributes="Bold" FontSize="Title" Text="Validar" TextColor="#2D2D2D"/>
+                <Label FontAttributes="Bold" FontFamily="bold" Text="Entrada" FontSize="Title" TextColor="#11b2cf"/>
             </VerticalStackLayout>
         </Grid>
 
         <!--content-->
 
         <Grid Grid.Row="1">
-            <RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0" Fill="White"/>
+            <RoundRectangle Style="{StaticResource ContentBackgroundStyle}"/>
+            
             <VerticalStackLayout>
 
                 <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
@@ -38,8 +39,7 @@
                     <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
                     <Image HorizontalOptions="Center">
                         <Image.Source>
-                            <FontImageSource FontFamily="AwesomeSolid" 
-                                             Glyph="&#xf007;" Size="44" Color="#1E90FF"/>
+                            <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf007;"  Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
                         </Image.Source>
                     </Image>
                     <Entry x:Name="enUsuario" Grid.Column="1" Placeholder="Usuario" Text="validar" VerticalOptions="Center"/>
@@ -49,7 +49,7 @@
                     <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
                     <Image HorizontalOptions="Center">
                         <Image.Source>
-                            <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf084;" Size="44" Color="#1E90FF"/>
+                            <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf084;"  Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}" />
                         </Image.Source>
                     </Image>
 
@@ -59,13 +59,13 @@
 
                         <Button Grid.Column="1" x:Name="btnTogglePassword" Text="" Clicked="OnTogglePasswordClicked"  BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="68">
                             <Button.ImageSource>
-                                <FontImageSource Glyph="eye" FontFamily="AwesomeSolid" Color="#1E90FF"/>
+                                <FontImageSource FontFamily="AwesomeSolid" Glyph="eye" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
                             </Button.ImageSource>
                         </Button>
                     </Grid>
                 </Grid>
 
-                <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200" BackgroundColor="#1E90FF" Text="Ingresar" TextColor="#FBF5FD" Clicked="btnLogin_Clicked"/>
+                <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200"  Text="Ingresar" Clicked="btnLogin_Clicked"/>
             </VerticalStackLayout>
         </Grid>
     </Grid>

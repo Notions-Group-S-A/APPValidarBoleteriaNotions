@@ -30,21 +30,21 @@
 
     <FlyoutItem Title="Home" FlyoutDisplayOptions="AsMultipleItems">
 
-        <ShellContent Title="Inicio" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage">
+        <ShellContent Title="Inicio" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" >
             <ShellContent.Icon>
-                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="#1E90FF"/>
+                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
             </ShellContent.Icon>
         </ShellContent>
 
         <ShellContent Title="Configuracion" ContentTemplate="{DataTemplate page:ConfiguracionPage}" Route="ConfiguracionPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="gear" FontFamily="AwesomeSolid" Color="#1E90FF"/>
+                <FontImageSource Glyph="gear" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
             </ShellContent.Icon>
         </ShellContent>
 
         <ShellContent Title="Cerrar" ContentTemplate="{DataTemplate page:LoginPage}" Route="LoginPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="#1E90FF"/>
+                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
             </ShellContent.Icon>
         </ShellContent>
 

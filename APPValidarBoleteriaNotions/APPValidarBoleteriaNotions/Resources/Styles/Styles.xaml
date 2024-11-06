@@ -4,6 +4,25 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!--custom-->
+    <Style TargetType="RoundRectangle" x:Key="ContentBackgrounStyle">
+        <Setter Property="Margin" Value="-5,-30,-5,-2"/>
+        <Setter Property="CornerRadius" Value="30,30,0,0"/>
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
+    </Style>
+
+    <Style TargetType="Grid" x:Key="HeaderBackgrounStyle">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightHeaderBackgroundColor}, Dark={StaticResource DarkHeaderBackgroundColor}}" />
+    </Style>
+
+    <!--<FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf007;" Size="44" Color="#1E90FF"/>-->
+    <Style TargetType="FontImageSource" x:Key="IconStyle">
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+        <Setter Property="Size" Value="44" />
+    </Style>
+
+    <!--default-->
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
     </Style>
@@ -23,6 +42,7 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
+ 
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
@@ -429,7 +449,8 @@
         <Setter Property="FontSize" Value="28" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
         <Setter Property="FontFamily" Value="RobotoRegular" />
-        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
     </Style>
 
 

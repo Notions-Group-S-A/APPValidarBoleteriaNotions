@@ -197,6 +197,8 @@ namespace APPValidarBoleteriaNotions
                 lbSector.Text = respuesta?.datos?.Sector;
                 lbSector.TextColor = Colors.Green;
                 btnQuemarQR.IsVisible = respuesta?.datos?.Quemada == false;
+
+                idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito??0;
                 #endregion
             }
             else if (respuesta?.codigo == DTO_CodigoEntrada.Invalido)
@@ -215,6 +217,8 @@ namespace APPValidarBoleteriaNotions
                 lbFuncion.Text = respuesta?.datos?.Funcion;
                 lbSector.Text = respuesta?.datos?.Sector;
                 lbSector.TextColor = Colors.Green;
+
+                idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito ?? 0;
                 #endregion
             }
             else if (respuesta?.codigo == DTO_CodigoEntrada.Quemada)
@@ -233,6 +237,8 @@ namespace APPValidarBoleteriaNotions
                 lbFuncion.Text = respuesta?.datos?.Funcion;
                 lbSector.Text = respuesta?.datos?.Sector;
                 lbSector.TextColor = Colors.Green;
+
+                idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito ?? 0;
                 #endregion
             }
             else if (respuesta?.codigo == DTO_CodigoEntrada.Inexistente)//no encontrada
@@ -263,7 +269,7 @@ namespace APPValidarBoleteriaNotions
             };
         }
 
-        int idEntrada;
+        long idEntrada;
         async private void btnQuemarQR_Clicked(object sender, EventArgs e)
         {
             #region persistencia
@@ -274,7 +280,7 @@ namespace APPValidarBoleteriaNotions
 
             if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
             {
-                MostrarError(respuesta?.codigo as int?, respuesta?.mensaje);
+                await MostrarError(respuesta?.codigo as int?, respuesta?.mensaje);
             }
             else
             {
@@ -301,7 +307,7 @@ namespace APPValidarBoleteriaNotions
             return true;
         }
 
-        async private void btnVolver_Clicked(object sender, EventArgs e)
+        private void btnVolver_Clicked(object sender, EventArgs e)
         {
             HabilitarPanel(INICIO);
             
