@@ -9,6 +9,7 @@
              Title="Configuración">
     
     <ScrollView HorizontalOptions="Center">
+        
         <Grid RowDefinitions=".25*,.75*">
 
             <!--head-->
