@@ -17,6 +17,7 @@ public class ContextoService
 
     public async Task GuardarContextoAsync(Contexto contexto)
     {
+   
         try
         {
             string json = JsonSerializer.Serialize(contexto);
@@ -35,7 +36,7 @@ public class ContextoService
             {
                 return new Contexto();
             }
-
+            //return new Contexto();
             string json = await File.ReadAllTextAsync(FilePath);
             return JsonSerializer.Deserialize<Contexto>(json);
         }
@@ -45,4 +46,6 @@ public class ContextoService
 
         return new Contexto();
     }
+
+    
 }

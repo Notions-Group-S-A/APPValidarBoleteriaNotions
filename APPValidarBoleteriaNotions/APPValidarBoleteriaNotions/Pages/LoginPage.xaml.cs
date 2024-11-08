@@ -24,14 +24,14 @@ public partial class LoginPage : ContentPage
 
         if (string.IsNullOrEmpty(usuario) == true || string.IsNullOrEmpty(clave) == true)
         {
-            await Mensaje.Show("", "Complete los campos", SetIconos.ICONO_ERROR);
+            Mensaje.Show("", "Complete los campos", SetIconos.ICONO_ERROR);
             Mensaje.IsVisible = true;
             return;
         }
 
         if (contexto == null)
         {
-            await Mensaje.Show("", "Error en la persistencia", SetIconos.ICONO_ERROR);
+            Mensaje.Show("", "Error en la persistencia", SetIconos.ICONO_ERROR);
             Mensaje.IsVisible = true;
             return;
         }
@@ -47,11 +47,11 @@ public partial class LoginPage : ContentPage
             await new ContextoService().GuardarContextoAsync(contexto);
             #endregion
 
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
         else
         {
-            await Mensaje.Show(respuesta.mensaje, "Error en la Respuesta", SetIconos.ICONO_ERROR);
+            Mensaje.Show(respuesta.mensaje, "Error en la Respuesta", SetIconos.ICONO_ERROR);
             Mensaje.IsVisible = true;
         }
     }

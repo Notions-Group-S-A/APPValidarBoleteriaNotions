@@ -8,8 +8,8 @@
     Shell.FlyoutBehavior="Flyout"
     Shell.NavBarIsVisible="True"
     Shell.TabBarIsVisible="False"
-    Title="APPValidarBoleteriaNotions"
-    x:Name="shell">
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray400}}"
+    Title="Validar Entrada">
 
     <Shell.FlyoutHeader>
         <VerticalStackLayout>
@@ -32,19 +32,19 @@
 
         <ShellContent Title="Inicio" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" >
             <ShellContent.Icon>
-                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
+                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" />
             </ShellContent.Icon>
         </ShellContent>
 
         <ShellContent Title="Configuracion" ContentTemplate="{DataTemplate page:ConfiguracionPage}" Route="ConfiguracionPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="gear" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
+                <FontImageSource Glyph="gear" FontFamily="AwesomeSolid" />
             </ShellContent.Icon>
         </ShellContent>
 
         <ShellContent Title="Cerrar" ContentTemplate="{DataTemplate page:LoginPage}" Route="LoginPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
+                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" />
             </ShellContent.Icon>
         </ShellContent>
 

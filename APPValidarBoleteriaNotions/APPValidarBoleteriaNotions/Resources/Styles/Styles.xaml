@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!--custom-->
-    <Style TargetType="RoundRectangle" x:Key="ContentBackgrounStyle">
+
+    <!--<RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0" Fill="White"/>-->
+    <Style TargetType="RoundRectangle" x:Key="ContentBackgroundStyle">
         <Setter Property="Margin" Value="-5,-30,-5,-2"/>
         <Setter Property="CornerRadius" Value="30,30,0,0"/>
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
@@ -20,6 +22,19 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
         <Setter Property="Size" Value="44" />
     </Style>
+
+    <Style TargetType="Shell" x:Key="FlyoutShellStyle">
+        <Setter Property="Shell.FlyoutBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray400}}" />
+    </Style>
+
+    <Style x:Key="FlyoutHeaderLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+
 
     <!--default-->
 
@@ -41,7 +56,6 @@
     <Style TargetType="BoxView">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
-
  
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
@@ -425,11 +439,12 @@
         <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource SecondaryDarkText}}" />
         <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}" />
-        <Setter Property="Shell.NavBarHasShadow" Value="False" />
+        <Setter Property="Shell.NavBarHasShadow" Value="True" />
         <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
         <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />
+        <Setter Property="Shell.FlyoutBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray400}}" />
     </Style>
 
     <Style TargetType="NavigationPage">
@@ -443,14 +458,6 @@
         <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
         <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
-    </Style>
-
-    <Style x:Key="FlyoutHeaderLabelStyle" TargetType="Label">
-        <Setter Property="FontSize" Value="28" />
-        <Setter Property="HorizontalTextAlignment" Value="Center" />
-        <Setter Property="FontFamily" Value="RobotoRegular" />
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
     </Style>
 
 

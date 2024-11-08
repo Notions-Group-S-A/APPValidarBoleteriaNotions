@@ -15,12 +15,12 @@
     <Color x:Key="LightHeaderBackgroundColor">#dae6f2</Color>
     <Color x:Key="DarkHeaderBackgroundColor">#25190d</Color>
 
-    <Color x:Key="Primary">#1E90FF</Color>
-    <Color x:Key="PrimaryDark">#a9ced5</Color>
+    <Color x:Key="Primary">#1E90FF</Color>    <!-- Color principal para botones o encabezados -->
+    <Color x:Key="PrimaryDark">#1FD6FF</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#5e90ff</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <Color x:Key="Secondary">#1FFFDF</Color>           <!-- Fondo neutro -->
+    <Color x:Key="SecondaryDarkText">#3D1FFF</Color>
+    <Color x:Key="Tertiary">#1F48FF</Color>
 
     <!-- deafault
     

@@ -12,31 +12,21 @@
 
             <!--panel 1 menu principal-->
 
-            <VerticalStackLayout x:Name="PanelPrincipal" IsVisible="true" HorizontalOptions="Center" 
-                                 VerticalOptions="Center" Padding="10,0" Spacing="20">
+            <VerticalStackLayout x:Name="PanelPrincipal" IsVisible="true" HorizontalOptions="Center" VerticalOptions="Center" Padding="10,0" Spacing="20">
 
                 <VerticalStackLayout VerticalOptions="Start" Padding="5,0" Spacing="10">
-                    
                     <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
                     <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entradas" TextColor="#11b2cf"/>
-                    
                 </VerticalStackLayout>
 
-                <Button x:Name="btnComenzarValidarHash" 
-                        Margin="0,20,0,0" BackgroundColor="#1E90FF" 
-                        TextColor="#FBF5FD" Text="Validar Código" 
-                        Clicked="btnValidar_Clicked" 
+                <Button x:Name="btnComenzarValidarHash" Margin="0,20,0,0" Text="Validar Código"  Clicked="btnValidar_Clicked" 
                         VerticalOptions="CenterAndExpand">
                     <Button.ImageSource>
                         <FontImageSource Glyph="keyboard" FontFamily="AwesomeSolid"/>
                     </Button.ImageSource>
                 </Button>
 
-                <Button x:Name="btnComenzarValidarQR" Margin="0,20,0,0" 
-                        BackgroundColor="#1E90FF" 
-                        TextColor="#FBF5FD" Text="Ingreso QR" 
-                        Clicked="btnValidar_Clicked"
-                        VerticalOptions="CenterAndExpand">
+                <Button x:Name="btnComenzarValidarQR" Margin="0,20,0,0" Text="Ingreso QR"  Clicked="btnValidar_Clicked" VerticalOptions="CenterAndExpand">
                     <Button.ImageSource>
                         <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/>
                     </Button.ImageSource>
@@ -46,8 +36,7 @@
 
             <!--panel 2 resultado de la validación-->
 
-            <VerticalStackLayout x:Name="PanelResultado" IsVisible="false" HorizontalOptions="FillAndExpand" 
-                                 VerticalOptions="Center" Padding="15,0" Spacing="25">
+            <VerticalStackLayout x:Name="PanelResultado" IsVisible="false" HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="15,0" Spacing="25">
 
                 <VerticalStackLayout VerticalOptions="Start" Padding="5,0" Spacing="10">
                     <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Control de" TextColor="#2D2D2D"/>
@@ -63,15 +52,13 @@
 
                     <VerticalStackLayout HorizontalOptions="CenterAndExpand">
                         <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
-                            <Label x:Name="lbEntradaLabel" Text="Ticket: " HorizontalOptions="Center"  HorizontalTextAlignment="Center" FontSize="Title"/>
+                            <Label x:Name="lbEntradaLabel" Text="Ticket: " HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="Title"/>
                             <Label x:Name="lbEntradaNumero" Text="" HorizontalOptions="Center"  HorizontalTextAlignment="Center" FontSize="Title"/>
                         </HorizontalStackLayout>
-                        <Label x:Name="lbEntradaMensaje" Text="" HorizontalOptions="Center"         
-                               HorizontalTextAlignment="Center" FontSize="Medium"/>
+                        <Label x:Name="lbEntradaMensaje" Text="" HorizontalOptions="Center"  HorizontalTextAlignment="Center" FontSize="Medium"/>
                     </VerticalStackLayout>
 
-                    <Button x:Name="btnQuemarQR" Margin="0,10,0,0" 
-                            BackgroundColor="#1E90FF" TextColor="#FBF5FD" Text="Confirmar ingreso" Clicked="btnQuemarQR_Clicked" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <Button x:Name="btnQuemarQR" Margin="0,10,0,0" Text="Confirmar ingreso" Clicked="btnQuemarQR_Clicked" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                         <Button.ImageSource>
                             <FontImageSource Glyph="check-to-slot" FontFamily="AwesomeSolid"/>
                         </Button.ImageSource>
@@ -79,32 +66,24 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Padding="5,0">
-
                     <Label x:Name="lbEvento" Text="" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontSize="Title"/>
-
                     <Label x:Name="lbFuncion" Text="" HorizontalTextAlignment="Center"  HorizontalOptions="Center" FontSize="Title"/>
-
                     <Label x:Name="lbSector" Text="" HorizontalTextAlignment="Center"  HorizontalOptions="Center" FontSize="Title" />
-
                     <Label x:Name="lbTipoUbicacion" HorizontalTextAlignment="Center"  Text="" HorizontalOptions="Center" FontSize="Title" />
-
                     <Label x:Name="lbTextoEntrada" HorizontalTextAlignment="Center"  Text="" HorizontalOptions="Center" FontSize="Title" />
-
                     <Label x:Name="lbIngresoSector" HorizontalTextAlignment="Center"  Text="" HorizontalOptions="Center" FontSize="Title" />
-
                 </VerticalStackLayout>
 
                 <Button x:Name="btnValidarQR" Margin="0,20,0,0" Text="Siguiente QR"
                         Clicked="btnValidar_Clicked" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                     <Button.ImageSource>
-                        <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
+                        <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/>
                     </Button.ImageSource>
                 </Button>
 
-                <Button x:Name="btnVolver" Margin="0,20,0,0" HeightRequest="60" Text="Volver" 
-                        Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand">
+                <Button x:Name="btnVolver" Margin="0,20,0,0" HeightRequest="60" Text="Volver" Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand">
                     <Button.ImageSource>
-                        <FontImageSource Glyph="backward" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
+                        <FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/>
                     </Button.ImageSource>
                 </Button>
 
@@ -120,7 +99,6 @@
                 <VerticalStackLayout VerticalOptions="CenterAndExpand" Padding="5,0" Spacing="10">
                     <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Esperando" TextColor="#2D2D2D"/>
                     <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="respuesta" TextColor="#2D2D2D"/>
-
                 </VerticalStackLayout>
 
             </VerticalStackLayout>

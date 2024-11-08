@@ -59,6 +59,7 @@ public class ControlEntradasClientService
         {
             dto = new DTO_RespuestaEntrada();
             dto.mensaje = ex.Message;
+
         }
 
         return dto;

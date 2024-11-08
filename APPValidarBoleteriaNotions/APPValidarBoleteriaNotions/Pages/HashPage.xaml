@@ -3,34 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.HashPage"
              xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
-             Title="HashPage">
+             Title="Hash Entrada">
     
-    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+    <ScrollView HorizontalOptions="Center">
+        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
 
-        <Label Text="Validar la Entrada manualmente" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center"/>
+            <Label Text="Validar la Entrada manualmente" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center"/>
 
-        <Grid HorizontalOptions="FillAndExpand" >
-            <Entry x:Name="enHashCode" FontAutoScalingEnabled="True" BackgroundColor="#ecfeff"
-                   WidthRequest="300" 
-                   Text=""
-                   FontSize="45"  FontFamily="RobotoRegular" 
-                   HorizontalTextAlignment="Center"
-                   MaxLength="10" 
-                   TextChanged="enHashCode_TextChanged"
-                   TextTransform="Uppercase" />
-        </Grid>
+            <Grid HorizontalOptions="FillAndExpand" >
+                <Entry x:Name="enHashCode" FontAutoScalingEnabled="True" BackgroundColor="#ecfeff" WidthRequest="300" Text=""  FontSize="45"  FontFamily="RobotoRegular"  HorizontalTextAlignment="Center" MaxLength="10"  TextChanged="enHashCode_TextChanged" TextTransform="Uppercase" />
+            </Grid>
 
-        <Button x:Name="btnConfirmar" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60"  TextColor="#FBF5FD" Text="Confirmar" Clicked="btnConfirmar_Clicked" VerticalOptions="CenterAndExpand">
-            <Button.ImageSource>
-                <FontImageSource Glyph="check" FontFamily="AwesomeSolid"/>
-            </Button.ImageSource>
-        </Button>
+            <Button x:Name="btnConfirmar" Margin="0,20,0,0" HeightRequest="60"   Text="Confirmar" Clicked="btnConfirmar_Clicked" VerticalOptions="CenterAndExpand">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="check" FontFamily="AwesomeSolid"/>
+                </Button.ImageSource>
+            </Button>
 
-        <Button x:Name="btnVolver" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60"  TextColor="#FBF5FD" Text="Volver" Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand">
-            <Button.ImageSource>
-                <FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/>
-            </Button.ImageSource>
-        </Button>
+            <Button x:Name="btnVolver" Margin="0,20,0,0" HeightRequest="60"  Text="Volver" Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand">
+                <Button.ImageSource>
+                    <FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/>
+                </Button.ImageSource>
+            </Button>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -2,14 +2,12 @@ namespace APPValidarBoleteriaNotions.Views;
 
 public partial class MensajeView : ContentView
 {
-	
-
 	public MensajeView()
 	{
 		InitializeComponent();
 	}
 
-	async public Task Show(string contenido, string titulo, Icono icono)
+	public void Show(string contenido, string titulo, Icono icono)
 	{
         lbMensajeTitulo.Text = titulo;
         lbMensajeDetalle.Text = contenido;

@@ -10,63 +10,65 @@
              Shell.NavBarIsVisible="False"
              Title="login">
 
-    <Grid RowDefinitions=".25*,.75*">
-        
-        <!--head-->
-        <Image Aspect="AspectFill" Source="head_login.png"/>
+    <ScrollView>
+        <Grid RowDefinitions=".25*,.75*">
 
-        <Grid BackgroundColor="#dae6f2" Opacity=".8"/>
-                    
-        <Grid ColumnDefinitions="*,*">
-            <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
+            <!--head-->
+            <Image Aspect="AspectFill" Source="head_login.png"/>
 
-            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                <Label FontAttributes="Bold" FontSize="Title" Text="Validar" TextColor="#2D2D2D"/>
-                <Label FontAttributes="Bold" FontFamily="bold" Text="Entrada" FontSize="Title" TextColor="#11b2cf"/>
-            </VerticalStackLayout>
-        </Grid>
+            <Grid BackgroundColor="#dae6f2" Opacity=".8"/>
 
-        <!--content-->
+            <Grid ColumnDefinitions="*,*">
+                <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
 
-        <Grid Grid.Row="1">
-            <RoundRectangle Style="{StaticResource ContentBackgroundStyle}"/>
-            
-            <VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label FontAttributes="Bold" FontSize="Title" Text="Validar"/>
+                    <Label FontAttributes="Bold" FontFamily="bold" Text="Entrada" FontSize="Title" TextColor="#11b2cf"/>
+                </VerticalStackLayout>
+            </Grid>
 
-                <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
+            <!--content-->
 
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
-                    <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
-                    <Image HorizontalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf007;"  Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
-                        </Image.Source>
-                    </Image>
-                    <Entry x:Name="enUsuario" Grid.Column="1" Placeholder="Usuario" Text="validar" VerticalOptions="Center"/>
-                </Grid>
+            <Grid Grid.Row="1">
+                <RoundRectangle Style="{StaticResource ContentBackgroundStyle}"/>
 
-                <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*" HorizontalOptions="FillAndExpand" >
-                    <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
-                    <Image HorizontalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf084;"  Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}" />
-                        </Image.Source>
-                    </Image>
+                <VerticalStackLayout>
 
-                    <Grid Grid.Column="1" ColumnDefinitions=".8*,.2*" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
-                        
-                        <Entry x:Name="enClave" Placeholder="" Text="entrada" HorizontalOptions="FillAndExpand"  IsPassword="True" VerticalOptions="Center"/>
+                    <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
 
-                        <Button Grid.Column="1" x:Name="btnTogglePassword" Text="" Clicked="OnTogglePasswordClicked"  BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="68">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="AwesomeSolid" Glyph="eye" Color="{AppThemeBinding Light=Primary, Dark=PrimaryDark}"/>
-                            </Button.ImageSource>
-                        </Button>
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                        <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
+                        <Image HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf007;" />
+                            </Image.Source>
+                        </Image>
+                        <Entry x:Name="enUsuario" Grid.Column="1" Placeholder="Usuario" Text="validar" VerticalOptions="Center"/>
                     </Grid>
-                </Grid>
 
-                <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200"  Text="Ingresar" Clicked="btnLogin_Clicked"/>
-            </VerticalStackLayout>
+                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*" HorizontalOptions="FillAndExpand" >
+                        <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
+                        <Image HorizontalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource FontFamily="AwesomeSolid" Glyph="&#xf084;"  />
+                            </Image.Source>
+                        </Image>
+
+                        <Grid Grid.Column="1" ColumnDefinitions=".8*,.2*" VerticalOptions="Center" HorizontalOptions="FillAndExpand">
+
+                            <Entry x:Name="enClave" Placeholder="" Text="entrada" HorizontalOptions="FillAndExpand"  IsPassword="True" VerticalOptions="Center"/>
+
+                            <Button Grid.Column="1" x:Name="btnTogglePassword" Text="" Clicked="OnTogglePasswordClicked"  BackgroundColor="Transparent" HorizontalOptions="End" WidthRequest="68">
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="AwesomeSolid" Glyph="eye" />
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200"  Text="Ingresar" Clicked="btnLogin_Clicked"/>
+                </VerticalStackLayout>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollView>
 </ContentPage>

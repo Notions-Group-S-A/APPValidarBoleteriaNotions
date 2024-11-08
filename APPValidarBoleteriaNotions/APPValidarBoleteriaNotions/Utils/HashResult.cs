@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APPValidarBoleteriaNotions.Utils
+namespace APPValidarBoleteriaNotions.Utils;
+
+public class HashResult
 {
-    public class HashResult
-    {
-        public string DisplayValue { get; set; }
-    }
+    public string DisplayValue { get; set; }
 }

@@ -7,54 +7,56 @@
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
              Title="Configuración">
+    
+    <ScrollView HorizontalOptions="Center">
+        <Grid RowDefinitions=".25*,.75*">
 
-    <Grid RowDefinitions=".25*,.75*">
+            <!--head-->
+            <Image Aspect="AspectFill" Source="head_login.png"/>
+            <Grid BackgroundColor="#dae6f2" Opacity=".8"/>
+            <Grid ColumnDefinitions="*,*">
+                <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
 
-        <!--head-->
-        <Image Aspect="AspectFill" Source="head_login.png"/>
-        <Grid BackgroundColor="#dae6f2" Opacity=".8"/>
-        <Grid ColumnDefinitions="*,*">
-            <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
-
-            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                <Label FontAttributes="Bold" FontSize="Title" Text="Validar" TextColor="#2D2D2D"/>
-                <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entrada" TextColor="#11b2cf"/>
-            </VerticalStackLayout>
-        </Grid>
-
-        <!--content-->
-
-        <Grid Grid.Row="1">
-            <RoundRectangle Margin="-5,-30,-5,-2" CornerRadius="30,30,0,0" Fill="White"/>
-
-            <Grid RowDefinitions=".2*,.8*">
-
-                <!--panel de mensajes-->
-                <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
-               
-                <VerticalStackLayout Grid.Row="1">
-                    <!--formulario-->
-                    <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
-                        <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
-                        <Image HorizontalOptions="Center">
-                            <Image.Source>
-                                <FontImageSource FontFamily="AwesomeSolid" Glyph="keyboard" Color="#1E90FF"/>
-                            </Image.Source>
-                        </Image>
-                        <Entry  x:Name="enEnte"
-                                Keyboard="Numeric" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
-                    </Grid>
-
-                    <!--barra de botones-->
-                    <Grid HorizontalOptions="Center">
-                        <Button x:Name="btnSincronizar" Margin="0,20,0,0" BackgroundColor="#1E90FF" HeightRequest="60" WidthRequest="200"  TextColor="#FBF5FD" Text="Sincronizar" Clicked="btnSincronizar_Clicked">
-                            <Button.ImageSource>
-                                <FontImageSource Glyph="&#xf2f1;" FontFamily="AwesomeSolid"/>
-                            </Button.ImageSource>
-                        </Button>
-                    </Grid>
+                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label FontAttributes="Bold" FontSize="Title" Text="Validar" TextColor="#2D2D2D"/>
+                    <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Entrada" TextColor="#11b2cf"/>
                 </VerticalStackLayout>
             </Grid>
+
+            <!--content-->
+
+            <Grid Grid.Row="1">
+                <RoundRectangle Style="{StaticResource ContentBackgroundStyle}"/>
+
+                <Grid RowDefinitions=".2*,.8*">
+
+                    <!--panel de mensajes-->
+                    <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
+
+                    <VerticalStackLayout Grid.Row="1">
+                        <!--formulario-->
+                        <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                            <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
+                            <Image HorizontalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource FontFamily="AwesomeSolid" Glyph="keyboard"  />
+                                </Image.Source>
+                            </Image>
+                            <Entry  x:Name="enEnte"
+                                Keyboard="Numeric" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
+                        </Grid>
+
+                        <!--barra de botones-->
+                        <Grid HorizontalOptions="Center">
+                            <Button x:Name="btnSincronizar" Margin="0,20,0,0" HeightRequest="60" WidthRequest="200"  Text="Sincronizar" Clicked="btnSincronizar_Clicked">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="&#xf2f1;" FontFamily="AwesomeSolid"/>
+                                </Button.ImageSource>
+                            </Button>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollView>
 </ContentPage>
