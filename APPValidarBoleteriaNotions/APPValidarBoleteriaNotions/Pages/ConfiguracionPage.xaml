@@ -6,6 +6,7 @@
              xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False"
+             
              Title="Configuración">
     
     <ScrollView HorizontalOptions="Center">
@@ -38,22 +39,14 @@
                         <!--formulario-->
                         <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
                             <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
-                            <Image HorizontalOptions="Center">
-                                <Image.Source>
-                                    <FontImageSource FontFamily="AwesomeSolid" Glyph="keyboard"  />
-                                </Image.Source>
-                            </Image>
-                            <Entry  x:Name="enEnte"
-                                Keyboard="Numeric" Grid.Column="1" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
+                            <Image HorizontalOptions="Center"><Image.Source><FontImageSource FontFamily="AwesomeSolid" Glyph="keyboard"  /></Image.Source></Image>
+                            <Entry Grid.Column="1" x:Name="enEnte" Keyboard="Numeric" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
                         </Grid>
 
                         <!--barra de botones-->
                         <Grid HorizontalOptions="Center">
                             <Button x:Name="btnSincronizar" Margin="0,20,0,0" HeightRequest="60" WidthRequest="200"  Text="Sincronizar" Clicked="btnSincronizar_Clicked">
-                                <Button.ImageSource>
-                                    <FontImageSource Glyph="&#xf2f1;" FontFamily="AwesomeSolid"/>
-                                </Button.ImageSource>
-                            </Button>
+                                <Button.ImageSource><FontImageSource Glyph="&#xf2f1;" FontFamily="AwesomeSolid"/></Button.ImageSource></Button>
                         </Grid>
                     </VerticalStackLayout>
                 </Grid>

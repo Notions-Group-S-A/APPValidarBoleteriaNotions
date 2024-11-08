@@ -46,6 +46,7 @@ public partial class HashPage : ContentPage
 
     private void enHashCode_TextChanged(object sender, TextChangedEventArgs e)
     {
+        /*
         if (e.NewTextValue.Length == enHashCode.MaxLength)
         {
             enHashCode.BackgroundColor = Color.FromArgb("#d1e7dd");
@@ -54,5 +55,6 @@ public partial class HashPage : ContentPage
         {
             enHashCode.BackgroundColor = Color.FromArgb("#ecfeff");
         }
+        */
     }
 }

@@ -17,7 +17,7 @@ public class ControlEntradasClientService
         string url = $"{URL_Base}{resource}";
 
         var dto = new DTO_RespuestaEntrada<DTO_Entrada>();
-
+         
         try
         {
             using var client = new HttpClient();

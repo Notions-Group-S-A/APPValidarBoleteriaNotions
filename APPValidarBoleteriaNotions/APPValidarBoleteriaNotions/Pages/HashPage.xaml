@@ -4,28 +4,34 @@
              x:Class="APPValidarBoleteriaNotions.Pages.HashPage"
              xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
              Title="Hash Entrada">
-    
-    <ScrollView HorizontalOptions="Center">
-        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
 
-            <Label Text="Validar la Entrada manualmente" FontSize="Title" VerticalOptions="Center" HorizontalOptions="Center"/>
+    <ScrollView HorizontalOptions="CenterAndExpand"  >
 
-            <Grid HorizontalOptions="FillAndExpand" >
-                <Entry x:Name="enHashCode" FontAutoScalingEnabled="True" BackgroundColor="#ecfeff" WidthRequest="300" Text=""  FontSize="45"  FontFamily="RobotoRegular"  HorizontalTextAlignment="Center" MaxLength="10"  TextChanged="enHashCode_TextChanged" TextTransform="Uppercase" />
-            </Grid>
+        <Grid RowDefinitions=".20*,.50*,.30*" >
 
-            <Button x:Name="btnConfirmar" Margin="0,20,0,0" HeightRequest="60"   Text="Confirmar" Clicked="btnConfirmar_Clicked" VerticalOptions="CenterAndExpand">
-                <Button.ImageSource>
-                    <FontImageSource Glyph="check" FontFamily="AwesomeSolid"/>
-                </Button.ImageSource>
-            </Button>
 
-            <Button x:Name="btnVolver" Margin="0,20,0,0" HeightRequest="60"  Text="Volver" Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand">
-                <Button.ImageSource>
-                    <FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/>
-                </Button.ImageSource>
-            </Button>
+            <VerticalStackLayout Grid.Row="0">
 
-        </VerticalStackLayout>
+                <Label Text="Validar la Entrada manualmente" Margin="0,30,0,0" FontSize="Title" 
+                   HorizontalTextAlignment="Center"
+                   VerticalOptions="Start" HorizontalOptions="Center"/>
+                
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1">
+                <Entry x:Name="enHashCode" Margin="0,30,0,0" FontAutoScalingEnabled="True"  HorizontalOptions="Fill" HorizontalTextAlignment="Center"
+                       FontSize="45" MaxLength="10"  TextChanged="enHashCode_TextChanged" TextTransform="Uppercase" />
+
+                <Button x:Name="btnConfirmar" Margin="0,30,0,0" MinimumWidthRequest="60" HeightRequest="100" Text="Confirmar" Clicked="btnConfirmar_Clicked" VerticalOptions="CenterAndExpand"><Button.ImageSource><FontImageSource Glyph="check" FontFamily="AwesomeSolid"/></Button.ImageSource>
+                </Button>
+                
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2" >
+                <Button x:Name="btnVolver" Margin="0,100,0,0"  HeightRequest="80"  Text="Volver" Clicked="btnVolver_Clicked" VerticalOptions="StartAndExpand">
+                <Button.ImageSource><FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/></Button.ImageSource></Button>
+            </VerticalStackLayout>
+
+        </Grid>
     </ScrollView>
 </ContentPage>

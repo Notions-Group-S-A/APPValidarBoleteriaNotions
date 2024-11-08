@@ -99,6 +99,11 @@ public partial class MainPage : ContentPage
         HabilitarPanel(PRINCIPAL);
     }
 
+    private async void btnValidarSalida_Clicked(object sender, EventArgs e)
+    {
+        
+    }
+
     async Task<string> LeerQR()
     {
         var tcs = new TaskCompletionSource<List<BarcodeResult>>();

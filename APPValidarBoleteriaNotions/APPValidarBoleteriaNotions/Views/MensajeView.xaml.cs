@@ -28,6 +28,6 @@ public class Icono
 
 static public class SetIconos
 {
-	static public  Icono ICONO_ERROR = new Icono { Color= "#FF0000", Glyph="\ue560" };
+	static public  Icono ICONO_ERROR = new Icono { Color= "#FF0000", Glyph="\uf06a" };
     static public Icono ICONO_CONEXION = new Icono { Color = "#FF0000", Glyph = "\ue560" };
 }

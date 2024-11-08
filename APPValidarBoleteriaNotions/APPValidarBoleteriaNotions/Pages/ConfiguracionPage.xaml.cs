@@ -29,6 +29,12 @@ public partial class ConfiguracionPage : ContentPage
             Mensaje.IsVisible = false;
 
             string ente = enEnte.Text.Trim();
+            if (string.IsNullOrEmpty(ente) == true)
+            {
+                Mensaje.Show($"Complete el número del ente", "Error", SetIconos.ICONO_ERROR);
+                Mensaje.IsVisible = true;
+                return;
+            }
 
             var respuesta = await new AuthControllerClientService().GetEnpoint(ente);
 
@@ -37,6 +43,7 @@ public partial class ConfiguracionPage : ContentPage
                 string? enteT = respuesta.datos?.Ente;
                 string? endpoint = respuesta.datos?.Endpoint;
 
+                //evaluo el respuesta
                 if (string.IsNullOrEmpty(enteT) == false && string.IsNullOrEmpty(endpoint) == false)
                 {
                     #region persistencia
@@ -47,28 +54,30 @@ public partial class ConfiguracionPage : ContentPage
                     await new ContextoService().GuardarContextoAsync(contexto);
                     #endregion
 
-
                     if (contexto.IsAuthenticated == true)
                     {
                         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                    }
+                    else
+                    {
+                        await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+                    }
                 }
                 else
                 {
-                    //await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
-                    await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
-                }
-
-            }
-                else
-                {
-                    Mensaje.Show($"Algunos de los campos son nulos: Ente:{enteT}, EndPoint:{endpoint}", "Error en la Respuesta", SetIconos.ICONO_ERROR);
+                    Mensaje.Show($"Se han devuelto algunos campos nulos: Ente:{enteT}, EndPoint:{endpoint}", "Error en la Respuesta", SetIconos.ICONO_CONEXION);
                     Mensaje.IsVisible = true;
                 }
+            }
+            else
+            {
+                Mensaje.Show($"{respuesta.mensaje}", "Error en la conexión", SetIconos.ICONO_CONEXION);
+                Mensaje.IsVisible = true;
             }
         }
         catch (Exception ex)
         {
-            Mensaje.Show($"Error: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Error", SetIconos.ICONO_ERROR);
+            Mensaje.Show($"Error: {ex.Message}\nInner Exception: {ex.InnerException?.Message}\nStack Trace: {ex.StackTrace}", "Error", SetIconos.ICONO_CONEXION);
             Mensaje.IsVisible = true;
         }
     }
