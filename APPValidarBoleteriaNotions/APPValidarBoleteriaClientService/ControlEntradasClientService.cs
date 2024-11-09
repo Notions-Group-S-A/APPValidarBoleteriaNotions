@@ -29,9 +29,16 @@ public class ControlEntradasClientService
                 string content= await response.Content.ReadAsStringAsync();
                 dto = await response.Content.ReadFromJsonAsync<DTO_RespuestaEntrada<DTO_Entrada>>();
             }
+            else
+            {
+                dto.codigo = DTO_CodigoEntrada.NO_SUCESS;
+                dto.mensaje = $"Fallo la conexión \r\n {response.StatusCode}:{response.Content}";
+            }
         }
         catch (Exception ex)
         {
+            dto = new DTO_RespuestaEntrada<DTO_Entrada>();
+            dto.codigo = DTO_CodigoEntrada.NO_SUCESS;
             dto.mensaje = ex.Message;
         }
         return dto;
@@ -54,10 +61,16 @@ public class ControlEntradasClientService
             {
                 dto= new DTO_RespuestaEntrada();
             }
+            else
+            {
+                dto.codigo = DTO_CodigoEntrada.NO_SUCESS;
+                dto.mensaje = $"Fallo la conexión \r\n {response.StatusCode}:{response.Content}";
+            }
         } 
         catch (Exception ex)
         {
             dto = new DTO_RespuestaEntrada();
+            dto.codigo = DTO_CodigoEntrada.NO_SUCESS;
             dto.mensaje = ex.Message;
 
         }
@@ -93,6 +106,11 @@ public class ControlEntradasClientService
                 };
                 dto = JsonSerializer.Deserialize<DTO_RespuestaEntrada>(content, options);
                 return dto;
+            }
+            else
+            {
+                dto.codigo = DTO_CodigoEntrada.NO_SUCESS;
+                dto.mensaje = $"Fallo la conexión \r\n {response.StatusCode}:{response.Content}";
             }
 
             return new DTO_RespuestaEntrada() { codigo = DTO_CodigoEntrada.NO_SUCESS };

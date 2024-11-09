@@ -15,12 +15,12 @@
 
                 <!--botones de entrada -->
                 <VerticalStackLayout  Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Padding="10,0" Spacing="50">
-                    <Button x:Name="btnComenzarValidarHash" Margin="0,20,0,0" Text="Ingreso Código"  Clicked="btnValidar_Clicked" VerticalOptions="CenterAndExpand" MinimumHeightRequest="150">
+                    <Button x:Name="btnComenzarValidarHash" Margin="0,20,0,0" Text="Ingreso Código"  Clicked="btnValidarEntrada_Clicked" VerticalOptions="CenterAndExpand" MinimumHeightRequest="150">
                         <Button.ImageSource>
                             <FontImageSource Glyph="keyboard" FontFamily="AwesomeSolid"/>
                         </Button.ImageSource>
                     </Button>
-                    <Button x:Name="btnComenzarValidarQR" Margin="0,20,0,0" Text="Ingreso QR"  Clicked="btnValidar_Clicked" VerticalOptions="CenterAndExpand" MinimumHeightRequest="150">
+                    <Button x:Name="btnComenzarValidarQR" Margin="0,20,0,0" Text="Ingreso QR"  Clicked="btnValidarEntrada_Clicked" VerticalOptions="CenterAndExpand" MinimumHeightRequest="150">
                         <Button.ImageSource>
                             <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/>
                         </Button.ImageSource>
@@ -50,11 +50,7 @@
                     <VerticalStackLayout Padding="5,0" Spacing="10" VerticalOptions="StartAndExpand">
                         
                         <VerticalStackLayout Padding="5,0">
-                            <Image x:Name="Imagen" HorizontalOptions="Center">
-                                <Image.Source>
-                                    <FontImageSource FontFamily="AwesomeSolid" Glyph="check" Size="88" Color="#5f945e"/>
-                                </Image.Source>
-                            </Image>
+                            <Image x:Name="Imagen" HorizontalOptions="Center"/>
 
                             <VerticalStackLayout HorizontalOptions="Fill">
                                 <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
@@ -65,7 +61,8 @@
                             </VerticalStackLayout>
 
                             <Button x:Name="btnQuemarQR" Margin="0,10,0,0" Text="Confirmar ingreso" Clicked="btnQuemarQR_Clicked"
-                                    HorizontalOptions="FillAndExpand"><Button.ImageSource> <FontImageSource Glyph="check-to-slot" FontFamily="AwesomeSolid"/></Button.ImageSource>
+                                    HorizontalOptions="FillAndExpand"><Button.ImageSource> <FontImageSource Glyph="check-to-slot" 
+                                    FontFamily="AwesomeSolid"/></Button.ImageSource>
                             </Button>
                         </VerticalStackLayout>
 
@@ -80,7 +77,7 @@
                         </VerticalStackLayout>
 
                         <Button x:Name="btnValidarQR"  VerticalOptions="EndAndExpand" Margin="0,5,0,0" 
-                                Text="Siguiente QR" Clicked="btnValidar_Clicked" HorizontalOptions="FillAndExpand">
+                                Text="Siguiente QR" Clicked="btnValidarEntrada_Clicked" HorizontalOptions="FillAndExpand">
                             <Button.ImageSource> <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/> </Button.ImageSource>
                         </Button>
 
@@ -95,13 +92,13 @@
                 </Grid>
             </Grid>
    
-            <!--panel 3 esperando respueta-->
+            <!--panel 3 esperando respueta hace de telon de fondo cuando cambia de pagina o va a la camara-->
             <Grid RowDefinitions=".30*,.35*,.35*" x:Name="PanelEspera" IsVisible="false" 
                   HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Padding="15,0">
                 <VerticalStackLayout >
 
-                    <!--panel de mensajes-->
-                    <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
+                    <!--panel de mensajes de errores-->
+                    <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
 
                     <VerticalStackLayout VerticalOptions="CenterAndExpand" Padding="5,0" Spacing="10">
                         <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Esperando"/>

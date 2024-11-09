@@ -35,6 +35,7 @@ public class AuthControllerClientService
         }
         catch (Exception ex) 
         {
+            dto = new DTO_Respuesta<DTO_Endpoint>();
             dto.codigo = DTO_CodigoResultado.NoRespuesta;
             dto.mensaje = ex.Message+ "|"+ex?.StackTrace?.ToString();
         }

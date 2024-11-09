@@ -45,6 +45,9 @@ public partial class MainPage : ContentPage
                 break;
             case MENSAJE:
                 {
+                    //hacer el clear
+                    Mensaje.IsVisible = false;
+
                     PanelPrincipal.IsVisible = false;
                     PanelResultado.IsVisible = false;
                     PanelEspera.IsVisible = true;
@@ -74,7 +77,7 @@ public partial class MainPage : ContentPage
         HabilitarPanel(INICIO);
     }
 
-    private async void btnValidar_Clicked(object sender, EventArgs e)
+    private async void btnValidarEntrada_Clicked(object sender, EventArgs e)
     {
         HabilitarPanel(MENSAJE);
 
@@ -93,15 +96,28 @@ public partial class MainPage : ContentPage
             HabilitarPanel(INICIO);
             return;
         }
+                
+        var respuesta=await ValidarCodigo(codigo);
 
-        await ValidarCodigo(codigo);
+        #region
+        if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
+        {
+            //HabilitarPanel(MENSAJE);
+            //Mensaje.IsVisible = true;
+            //Mensaje.Show("Respuesta nula", "Error", SetIconos.ICONO_ERROR);
+            await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
+            return;
+        }
+        MostrarRespuesta(respuesta);
+
+        #endregion
 
         HabilitarPanel(PRINCIPAL);
     }
 
-    private async void btnValidarSalida_Clicked(object sender, EventArgs e)
+    private void btnValidarSalida_Clicked(object sender, EventArgs e)
     {
-        
+        //no implementado todavia
     }
 
     async Task<string> LeerQR()
@@ -119,7 +135,7 @@ public partial class MainPage : ContentPage
         return valor;
     }
 
-    async Task ValidarCodigo(string qr)
+    async Task<DTO_RespuestaEntrada<DTO_Entrada>> ValidarCodigo(string qr)
     {
         #region persistencia
         var contexto = await new ContextoService().CargarContextoAsync();
@@ -127,15 +143,8 @@ public partial class MainPage : ContentPage
 
         var respuesta = await new ControlEntradasClientService().ValidarEntrada(qr, contexto.Usuario);
 
-        #region
-        Mensaje.IsVisible = false;
-
-        if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
-            await MostrarError(respuesta?.codigo as int?, respuesta?.mensaje);
-
-        MostrarRespuesta(respuesta);
-        
-        #endregion
+        return respuesta;
+       
     }
 
     async Task<string?> LeerHash()
@@ -297,7 +306,7 @@ public partial class MainPage : ContentPage
 
         if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
         {
-            await MostrarError(respuesta?.codigo as int?, respuesta?.mensaje);
+            Mensaje.Show("Respuesta nula", "Error", SetIconos.ICONO_ERROR);
         }
         else
         {
@@ -307,22 +316,7 @@ public partial class MainPage : ContentPage
         }
     }
 
-    async private Task<bool> MostrarError(int? codigo, string? mensaje)
-    {
-        if (codigo == null)
-        {
-            Mensaje.Show("Respuesta nula", "Error", SetIconos.ICONO_ERROR);
-            Mensaje.IsVisible = true;
-            return false;
-        }
-        else if (codigo == (int?) DTO_CodigoEntrada.NO_SUCESS)
-        {
-            Mensaje.Show(mensaje, "Error en la conexión", SetIconos.ICONO_ERROR);
-            Mensaje.IsVisible = true;
-            return false;
-        }
-        return true;
-    }
+  
 
     private void btnVolver_Clicked(object sender, EventArgs e)
     {

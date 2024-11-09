@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="APPValidarBoleteriaNotions.Pages.MensajePage"
+             Title="MensajePage">
+    <ScrollView HorizontalOptions="Fill">
+
+        <Grid RowDefinitions=".70*,.30*">
+            <VerticalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+
+
+                <Image HorizontalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource x:Name="mensajeIcono" FontFamily="AwesomeSolid" Glyph="plug-circle-exclamation" Size="44"/>
+                    </Image.Source>
+                </Image>
+
+                <VerticalStackLayout Grid.Column="1"  HorizontalOptions="CenterAndExpand" >
+                    <Label FontSize="Title" Text=""/>
+
+                    <Label FontSize="Body" Text="¡Parece que no hay Internet!"/>
+                    <Label FontSize="Body" Text="Revisa tu conexión para seguir  navegando."/>
+
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" HorizontalOptions="CenterAndExpand">
+                <Button x:Name="btnReintentar" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Reintentar" Clicked="btnReintentar_Clicked" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
