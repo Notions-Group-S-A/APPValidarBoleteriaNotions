@@ -4,6 +4,9 @@
     {
         Success = 100,
         Error = 500,
-        NoRespuesta = 700
+        //
+        RESPUESTA_NO_COMPLETA = 1600,
+        ERROR_RESPUESTA = 1700,
+        FALLO_RED = 1800,
     }
 }

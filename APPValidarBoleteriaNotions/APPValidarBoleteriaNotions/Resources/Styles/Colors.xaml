@@ -19,8 +19,9 @@
     <Color x:Key="PrimaryDark">#1FD6FF</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#1FFFDF</Color>           <!-- Fondo neutro -->
-    <Color x:Key="SecondaryDarkText">#3D1FFF</Color>
-    <Color x:Key="Tertiary">#1F48FF</Color>
+    <Color x:Key="SecondaryDarkText">white</Color>
+    <!-- Fondo neutro -->
+    <Color x:Key="Tertiary">#1F48FF</Color> <!-- Fondo neutro -->
 
     <!--<AppThemeBinding x:Key="ThemedIconColor" Light="{StaticResource Primary}"  Dark="{StaticResource PrimaryDarkk}" />-->
 

@@ -13,7 +13,7 @@
 
     <Shell.FlyoutHeader>
         <VerticalStackLayout>
-            <Image Source="app_logo.png" WidthRequest="100"></Image>
+            <Image Source="app_logo.png" WidthRequest="250"></Image>
             <Label Text="Validar Entrada" Style="{StaticResource FlyoutHeaderLabelStyle}" FontSize="Title" HorizontalTextAlignment="Center"></Label>
         </VerticalStackLayout>
     </Shell.FlyoutHeader>

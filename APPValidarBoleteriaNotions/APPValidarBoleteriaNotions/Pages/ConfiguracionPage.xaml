@@ -38,15 +38,16 @@
                     <VerticalStackLayout Grid.Row="1">
                         <!--formulario-->
                         <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
-                            <RoundRectangle BackgroundColor="#EDEBF6" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
+                            <RoundRectangle BackgroundColor="Transparent" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
                             <Image HorizontalOptions="Center"><Image.Source><FontImageSource FontFamily="AwesomeSolid" Glyph="keyboard"  /></Image.Source></Image>
                             <Entry Grid.Column="1" x:Name="enEnte" Keyboard="Numeric" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
                         </Grid>
 
                         <!--barra de botones-->
                         <Grid HorizontalOptions="Center">
-                            <Button x:Name="btnSincronizar" Margin="0,20,0,0" HeightRequest="60" WidthRequest="200"  Text="Sincronizar" Clicked="btnSincronizar_Clicked">
-                                <Button.ImageSource><FontImageSource Glyph="&#xf2f1;" FontFamily="AwesomeSolid"/></Button.ImageSource></Button>
+                            <Button x:Name="btnSincronizar" Margin="20" HeightRequest="60" WidthRequest="250"  Text="Sincronizar" Clicked="btnSincronizar_Clicked">
+                                <Button.ImageSource>
+                                    <FontImageSource Glyph="share" FontFamily="AwesomeSolid" /></Button.ImageSource></Button>
                         </Grid>
                     </VerticalStackLayout>
                 </Grid>

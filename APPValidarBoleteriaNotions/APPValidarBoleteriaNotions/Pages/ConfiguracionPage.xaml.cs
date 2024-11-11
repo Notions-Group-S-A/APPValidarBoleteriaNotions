@@ -9,13 +9,13 @@ namespace APPValidarBoleteriaNotions.Pages;
 
 public partial class ConfiguracionPage : ContentPage
 {
-    AuthControllerClientService _authControllerClientService;
+    AppValidarEntradaService _authControllerClientService;
 
     public ConfiguracionPage()
 	{
 		InitializeComponent();
 
-        _authControllerClientService = new AuthControllerClientService();
+        _authControllerClientService = new AppValidarEntradaService();
 
     }
 
@@ -45,15 +45,15 @@ public partial class ConfiguracionPage : ContentPage
 
             if (respuesta.codigo == DTO_CodigoResultado.Success)
             {
-                string? enteT = respuesta.datos?.Ente;
-                string? endpoint = respuesta.datos?.Endpoint;
+                //string? enteT = respuesta.datos?.Ente;
+                string? endpoint = respuesta.datos;//?.Endpoint;
 
                 //evaluo el respuesta
-                if (string.IsNullOrEmpty(enteT) == false && string.IsNullOrEmpty(endpoint) == false)
+                if (string.IsNullOrEmpty(endpoint) == false)
                 {
                     #region persistencia
                     var contexto = await new ContextoService().CargarContextoAsync();
-                    contexto.Ente = enteT;
+                    contexto.Ente = ente;
                     contexto.URLEndPoint = endpoint;
                     contexto.Sincronizado = true;
                     await new ContextoService().GuardarContextoAsync(contexto);
@@ -70,13 +70,24 @@ public partial class ConfiguracionPage : ContentPage
                 }
                 else
                 {
-                    Mensaje.Show($"Se han devuelto algunos campos nulos: Ente:{enteT}, EndPoint:{endpoint}", "Error en la Respuesta", SetIconos.ICONO_CONEXION);
-                    Mensaje.IsVisible = true;
+                   Mensaje.Show($"Se han devuelto algunos campos nulos: Ente:{ente}, EndPoint:{endpoint}", "Error en la Respuesta", SetIconos.ICONO_ERROR);
+                   Mensaje.IsVisible = true;
                 }
             }
             else
             {
-                Mensaje.Show($"{respuesta.mensaje}", "Error en la conexión", SetIconos.ICONO_CONEXION);
+                if (respuesta.codigo == DTO_CodigoResultado.FALLO_RED)
+                {
+                    Mensaje.Show($"{respuesta.mensaje}", "Error en la Red", SetIconos.ICONO_CONEXION);
+                }
+                else if (respuesta.codigo == DTO_CodigoResultado.ERROR_RESPUESTA)
+                {
+                    Mensaje.Show($"{respuesta.mensaje}", "Error en la Respuesta", SetIconos.ICONO_ERROR);
+                }
+                else
+                {
+                    Mensaje.Show($"{respuesta.mensaje}", "Error al sincronizar", SetIconos.ICONO_ERROR);
+                }
                 Mensaje.IsVisible = true;
             }
         }

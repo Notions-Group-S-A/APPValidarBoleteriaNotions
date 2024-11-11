@@ -24,21 +24,21 @@ public partial class LoginPage : ContentPage
 
         if (string.IsNullOrEmpty(usuario) == true || string.IsNullOrEmpty(clave) == true)
         {
-            Mensaje.Show("", "Complete los campos", SetIconos.ICONO_ERROR);
+            Mensaje.Show("Complete usuario/contraseña", "Error!", SetIconos.ICONO_ERROR);
             Mensaje.IsVisible = true;
             return;
         }
 
         if (contexto == null)
         {
-            Mensaje.Show("", "Error en la persistencia", SetIconos.ICONO_ERROR);
+            Mensaje.Show("Error al guardar las credenciales en el dispositivo", "Error", SetIconos.ICONO_ERROR);
             Mensaje.IsVisible = true;
             return;
         }
 
         var respuesta=await new ControlEntradasClientService() {URL_Base= contexto?.URLEndPoint }.Login(usuario, clave);
 
-        if (respuesta.codigo == DTO_CodigoEntrada.Valido)
+        if (respuesta!=null && respuesta.codigo == DTO_CodigoEntrada.Valido)
         {
             #region persistencia
             contexto.IsAuthenticated = true;

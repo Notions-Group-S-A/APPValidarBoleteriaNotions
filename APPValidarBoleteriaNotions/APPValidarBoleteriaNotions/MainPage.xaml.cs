@@ -107,11 +107,22 @@ public partial class MainPage : ContentPage
         var respuesta=await ValidarCodigo(codigo);
 
         #region
-        if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
+        if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.FALLO_RED)
         {
             await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
             return;
         }
+        else if (respuesta.codigo == DTO_CodigoEntrada.RESPUESTA_NO_COMPLETA)
+        {
+            await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+            return;
+        }
+        else if (respuesta.codigo == DTO_CodigoEntrada.ERROR_RESPUESTA)
+        {
+            await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+            return;
+        }
+                
         MostrarRespuesta(respuesta);
 
         #endregion
@@ -127,26 +138,18 @@ public partial class MainPage : ContentPage
     async Task<string> LeerQR()
     {
         var tcs = new TaskCompletionSource<List<BarcodeResult>>();
-
         var pageParams = new Dictionary<string, object> { { "Parametro", tcs } };
-
         await Shell.Current.GoToAsync($"{nameof(BarcodePage)}", pageParams);
 
         List<BarcodeResult> barCodes = await tcs.Task;
-
         string valor = barCodes[0].DisplayValue;
-
         return valor;
     }
 
     async Task<DTO_RespuestaEntrada<DTO_Entrada>> ValidarCodigo(string qr)
     {
-        #region persistencia
         var contexto = await _contextoService.CargarContextoAsync();
-        #endregion
-
         var respuesta = await _controlEntradasClientService.ValidarEntrada(qr, contexto.Usuario);
-
         return respuesta;
     }
 
@@ -155,13 +158,9 @@ public partial class MainPage : ContentPage
         var tcs = new TaskCompletionSource<List<HashResult>>();
 
         var pageParams = new Dictionary<string, object> { { "Parametro", tcs } };
-
         await Shell.Current.GoToAsync($"{nameof(HashPage)}", pageParams);
-
         List<HashResult> hashCodes = await tcs.Task;
-
         string? valor = null;
-
         if (hashCodes != null && hashCodes.Count > 0)
             valor = hashCodes[0].DisplayValue;
 
@@ -185,9 +184,7 @@ public partial class MainPage : ContentPage
             Color = Microsoft.Maui.Graphics.Color.FromArgb("#5f945e")
         };
 
-        #region quemar
         var respuesta2 = await new ControlEntradasClientService().QuemarEntrada(idRelacionCarrito, usuario);
-        #endregion
     }
 
     private void MostrarRespuesta(DTO_RespuestaEntrada<DTO_Entrada> respuesta)
@@ -229,7 +226,6 @@ public partial class MainPage : ContentPage
             lbFuncion.Text = respuesta?.datos?.Funcion;
             lbFecha.Text = respuesta?.datos?.Funcion_Fecha;
             lbSector.Text = respuesta?.datos?.Sector;
-            lbSector.TextColor = Colors.Green;
             lbUbicacion.Text = respuesta?.datos?.Ubicacion;
             lbTextoEntrada.Text = respuesta?.datos?.Texto_Entrada;
             lbNombreEntrada.Text = respuesta?.datos?.Nombre_Entrada;
@@ -254,7 +250,6 @@ public partial class MainPage : ContentPage
             lbFuncion.Text = respuesta?.datos?.Funcion;
             lbFecha.Text = respuesta?.datos?.Funcion_Fecha;
             lbSector.Text = respuesta?.datos?.Sector;
-            lbSector.TextColor = Colors.Green;
             lbUbicacion.Text = respuesta?.datos?.Ubicacion;
             lbTextoEntrada.Text = respuesta?.datos?.Texto_Entrada;
             lbNombreEntrada.Text = respuesta?.datos?.Nombre_Entrada;
@@ -278,7 +273,6 @@ public partial class MainPage : ContentPage
             lbEvento.Text = respuesta?.datos?.Evento;
             lbFuncion.Text = respuesta?.datos?.Funcion;
             lbSector.Text = respuesta?.datos?.Sector;
-            lbSector.TextColor = Colors.Green;
 
             idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito ?? 0;
             #endregion
@@ -313,9 +307,19 @@ public partial class MainPage : ContentPage
 
         var respuesta = await _controlEntradasClientService.QuemarEntrada(idEntrada, contexto.Usuario);
 
-        if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
+        if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.FALLO_RED)
         {
             await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
+            return;
+        }
+        else if (respuesta.codigo == DTO_CodigoEntrada.RESPUESTA_NO_COMPLETA)
+        {
+            await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+            return;
+        }
+        else if (respuesta.codigo == DTO_CodigoEntrada.ERROR_RESPUESTA)
+        {
+            await DisplayAlert( "Error", $"{respuesta.mensaje}", "Cerrar");
             return;
         }
         else

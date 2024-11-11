@@ -8,7 +8,7 @@
     <ScrollView>
         <!--<VerticalStackLayout VerticalOptions="Fill">-->
 
-        <Grid>
+        <Grid Padding="20,20" >
             <!--panel 1 menu principal-->
             <Grid RowDefinitions=".55*,.45*"   x:Name="PanelPrincipal"  IsVisible="true"  HorizontalOptions="FillAndExpand" 
                   VerticalOptions="FillAndExpand" Padding="10,0">
@@ -76,20 +76,26 @@
                             <Label x:Name="lbNombreEntrada" HorizontalTextAlignment="Center"  Text="" HorizontalOptions="Center" FontSize="Title" />
                         </VerticalStackLayout>
 
-                        <Button x:Name="btnValidarQR"  VerticalOptions="EndAndExpand" Margin="0,5,0,0" 
-                                Text="Siguiente QR" Clicked="btnValidarEntrada_Clicked" HorizontalOptions="FillAndExpand">
-                            <Button.ImageSource> <FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/> </Button.ImageSource>
-                        </Button>
+                        
 
                     </VerticalStackLayout>
                 </Grid>
 
                 <!-- Volver -->
-                <Grid Grid.Row="1" VerticalOptions="EndAndExpand">
-                    <VerticalStackLayout Padding="5,0" Spacing="10">
-                        <Button x:Name="btnVolver" Margin="0,20,0,0" HeightRequest="60" Text="Volver" Clicked="btnVolver_Clicked" VerticalOptions="CenterAndExpand"> <Button.ImageSource><FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/></Button.ImageSource></Button>
-                    </VerticalStackLayout>
+             
+                <Grid  Grid.Row="1" ColumnDefinitions=".50*,.50*" Padding="10">
+
+                    <Button Grid.Column="0" x:Name="btnVolver" Margin="5"  Padding="5"
+                                    MinimumHeightRequest="80" HeightRequest="100" Text="Volver"  Clicked="btnVolver_Clicked" > 
+                        <Button.ImageSource><FontImageSource Glyph="backward" FontFamily="AwesomeSolid"/></Button.ImageSource></Button>
+
+                    <Button Grid.Column="1" x:Name="btnValidarQR" Margin="5" Padding="5"
+                              MinimumHeightRequest="80" HeightRequest="100" Text=">> QR" 
+                                Clicked="btnValidarEntrada_Clicked" HorizontalOptions="FillAndExpand">
+                        <Button.ImageSource><FontImageSource Glyph="qrcode" FontFamily="AwesomeSolid"/></Button.ImageSource>
+                    </Button>
                 </Grid>
+             
             </Grid>
    
             <!--panel 3 esperando respueta hace de telon de fondo cuando cambia de pagina o va a la camara-->

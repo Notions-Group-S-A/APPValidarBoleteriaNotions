@@ -7,6 +7,8 @@
         Quemada = 400,        //usada  
         Inexistente = 500,    //no encontrada 
         //
-        NO_SUCESS=600,
+        RESPUESTA_NO_COMPLETA=1600,
+        ERROR_RESPUESTA = 1700,
+        FALLO_RED = 1800,
     }
 }
