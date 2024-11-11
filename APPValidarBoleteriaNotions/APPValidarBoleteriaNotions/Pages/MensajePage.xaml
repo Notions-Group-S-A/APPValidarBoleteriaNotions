@@ -2,31 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="APPValidarBoleteriaNotions.Pages.MensajePage"
-             Title="MensajePage">
+             Title="Mensaje de error"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+    
     <ScrollView HorizontalOptions="Fill">
 
         <Grid RowDefinitions=".70*,.30*">
-            <VerticalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <VerticalStackLayout Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
 
 
                 <Image HorizontalOptions="Center">
                     <Image.Source>
-                        <FontImageSource x:Name="mensajeIcono" FontFamily="AwesomeSolid" Glyph="plug-circle-exclamation" Size="44"/>
+                        <FontImageSource x:Name="mensajeIcono" FontFamily="AwesomeSolid" Glyph="plug-circle-exclamation" Size="44" 
+                                         Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
                     </Image.Source>
                 </Image>
 
-                <VerticalStackLayout Grid.Column="1"  HorizontalOptions="CenterAndExpand" >
-                    <Label FontSize="Title" Text=""/>
-
-                    <Label FontSize="Body" Text="¡Parece que no hay Internet!"/>
-                    <Label FontSize="Body" Text="Revisa tu conexión para seguir  navegando."/>
-
-
+                <VerticalStackLayout Padding="10,30,10,10"  HorizontalOptions="CenterAndExpand" >
+                    <Label FontSize="Title" Padding="10,30,10,10"  Text="¡Parece que no hay Internet!" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+                    <Label FontSize="Title" Padding="10,30,10,10" Text="Revisa tu conexión para seguir navegando." HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
+            
             <VerticalStackLayout Grid.Row="1" HorizontalOptions="CenterAndExpand">
-                <Button x:Name="btnReintentar" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Reintentar" Clicked="btnReintentar_Clicked" />
+                <Button x:Name="btnReintentar" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Text="Reintentar" Clicked="btnReintentar_Clicked" >
+                    <Button.ImageSource><FontImageSource Glyph="repeat" FontFamily="AwesomeSolid"/></Button.ImageSource>
+                </Button>
             </VerticalStackLayout>
+            
         </Grid>
     </ScrollView>
 </ContentPage>

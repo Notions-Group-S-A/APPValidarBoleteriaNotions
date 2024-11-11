@@ -8,30 +8,22 @@
             BackgroundColor="#000000">
     
     <Grid RowDefinitions="1*,3*,1*">
-        <gv:CameraView  
-            Grid.Row="0" Grid.RowSpan="3"
-            HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
-            OnDetected="CameraView_OnDetected" 
-            TorchOn="False" 
-            VibrationOnDetected="True" 
-            ScanInterval="50" 
-            x:Name="Camera" />
+        <gv:CameraView   Grid.Row="0" Grid.RowSpan="3" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+            OnDetected="CameraView_OnDetected" TorchOn="False" VibrationOnDetected="True" ScanInterval="50" x:Name="Camera" />
 
-        <Grid
-			Grid.Row="0"
-			BackgroundColor="#aa000000">
+        <Grid Grid.Row="0" BackgroundColor="#aa000000">
             <Label x:Name="ResultLabel" Grid.Row="2" Text="Escaneá el QR de la Entrada" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" />
         </Grid>
 
-        <Grid
-			Grid.Row="3"
-			BackgroundColor="#aa000000"
-			Padding="20"
-			ColumnDefinitions="Auto,*,Auto">
+        <Grid Grid.Row="3" BackgroundColor="#aa000000" Padding="20" ColumnDefinitions="Auto,*,Auto">
 
-            <Button Text="🔄️" Grid.Column="0" BackgroundColor="#aa000000" CornerRadius="8" BorderColor="Black" Clicked="SwitchCameraButton_Clicked" />
+            <Button IsVisible="False" Clicked="SwitchCameraButton_Clicked" Background="#aa000000" CornerRadius="8">
+                <Button.ImageSource> <FontImageSource Glyph="rotate" FontFamily="AwesomeSolid"/></Button.ImageSource>
+            </Button>
 
-            <Button Text="💡" Grid.Column="2" BackgroundColor="#aa000000" CornerRadius="8" BorderColor="Black" Clicked="TorchButton_Clicked" />
+            <Button Grid.Column="2" Clicked="TorchButton_Clicked" Background="#aa000000" CornerRadius="8">
+                <Button.ImageSource><FontImageSource Glyph="lightbulb" FontFamily="AwesomeSolid"/></Button.ImageSource>
+            </Button>
         </Grid>
     </Grid>
 

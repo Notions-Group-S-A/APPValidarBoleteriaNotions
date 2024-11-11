@@ -12,9 +12,16 @@ namespace APPValidarBoleteriaNotions;
 
 public partial class MainPage : ContentPage
 {
+
+    ContextoService _contextoService;
+    ControlEntradasClientService _controlEntradasClientService;
+
     public MainPage()
     {
         InitializeComponent();
+
+        _contextoService = new ContextoService();
+        _controlEntradasClientService = new ControlEntradasClientService();
     }
 
     public const int INICIO = 1;
@@ -46,7 +53,7 @@ public partial class MainPage : ContentPage
             case MENSAJE:
                 {
                     //hacer el clear
-                    Mensaje.IsVisible = false;
+                    //Mensaje.IsVisible = false;
 
                     PanelPrincipal.IsVisible = false;
                     PanelResultado.IsVisible = false;
@@ -87,7 +94,7 @@ public partial class MainPage : ContentPage
             codigo = await LeerQR();
         }
 
-        else if (/*sender == btnValidarHash || */sender == btnComenzarValidarHash)
+        else if (sender == btnComenzarValidarHash)
         {
             codigo = await LeerHash();
         }
@@ -102,9 +109,6 @@ public partial class MainPage : ContentPage
         #region
         if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
         {
-            //HabilitarPanel(MENSAJE);
-            //Mensaje.IsVisible = true;
-            //Mensaje.Show("Respuesta nula", "Error", SetIconos.ICONO_ERROR);
             await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
             return;
         }
@@ -138,13 +142,12 @@ public partial class MainPage : ContentPage
     async Task<DTO_RespuestaEntrada<DTO_Entrada>> ValidarCodigo(string qr)
     {
         #region persistencia
-        var contexto = await new ContextoService().CargarContextoAsync();
+        var contexto = await _contextoService.CargarContextoAsync();
         #endregion
 
-        var respuesta = await new ControlEntradasClientService().ValidarEntrada(qr, contexto.Usuario);
+        var respuesta = await _controlEntradasClientService.ValidarEntrada(qr, contexto.Usuario);
 
         return respuesta;
-       
     }
 
     async Task<string?> LeerHash()
@@ -194,6 +197,20 @@ public partial class MainPage : ContentPage
         string glyph = "";
         string color = "";
 
+        #region clear
+        lbEntradaLabel.Text = "";
+        lbEntradaNumero.Text = "";
+        lbEntradaMensaje.Text = "";
+        lbEvento.Text = "";
+        lbFuncion.Text = "";
+        lbFecha.Text = "";
+        lbSector.Text = "";
+        lbUbicacion.Text = "";
+        lbTextoEntrada.Text = "";
+        lbNombreEntrada.Text = "";
+        btnQuemarQR.IsVisible = false;
+        #endregion
+
         #region icono
         if (respuesta?.codigo == DTO_CodigoEntrada.Valido) 
         {
@@ -206,7 +223,6 @@ public partial class MainPage : ContentPage
             lbEntradaNumero.TextColor = Microsoft.Maui.Graphics.Color.FromArgb("#11b2cf");
 
             lbEntradaMensaje.Text = $"Ingresos:{respuesta?.datos?.Ingreso_Cantidad} - {respuesta?.datos?.Ingreso_Fecha}";
-            //lbEntradaMensaje.Style = (Style)Application.Current.Resources["LabelDefaultStyle"];
             lbEntradaMensaje.ClearValue(Label.TextColorProperty);
 
             lbEvento.Text = respuesta?.datos?.Evento;
@@ -267,21 +283,14 @@ public partial class MainPage : ContentPage
             idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito ?? 0;
             #endregion
         }
-        else if (respuesta?.codigo == DTO_CodigoEntrada.Inexistente)//no encontrada
+        else if (respuesta?.codigo == DTO_CodigoEntrada.Inexistente)
         {
             #region no encontrada
             glyph = "circle-xmark";
             color = "#CC0000";
 
-            lbEntradaLabel.Text = "";
-            lbEntradaNumero.Text = "";
             lbEntradaMensaje.Text = $"{respuesta?.mensaje}";
             lbEntradaMensaje.TextColor = Colors.Red;
-
-            lbEvento.Text = "";
-            lbFuncion.Text = "";
-            lbSector.Text = "";
-            lbSector.Text = "";
             #endregion
         }
         #endregion
@@ -299,14 +308,15 @@ public partial class MainPage : ContentPage
     async private void btnQuemarQR_Clicked(object sender, EventArgs e)
     {
         #region persistencia
-        var contexto = await new ContextoService().CargarContextoAsync();
+        var contexto = await _contextoService.CargarContextoAsync();
         #endregion
 
-        var respuesta = await new ControlEntradasClientService().QuemarEntrada(idEntrada, contexto.Usuario);
+        var respuesta = await _controlEntradasClientService.QuemarEntrada(idEntrada, contexto.Usuario);
 
         if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.NO_SUCESS)
         {
-            Mensaje.Show("Respuesta nula", "Error", SetIconos.ICONO_ERROR);
+            await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
+            return;
         }
         else
         {
@@ -315,14 +325,9 @@ public partial class MainPage : ContentPage
             lbSector.Text = "ok!";
         }
     }
-
-  
-
+     
     private void btnVolver_Clicked(object sender, EventArgs e)
     {
         HabilitarPanel(INICIO);
-        
-        //var result = new List<HashResult>();
-        //await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
     }
 }

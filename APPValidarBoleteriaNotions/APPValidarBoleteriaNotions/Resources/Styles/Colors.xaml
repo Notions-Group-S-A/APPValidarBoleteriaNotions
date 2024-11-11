@@ -22,6 +22,8 @@
     <Color x:Key="SecondaryDarkText">#3D1FFF</Color>
     <Color x:Key="Tertiary">#1F48FF</Color>
 
+    <!--<AppThemeBinding x:Key="ThemedIconColor" Light="{StaticResource Primary}"  Dark="{StaticResource PrimaryDarkk}" />-->
+
     <!-- deafault
     
     <Color x:Key="Primary">#512BD4</Color>

@@ -43,7 +43,7 @@
             </Grid>
 
             <!--panel 2 resultado de la validación-->
-            <Grid RowDefinitions=".80*,.20*" x:Name="PanelResultado" IsVisible="false" HorizontalOptions="CenterAndExpand" Padding="15,0">
+            <Grid RowDefinitions=".80*,.20*" x:Name="PanelResultado" IsVisible="false" HorizontalOptions="CenterAndExpand" Padding="20,20">
                        
                 <!-- resultados de la entrada -->
                 <Grid Grid.Row="0">
@@ -94,18 +94,28 @@
    
             <!--panel 3 esperando respueta hace de telon de fondo cuando cambia de pagina o va a la camara-->
             <Grid RowDefinitions=".30*,.35*,.35*" x:Name="PanelEspera" IsVisible="false" 
-                  HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Padding="15,0">
-                <VerticalStackLayout >
+                  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Padding="15,0">
+                
+                <VerticalStackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
 
-                    <!--panel de mensajes de errores-->
+                    <!--panel de mensajes de errores
                     <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
+                    -->
+                    
+                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource x:Name="mensajeIcono" FontFamily="AwesomeSolid" Glyph="clock-rotate-left" Size="44" 
+                                             Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                        </Image.Source>
+                    </Image>
 
-                    <VerticalStackLayout VerticalOptions="CenterAndExpand" Padding="5,0" Spacing="10">
-                        <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="Esperando"/>
-                        <Label  HorizontalOptions="Center" FontAttributes="Bold" FontFamily="bold" FontSize="Title" Text="respuesta"/>
+                    <VerticalStackLayout Padding="10,30,10,10"  HorizontalOptions="CenterAndExpand" >
+                        <Label FontSize="Title" Padding="10,30,10,10"  Text="Espere un" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
+                        <Label FontSize="Title" Padding="10,30,10,10" Text="Momento" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"/>
                     </VerticalStackLayout>
 
                 </VerticalStackLayout>
+                
             </Grid>
         </Grid>
 

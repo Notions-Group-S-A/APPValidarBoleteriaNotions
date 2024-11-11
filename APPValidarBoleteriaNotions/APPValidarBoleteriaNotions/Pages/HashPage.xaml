@@ -7,7 +7,7 @@
 
     <ScrollView HorizontalOptions="CenterAndExpand"  >
 
-        <Grid RowDefinitions=".20*,.50*,.30*" >
+        <Grid RowDefinitions=".20*,.50*,.30*" Padding="20,20" >
 
 
             <VerticalStackLayout Grid.Row="0">
@@ -15,6 +15,8 @@
                 <Label Text="Validar la Entrada manualmente" Margin="0,30,0,0" FontSize="Title" 
                    HorizontalTextAlignment="Center"
                    VerticalOptions="Start" HorizontalOptions="Center"/>
+                <Label Text="Ingrese el hash de la entrada" Margin="0,30,0,0" FontSize="Large" 
+                       HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
                 
             </VerticalStackLayout>
 

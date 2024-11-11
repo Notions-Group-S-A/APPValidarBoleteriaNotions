@@ -14,8 +14,7 @@
     <Shell.FlyoutHeader>
         <VerticalStackLayout>
             <Image Source="app_logo.png" WidthRequest="100"></Image>
-            <Label Text="Validar Entrada" Style="{StaticResource FlyoutHeaderLabelStyle}" 
-               FontSize="Title" HorizontalTextAlignment="Center"></Label>
+            <Label Text="Validar Entrada" Style="{StaticResource FlyoutHeaderLabelStyle}" FontSize="Title" HorizontalTextAlignment="Center"></Label>
         </VerticalStackLayout>
     </Shell.FlyoutHeader>
 
@@ -32,19 +31,19 @@
 
         <ShellContent Title="Inicio" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" >
             <ShellContent.Icon>
-                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" />
+                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
             </ShellContent.Icon>
         </ShellContent>
 
-        <ShellContent Title="Configuracion" ContentTemplate="{DataTemplate page:ConfiguracionPage}" Route="ConfiguracionPage">
+        <ShellContent Title="Configuracion" ContentTemplate="{DataTemplate page:ConfiguracionPage}"  Route="ConfiguracionPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="gear" FontFamily="AwesomeSolid" />
+                <FontImageSource Glyph="gear" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
             </ShellContent.Icon>
         </ShellContent>
 
         <ShellContent Title="Cerrar" ContentTemplate="{DataTemplate page:LoginPage}" Route="LoginPage">
             <ShellContent.Icon>
-                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" />
+                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
             </ShellContent.Icon>
         </ShellContent>
 

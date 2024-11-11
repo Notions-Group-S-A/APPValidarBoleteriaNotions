@@ -9,10 +9,15 @@ namespace APPValidarBoleteriaNotions.Pages;
 
 public partial class ConfiguracionPage : ContentPage
 {
-	public ConfiguracionPage()
+    AuthControllerClientService _authControllerClientService;
+
+    public ConfiguracionPage()
 	{
 		InitializeComponent();
-	}
+
+        _authControllerClientService = new AuthControllerClientService();
+
+    }
 
     async protected override void OnAppearing()
     {
@@ -36,7 +41,7 @@ public partial class ConfiguracionPage : ContentPage
                 return;
             }
 
-            var respuesta = await new AuthControllerClientService().GetEnpoint(ente);
+            var respuesta = await _authControllerClientService.GetEnpoint(ente);
 
             if (respuesta.codigo == DTO_CodigoResultado.Success)
             {
