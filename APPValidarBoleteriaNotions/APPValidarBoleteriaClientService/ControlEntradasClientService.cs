@@ -8,12 +8,13 @@ namespace APPValidarBoleteriaClientService;
 public class ControlEntradasClientService
 {
     #region parametros
-    public string URL_Base { get; set; } = "http://desa-api.boleteriadigital.com.ar";
+    public string URL_Base { get; set; } = "http://desa-api.boleteriadigital.com.ar/api/ControlEntradas";
     #endregion
 
     async public Task<DTO_RespuestaEntrada<DTO_Entrada>> ValidarEntrada(string codigo, string usuario)
     {
-        string resource = $"/api/ControlEntradas/Get?Codigo={codigo}&Usuario={usuario}";
+        //string resource = $"/api/ControlEntradas/Get?Codigo={codigo}&Usuario={usuario}";
+        string resource = $"/Get?Codigo={codigo}&Usuario={usuario}";
         string url = $"{URL_Base}{resource}";
 
         var dto = new DTO_RespuestaEntrada<DTO_Entrada>();
@@ -56,7 +57,8 @@ public class ControlEntradasClientService
     {
         var dto = new DTO_RespuestaEntrada();
 
-        string resource = $"/api/ControlEntradas/QuemarEntrada/{id}?Usuario={usuario}";
+        //string resource = $"/api/ControlEntradas/QuemarEntrada/{id}?Usuario={usuario}";
+        string resource = $"/QuemarEntrada/{id}?Usuario={usuario}";
         string url = $"{URL_Base}{resource}";
 
         try
@@ -96,7 +98,7 @@ public class ControlEntradasClientService
         var dto = new DTO_RespuestaEntrada();
 
         //string resource = $"/api/ControlEntradas/Login?Usuario={usuario}&Clave={clave}";
-        string resource = $"Login?Usuario={usuario}&Clave={clave}";
+        string resource = $"/Login?Usuario={usuario}&Clave={clave}";
         string url = $"{URL_Base}{resource}";
         //$"http://desa-api.boleteriadigital.com.ar/api/ControlEntradas/Login?Usuario={usuario}&Clave={clave}";
         //$"

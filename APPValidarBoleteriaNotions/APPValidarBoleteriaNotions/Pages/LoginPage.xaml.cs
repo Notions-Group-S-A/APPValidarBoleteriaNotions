@@ -36,7 +36,7 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        var respuesta=await new ControlEntradasClientService() {URL_Base= contexto?.URLEndPoint }.Login(usuario, clave);
+       var respuesta=await new ControlEntradasClientService() {URL_Base= contexto?.URLEndPoint }.Login(usuario, clave);
 
         if (respuesta!=null && respuesta.codigo == DTO_CodigoEntrada.Valido)
         {
