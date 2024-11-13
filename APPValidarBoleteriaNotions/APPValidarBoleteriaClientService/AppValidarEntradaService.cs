@@ -8,9 +8,9 @@ public class AppValidarEntradaService
 {
     //
     //desarrollo
-    //string urlBase = "http://desa-apigateway.boleteriadigital.com.ar";
+    string urlBase = "http://desa-apigateway.boleteriadigital.com.ar";
     //producción
-    string urlBase = "https://validarentrada.boleteriadigital.com.ar";
+    //string urlBase = "https://validarentrada.boleteriadigital.com.ar";
 
     async public Task<DTO_Respuesta<string>> GetEnpoint(string ente)
     {
