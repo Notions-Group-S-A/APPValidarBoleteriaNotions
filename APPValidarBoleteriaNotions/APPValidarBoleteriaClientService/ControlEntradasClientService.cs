@@ -34,7 +34,7 @@ public class ControlEntradasClientService
             }
 
             dto.codigo = DTO_CodigoEntrada.ERROR_RESPUESTA;
-            dto.mensaje = $"Fallo la conexión \r\n {response.StatusCode}:{response.Content}";
+            dto.mensaje = $"Falló la conexión \r\n {response.StatusCode}:{response.Content}";
             return dto;
         }
         catch (System.Net.Http.HttpRequestException ex)
@@ -74,7 +74,7 @@ public class ControlEntradasClientService
             }
 
             dto.codigo = DTO_CodigoEntrada.ERROR_RESPUESTA;
-            dto.mensaje = $"Fallo la conexión \r\n {response.StatusCode}:{response.Content}";
+            dto.mensaje = $"Falló la conexión \r\n {response.StatusCode}:{response.Content}";
             return dto;
         }
         catch (System.Net.Http.HttpRequestException ex)
@@ -121,7 +121,7 @@ public class ControlEntradasClientService
             }
 
             dto.codigo = DTO_CodigoEntrada.ERROR_RESPUESTA;
-            dto.mensaje = $"Fallo la conexión \r\n {response.StatusCode}:{response.Content}";
+            dto.mensaje = $"Falló la conexión \r\n {response.StatusCode}:{response.Content}";
             return dto;
         }
         catch (System.Net.Http.HttpRequestException ex)
