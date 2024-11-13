@@ -272,7 +272,12 @@ public partial class MainPage : ContentPage
 
             lbEvento.Text = respuesta?.datos?.Evento;
             lbFuncion.Text = respuesta?.datos?.Funcion;
+            lbFecha.Text = respuesta?.datos?.Funcion_Fecha;
             lbSector.Text = respuesta?.datos?.Sector;
+            lbUbicacion.Text = respuesta?.datos?.Ubicacion;
+            lbTextoEntrada.Text = respuesta?.datos?.Texto_Entrada;
+            lbNombreEntrada.Text = respuesta?.datos?.Nombre_Entrada;
+            btnQuemarQR.IsVisible = false;
 
             idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito ?? 0;
             #endregion

@@ -22,8 +22,8 @@
                 <Image Aspect="AspectFit" HeightRequest="128" Source="app_logo.png"/>
 
                 <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label FontAttributes="Bold" FontSize="Title" Text="Validar"/>
-                    <Label FontAttributes="Bold" FontFamily="bold" Text="Entrada" FontSize="Title" TextColor="#11b2cf"/>
+                    <Label FontAttributes="Bold" FontSize="Title"/>
+                    <Label FontAttributes="Bold" FontFamily="bold" FontSize="Title" TextColor="#11b2cf"/>
                 </VerticalStackLayout>
             </Grid>
 
@@ -66,7 +66,7 @@
                         </Grid>
                     </Grid>
 
-                    <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200"  Text="Ingresar" Clicked="btnLogin_Clicked"/>
+                    <Button x:Name="btnLogin" Margin="0,20,0,0" HorizontalOptions="Center" HeightRequest="60" WidthRequest="200"  Text="Iniciar" Clicked="btnLogin_Clicked"/>
                 </VerticalStackLayout>
             </Grid>
         </Grid>

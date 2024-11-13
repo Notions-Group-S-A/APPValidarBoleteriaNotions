@@ -8,13 +8,17 @@
     Shell.FlyoutBehavior="Flyout"
     Shell.NavBarIsVisible="True"
     Shell.TabBarIsVisible="False"
-    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray400}}"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource LightFlyoutBackgroundColor}, Dark={StaticResource DarkFlyoutBackgroundColor}}"
     Title="Validar Entrada">
 
     <Shell.FlyoutHeader>
         <VerticalStackLayout>
-            <Image Source="app_logo.png" WidthRequest="250"></Image>
-            <Label Text="Validar Entrada" Style="{StaticResource FlyoutHeaderLabelStyle}" FontSize="Title" HorizontalTextAlignment="Center"></Label>
+            <Image WidthRequest="250">
+                <Image.Source>
+                    <AppThemeBinding Light="header_flyout.png" Dark="header_flyout_dark.png"/>
+                </Image.Source>
+            </Image>
+            <Label x:Name="lbUsuario" Text="Validar Entrada" Style="{StaticResource FlyoutHeaderLabelStyle}" FontSize="Title" HorizontalTextAlignment="Center"></Label>
         </VerticalStackLayout>
     </Shell.FlyoutHeader>
 

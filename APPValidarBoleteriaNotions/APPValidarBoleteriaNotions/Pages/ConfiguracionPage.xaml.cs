@@ -31,6 +31,7 @@ public partial class ConfiguracionPage : ContentPage
     {
         try
         {
+
             Mensaje.IsVisible = false;
 
             string ente = enEnte.Text.Trim();

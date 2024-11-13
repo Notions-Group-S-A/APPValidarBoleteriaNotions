@@ -15,13 +15,19 @@
     <Color x:Key="LightHeaderBackgroundColor">#dae6f2</Color>
     <Color x:Key="DarkHeaderBackgroundColor">#25190d</Color>
 
-    <Color x:Key="Primary">#1E90FF</Color>    <!-- Color principal para botones o encabezados -->
-    <Color x:Key="PrimaryDark">#1FD6FF</Color>
+    <Color x:Key="Primary">#1E90FF</Color>
+    <!--1FD6FF Color principal para botones o encabezados -->
+    <Color x:Key="PrimaryDark">#1f8eff</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#1FFFDF</Color>           <!-- Fondo neutro -->
-    <Color x:Key="SecondaryDarkText">white</Color>
-    <!-- Fondo neutro -->
+    <Color x:Key="SecondaryDarkText">white</Color> <!-- tabbar - letra -->
     <Color x:Key="Tertiary">#1F48FF</Color> <!-- Fondo neutro -->
+
+    <Color x:Key="LightPageBackgroundColor">#112f53</Color>
+    <Color x:Key="DarkPageBackgroundColor">black</Color>
+    <Color x:Key="LightFlyoutBackgroundColor">#D1F4FF</Color>
+    <Color x:Key="DarkFlyoutBackgroundColor">#112f53</Color>
+
 
     <!--<AppThemeBinding x:Key="ThemedIconColor" Light="{StaticResource Primary}"  Dark="{StaticResource PrimaryDarkk}" />-->
 

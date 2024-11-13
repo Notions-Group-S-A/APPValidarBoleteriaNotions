@@ -16,4 +16,10 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
        
     }
+
+    public string Usuario
+    {
+        get => lbUsuario.Text;
+        set => lbUsuario.Text = value;
+    }
 }

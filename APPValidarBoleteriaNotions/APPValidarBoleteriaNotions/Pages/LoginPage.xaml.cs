@@ -47,7 +47,10 @@ public partial class LoginPage : ContentPage
             await new ContextoService().GuardarContextoAsync(contexto);
             #endregion
 
-            Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            if(App.Current!=null)
+                ((AppShell)App.Current.MainPage).Usuario= usuario;
+
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
         else
         {
