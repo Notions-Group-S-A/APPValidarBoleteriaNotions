@@ -48,4 +48,15 @@ public partial class BarcodePage : ContentPage
     {
         Camera.TorchOn = Camera.TorchOn == false;
     }
+
+    protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        base.OnNavigatedFrom(args);
+
+        var result = new List<BarcodeResult>();
+        if (_taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
+        {
+            _taskCompletionSource.TrySetResult(result); 
+        }
+    }
 }

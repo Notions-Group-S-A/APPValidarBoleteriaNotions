@@ -26,7 +26,8 @@ public partial class HashPage : ContentPage
 		InitializeComponent();
         enHashCode.Focus();
     }
-       
+
+
     async private void btnConfirmar_Clicked(object sender, EventArgs e)
     {
         var result = new List<HashResult>();
@@ -46,15 +47,33 @@ public partial class HashPage : ContentPage
 
     private void enHashCode_TextChanged(object sender, TextChangedEventArgs e)
     {
-        /*
-        if (e.NewTextValue.Length == enHashCode.MaxLength)
-        {
-            enHashCode.BackgroundColor = Color.FromArgb("#d1e7dd");
-        }
-        else
-        {
-            enHashCode.BackgroundColor = Color.FromArgb("#ecfeff");
-        }
-        */
+       
     }
+
+    protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        base.OnNavigatedFrom(args);
+
+        var result = new List<HashResult>();
+        if (_taskCompletionSource != null && !_taskCompletionSource.Task.IsCompleted)
+        {
+            _taskCompletionSource.TrySetResult(result); // Devuelve null si no hay resultado
+        }
+    }
+
+
+    //protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    //{
+    //    base.OnNavigatedFrom(args);
+
+    //    if (BindingContext is Dictionary<string, object> parameters &&
+    //        parameters.TryGetValue("Parametro", out var tcsObj) &&
+    //        tcsObj is TaskCompletionSource<List<BarcodeResult>> tcs &&
+    //        !tcs.Task.IsCompleted)
+    //    {
+    //        // Completar la tarea con null si el usuario presiona "Atrás"
+    //        tcs.TrySetResult(null);
+    //    }
+
+    //}
 }

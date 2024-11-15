@@ -25,6 +25,7 @@ public partial class MainPage : ContentPage
         _controlEntradasClientService = new ControlEntradasClientService();
     }
 
+  
     public static int PanelActual = 1;
 
     public const int INICIO = 1;
@@ -67,10 +68,18 @@ public partial class MainPage : ContentPage
         }
     }
 
-    async protected override void OnAppearing()
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+    }
+
+
+
+        async protected override void OnAppearing()
     {
         base.OnAppearing();
-
+    
         var contexto = await new ContextoService().CargarContextoAsync();
 
         if (contexto == null || contexto?.IsSincronizado == false)
@@ -113,28 +122,34 @@ public partial class MainPage : ContentPage
             return;
         }
 
-        HabilitarPanel(MENSAJE);
-        var respuesta=await ValidarCodigo(codigo);
+        if (codigo != null)
+        {
+            var respuesta = await ValidarCodigo(codigo);
 
-        #region
-        if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.FALLO_RED)
-        {
-            await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
-            return;
-        }
-        else if (respuesta.codigo == DTO_CodigoEntrada.RESPUESTA_NO_COMPLETA)
-        {
-            await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
-            return;
-        }
-        else if (respuesta.codigo == DTO_CodigoEntrada.ERROR_RESPUESTA)
-        {
-            await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
-            return;
-        }
-                
-        MostrarRespuesta(respuesta);
+            #region
+            if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.FALLO_RED)
+            {
+                await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
+                return;
+            }
+            else if (respuesta.codigo == DTO_CodigoEntrada.RESPUESTA_NO_COMPLETA)
+            {
+                await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+                return;
+            }
+            else if (respuesta.codigo == DTO_CodigoEntrada.ERROR_RESPUESTA)
+            {
+                await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+                return;
+            }
 
+            MostrarRespuesta(respuesta);
+        }
+        else
+        {
+            HabilitarPanel(INICIO);
+            return;
+        }
         #endregion
 
         HabilitarPanel(PRINCIPAL);
@@ -152,6 +167,10 @@ public partial class MainPage : ContentPage
         await Shell.Current.GoToAsync($"{nameof(BarcodePage)}", pageParams);
 
         List<BarcodeResult> barCodes = await tcs.Task;
+
+        if (barCodes == null || barCodes.Count == 0)
+            return null;
+
         string valor = barCodes[0].DisplayValue;
         return valor;
     }
@@ -176,10 +195,11 @@ public partial class MainPage : ContentPage
         var pageParams = new Dictionary<string, object> { { "Parametro", tcs } };
         await Shell.Current.GoToAsync($"{nameof(HashPage)}", pageParams);
         List<HashResult> hashCodes = await tcs.Task;
-        string? valor = null;
-        if (hashCodes != null && hashCodes.Count > 0)
-            valor = hashCodes[0].DisplayValue;
 
+        if (hashCodes == null || hashCodes.Count == 0)
+            return null;
+
+        string? valor = hashCodes[0].DisplayValue;
         return valor;
     }
 
