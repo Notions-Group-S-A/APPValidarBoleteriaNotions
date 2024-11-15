@@ -50,6 +50,7 @@ public partial class LoginPage : ContentPage
             if(App.Current!=null)
                 ((AppShell)App.Current.MainPage).Usuario= usuario;
 
+            MainPage.PanelActual = 1;
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
         else

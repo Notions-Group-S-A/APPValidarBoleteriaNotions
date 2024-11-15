@@ -16,7 +16,6 @@ public partial class ConfiguracionPage : ContentPage
 		InitializeComponent();
 
         _authControllerClientService = new AppValidarEntradaService();
-
     }
 
     async protected override void OnAppearing()
@@ -24,14 +23,14 @@ public partial class ConfiguracionPage : ContentPage
         base.OnAppearing();
 
         var contexto = await new ContextoService().CargarContextoAsync();
-        enEnte.Text= contexto?.Ente;
+        // enEnte.Text= contexto?.Ente;
+        lbEnte.Text = "Ente configurado:" + contexto?.Ente;
     }
 
     async private void btnSincronizar_Clicked(object sender, EventArgs e)
     {
         try
         {
-
             Mensaje.IsVisible = false;
 
             string ente = enEnte.Text.Trim();
@@ -46,33 +45,38 @@ public partial class ConfiguracionPage : ContentPage
 
             if (respuesta.codigo == DTO_CodigoResultado.Success)
             {
-                //string? enteT = respuesta.datos?.Ente;
-                string? endpoint = respuesta.datos;//?.Endpoint;
-
-                //evaluo el respuesta
+                string? endpoint = respuesta.datos;
+                             
                 if (string.IsNullOrEmpty(endpoint) == false)
                 {
                     #region persistencia
+                    
                     var contexto = await new ContextoService().CargarContextoAsync();
-                    contexto.Ente = ente;
                     contexto.URLEndPoint = endpoint;
-                    contexto.Sincronizado = true;
+
+                    if(contexto.Ente!=ente)
+                        contexto.IsAuthenticated = false;
+
+                    contexto.Ente = ente;
+                    contexto.IsSincronizado = true;
+
                     await new ContextoService().GuardarContextoAsync(contexto);
                     #endregion
 
                     if (contexto.IsAuthenticated == true)
                     {
+                        MainPage.PanelActual = 1;
                         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
                     }
                     else
                     {
-                        await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                     }
                 }
                 else
                 {
-                   Mensaje.Show($"Se han devuelto algunos campos nulos: Ente:{ente}, EndPoint:{endpoint}", "Error en la Respuesta", SetIconos.ICONO_ERROR);
-                   Mensaje.IsVisible = true;
+                    Mensaje.Show($"Se han devuelto algunos campos nulos: Ente:{ente}, EndPoint:{endpoint}", "Error en la Respuesta", SetIconos.ICONO_ERROR);
+                    Mensaje.IsVisible = true;
                 }
             }
             else

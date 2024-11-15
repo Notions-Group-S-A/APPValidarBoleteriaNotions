@@ -5,20 +5,14 @@
              xmlns:views="clr-namespace:APPValidarBoleteriaNotions.Views"
              xmlns:util="clr-namespace:APPValidarBoleteriaNotions.Utils"
              NavigationPage.HasNavigationBar="False"
-             NavigationPage.HasBackButton="False"             
+             NavigationPage.HasBackButton="False"   
              Title="Configuración">
     
     <ScrollView HorizontalOptions="Center" >
 
-     
-
-           
-
             <Grid RowDefinitions=".25*,.75*" Padding="20">
 
-                
-
-                <!--head-->
+            <!--head-->
             <Image Aspect="AspectFill" Source="head_login.png"/>
             <Grid BackgroundColor="#dae6f2" Opacity=".8"/>
             <Grid ColumnDefinitions="*,*">
@@ -41,8 +35,7 @@
                     <views:MensajeView x:Name="Mensaje" IsVisible="False" HorizontalOptions="FillAndExpand"/>
 
                     <VerticalStackLayout Grid.Row="1">
-                        
-                        
+                                                
                         <!--formulario-->
                         <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
                             <RoundRectangle BackgroundColor="Transparent" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="68"/>
@@ -51,6 +44,11 @@
                                     <FontImageSource FontFamily="AwesomeSolid" Glyph="keyboard" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"  /></Image.Source></Image>
                             <Entry Grid.Column="1" x:Name="enEnte" Keyboard="Numeric" Placeholder="Número de Ente" Text="" VerticalOptions="Center"/>
                         </Grid>
+
+                        <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
+                            <Label Grid.Column="1" x:Name="lbEnte" FontSize="Subtitle" FontAttributes="Italic" />
+                        </Grid>
+
 
                         <!--barra de botones-->
                         <Grid HorizontalOptions="Center">

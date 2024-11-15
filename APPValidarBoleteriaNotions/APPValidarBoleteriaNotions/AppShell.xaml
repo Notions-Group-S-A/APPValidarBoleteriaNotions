@@ -35,7 +35,7 @@
 
         <ShellContent Title="Inicio" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" >
             <ShellContent.Icon>
-                <FontImageSource Glyph="user" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                <FontImageSource Glyph="house" FontFamily="AwesomeSolid" Color="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
             </ShellContent.Icon>
         </ShellContent>
 

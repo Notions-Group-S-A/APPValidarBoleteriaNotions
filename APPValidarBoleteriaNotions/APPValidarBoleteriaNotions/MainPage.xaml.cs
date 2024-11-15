@@ -21,14 +21,18 @@ public partial class MainPage : ContentPage
         InitializeComponent();
 
         _contextoService = new ContextoService();
+
         _controlEntradasClientService = new ControlEntradasClientService();
     }
+
+    public static int PanelActual = 1;
 
     public const int INICIO = 1;
     public const int PRINCIPAL = 2;
     public const int MENSAJE = 3;
     private void HabilitarPanel(int n)
     {
+        PanelActual = n;
         switch (n)
         {
             case INICIO: 
@@ -69,19 +73,24 @@ public partial class MainPage : ContentPage
 
         var contexto = await new ContextoService().CargarContextoAsync();
 
-        if (contexto == null || contexto?.Sincronizado == false)
+        if (contexto == null || contexto?.IsSincronizado == false)
         {
-            await Shell.Current.GoToAsync($"{nameof(ConfiguracionPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(ConfiguracionPage)}");
+
+            _controlEntradasClientService = new ControlEntradasClientService
+            {
+                URL_Base = contexto.URLEndPoint
+            };
             return;
         }
 
         if (contexto == null || contexto?.IsAuthenticated == false)
         {
-            await Shell.Current.GoToAsync($"{nameof(LoginPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
             return;
-        }
+        }     
 
-        HabilitarPanel(INICIO);
+        HabilitarPanel(PanelActual);
     }
 
     private async void btnValidarEntrada_Clicked(object sender, EventArgs e)
@@ -103,7 +112,8 @@ public partial class MainPage : ContentPage
             HabilitarPanel(INICIO);
             return;
         }
-                
+
+        HabilitarPanel(MENSAJE);
         var respuesta=await ValidarCodigo(codigo);
 
         #region
@@ -149,6 +159,12 @@ public partial class MainPage : ContentPage
     async Task<DTO_RespuestaEntrada<DTO_Entrada>> ValidarCodigo(string qr)
     {
         var contexto = await _contextoService.CargarContextoAsync();
+
+        _controlEntradasClientService = new ControlEntradasClientService
+        {
+            URL_Base = contexto.URLEndPoint
+        };
+
         var respuesta = await _controlEntradasClientService.ValidarEntrada(qr, contexto.Usuario);
         return respuesta;
     }
@@ -309,6 +325,11 @@ public partial class MainPage : ContentPage
         #region persistencia
         var contexto = await _contextoService.CargarContextoAsync();
         #endregion
+
+        _controlEntradasClientService = new ControlEntradasClientService
+        {
+            URL_Base = contexto.URLEndPoint
+        };
 
         var respuesta = await _controlEntradasClientService.QuemarEntrada(idEntrada, contexto.Usuario);
 
