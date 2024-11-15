@@ -12,7 +12,6 @@ namespace APPValidarBoleteriaNotions;
 
 public partial class MainPage : ContentPage
 {
-
     ContextoService _contextoService;
     ControlEntradasClientService _controlEntradasClientService;
 
@@ -25,7 +24,6 @@ public partial class MainPage : ContentPage
         _controlEntradasClientService = new ControlEntradasClientService();
     }
 
-  
     public static int PanelActual = 1;
 
     public const int INICIO = 1;
@@ -36,7 +34,7 @@ public partial class MainPage : ContentPage
         PanelActual = n;
         switch (n)
         {
-            case INICIO: 
+            case INICIO:
                 {
                     PanelPrincipal.IsVisible = true;
                     PanelResultado.IsVisible = false;
@@ -47,7 +45,8 @@ public partial class MainPage : ContentPage
                     lbSector.Text = "";
                     lbSector.Text = "";
 
-                } break;
+                }
+                break;
             case PRINCIPAL:
                 {
                     PanelPrincipal.IsVisible = false;
@@ -68,18 +67,15 @@ public partial class MainPage : ContentPage
         }
     }
 
-
     protected override void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
     }
 
-
-
-        async protected override void OnAppearing()
+    async protected override void OnAppearing()
     {
         base.OnAppearing();
-    
+
         var contexto = await new ContextoService().CargarContextoAsync();
 
         if (contexto == null || contexto?.IsSincronizado == false)
@@ -97,7 +93,7 @@ public partial class MainPage : ContentPage
         {
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
             return;
-        }     
+        }
 
         HabilitarPanel(PanelActual);
     }
@@ -212,7 +208,7 @@ public partial class MainPage : ContentPage
 
         long idRelacionCarrito = Convert.ToInt64(validacion?.Id_Relacion_Entradas_ItemCarrito);
 
-        Imagen.Source = new FontImageSource() 
+        Imagen.Source = new FontImageSource()
         {
             FontFamily = "AwesomeSolid",
             Glyph = "\uf058",//"&#xf058;",
@@ -226,7 +222,7 @@ public partial class MainPage : ContentPage
     private void MostrarRespuesta(DTO_RespuestaEntrada<DTO_Entrada> respuesta)
     {
         btnQuemarQR.IsVisible = false;
-        
+
         string glyph = "";
         string color = "";
 
@@ -245,12 +241,12 @@ public partial class MainPage : ContentPage
         #endregion
 
         #region icono
-        if (respuesta?.codigo == DTO_CodigoEntrada.Valido) 
+        if (respuesta?.codigo == DTO_CodigoEntrada.Valido)
         {
             #region caso entrada vigente 
             glyph = "circle-check";
             color = "#009900";
-            
+
             lbEntradaLabel.Text = "Ticket: ";
             lbEntradaNumero.Text = $"{respuesta?.datos?.Id}";
             lbEntradaNumero.TextColor = Microsoft.Maui.Graphics.Color.FromArgb("#11b2cf");
@@ -267,7 +263,7 @@ public partial class MainPage : ContentPage
             lbNombreEntrada.Text = respuesta?.datos?.Nombre_Entrada;
             btnQuemarQR.IsVisible = respuesta?.datos?.Quemada == false;
 
-            idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito??0;
+            idEntrada = respuesta?.datos?.Id_Relacion_Entradas_ItemCarrito ?? 0;
             #endregion
         }
         else if (respuesta?.codigo == DTO_CodigoEntrada.Invalido)
@@ -365,7 +361,7 @@ public partial class MainPage : ContentPage
         }
         else if (respuesta.codigo == DTO_CodigoEntrada.ERROR_RESPUESTA)
         {
-            await DisplayAlert( "Error", $"{respuesta.mensaje}", "Cerrar");
+            await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
             return;
         }
         else
@@ -375,7 +371,7 @@ public partial class MainPage : ContentPage
             lbSector.Text = "ok!";
         }
     }
-     
+
     private void btnVolver_Clicked(object sender, EventArgs e)
     {
         HabilitarPanel(INICIO);
