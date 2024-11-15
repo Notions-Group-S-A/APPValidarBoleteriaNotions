@@ -126,16 +126,19 @@ public partial class MainPage : ContentPage
             if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.FALLO_RED)
             {
                 await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
+                HabilitarPanel(INICIO);
                 return;
             }
             else if (respuesta.codigo == DTO_CodigoEntrada.RESPUESTA_NO_COMPLETA)
             {
                 await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+                HabilitarPanel(INICIO);
                 return;
             }
             else if (respuesta.codigo == DTO_CodigoEntrada.ERROR_RESPUESTA)
             {
                 await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+                HabilitarPanel(INICIO);
                 return;
             }
 
@@ -352,16 +355,19 @@ public partial class MainPage : ContentPage
         if (respuesta == null || respuesta.codigo == DTO_CodigoEntrada.FALLO_RED)
         {
             await Shell.Current.GoToAsync($"{nameof(MensajePage)}");
+            HabilitarPanel(INICIO);
             return;
         }
         else if (respuesta.codigo == DTO_CodigoEntrada.RESPUESTA_NO_COMPLETA)
         {
             await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+            HabilitarPanel(INICIO);
             return;
         }
         else if (respuesta.codigo == DTO_CodigoEntrada.ERROR_RESPUESTA)
         {
             await DisplayAlert("Error", $"{respuesta.mensaje}", "Cerrar");
+            HabilitarPanel(INICIO);
             return;
         }
         else
