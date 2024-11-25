@@ -44,7 +44,6 @@ public partial class MainPage : ContentPage
                     lbFuncion.Text = "";
                     lbSector.Text = "";
                     lbSector.Text = "";
-
                 }
                 break;
             case PRINCIPAL:
@@ -56,9 +55,6 @@ public partial class MainPage : ContentPage
                 break;
             case MENSAJE:
                 {
-                    //hacer el clear
-                    //Mensaje.IsVisible = false;
-
                     PanelPrincipal.IsVisible = false;
                     PanelResultado.IsVisible = false;
                     PanelEspera.IsVisible = true;

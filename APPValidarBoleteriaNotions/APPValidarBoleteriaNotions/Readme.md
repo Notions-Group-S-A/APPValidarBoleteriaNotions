@@ -27,3 +27,26 @@ Actualiza Microsoft.Android.Sdk.Windows
 ```bash
 dotnet workload update
 ```
+
+## Versiones de la aplicación
+
+### Versión de la aplicación
+```
+<key>CFBundleShortVersionString</key>
+<string>0.1</string>
+```
+
+```
+android:versionName="0.0.1"
+```
+
+### Código de Versión
+
+```
+<key>CFBundleVersion</key>
+<string>1.0</string>
+```
+
+```
+android:versionCode="1"
+```
