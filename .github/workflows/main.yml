@@ -1,0 +1,66 @@
+name: CD MAIN Build
+
+on:
+  workflow_dispatch:
+
+env:
+  BUILD_VERSION: '0.0.1'
+  DOTNET_VERSION: 8.0.x
+  XCODE_VERSION: 16.0
+  DOTNET_VERSION_TARGETS: net8.0
+  CSPROJ_TO_BUILD: './APPValidarBoleteriaNotions/APPValidarBoleteriaNotions/APPValidarBoleteriaNotions.csproj'
+  PROJECT_FOLDER: './APPValidarBoleteriaNotions/APPValidarBoleteriaNotions'
+  PACKAGE_NAME: 'com.BDI.ValidarEntrada'
+
+permissions:
+  contents: write
+  issues: read
+  packages: write
+jobs:
+  vars:
+    runs-on: ubuntu-22.04
+    outputs:      
+      buildVersion: ${{ env.BUILD_VERSION }}
+      dotnetVersion: ${{ env.DOTNET_VERSION }}
+      xcodeVersion: ${{ env.XCODE_VERSION }}
+      dotnetVersionTargets: ${{ env.DOTNET_VERSION_TARGETS }}
+      csprojToBuild: ${{ env.CSPROJ_TO_BUILD }}
+      projectFolder: ${{ env.PROJECT_FOLDER }}
+      packageName: ${{ env.PACKAGE_NAME }}
+    steps:
+      - run: echo "Exposing env vars, because they can't be passed to nested workflows."  
+
+  create-release:
+    needs: vars
+    runs-on: ubuntu-22.04
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Crear release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.vars.outputs.buildVersion }}
+          release_name: Release ${{ needs.vars.outputs.buildVersion }}
+          draft: false
+          prerelease: false
+
+  build-ios:   
+    needs: [vars, create-release]
+    uses: './.github/workflows/cd-ios.yml'
+    with:
+      dotnet-version: ${{ needs.vars.outputs.dotnetVersion }}
+      dotnet-version-target: ${{ needs.vars.outputs.dotnetVersionTargets }}
+      xcode-version: ${{ needs.vars.outputs.xcodeVersion }}
+      project-file: ${{ needs.vars.outputs.csprojToBuild }}
+      project-folder: ${{ needs.vars.outputs.projectFolder }}
+      build-config: 'Release'
+      build-version: ${{ needs.vars.outputs.buildVersion }}
+      package-name: ${{ needs.vars.outputs.packageName }}
+      upload-url: ${{ needs.create-release.outputs.upload_url }}
+    secrets:
+      p12-cert: ${{ secrets.IOS_CERTIFICATE_BASE64}}
+      prov-prof: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+      key-chan: ${{ secrets.IOS_KEY_CHAN }}

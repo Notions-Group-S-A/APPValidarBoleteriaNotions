@@ -1,0 +1,228 @@
+
+name: iOS Publish
+
+on:
+    workflow_call:
+        inputs:
+            dotnet-version:
+                required: true
+                type: string
+            dotnet-version-target:
+                required: true
+                type: string
+            xcode-version:
+                required: true
+                type: string
+            project-file:
+                required: true
+                type: string
+            project-folder:
+                required: true
+                type: string
+            build-config:
+                required: true
+                type: string
+            build-version:
+                required: true
+                type: string
+            package-name:
+                required: true
+                type: string
+            upload-url:
+                required: true
+                type: string
+                
+        secrets:      
+            p12-cert:
+                required: true
+            prov-prof:
+                required: true
+            key-chan:
+                required: true
+
+jobs:
+    publish-ios:
+        runs-on: macos-latest
+        name: iOS Publish
+    
+        steps:  
+
+        - uses: maxim-lobanov/setup-xcode@v1
+          name: Set XCode version
+          with:
+            xcode-version: ${{ inputs.xcode-version }}
+
+        - name: Setup .NET ${{ inputs.dotnet-version }}
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: ${{ inputs.dotnet-version }}
+
+        - uses: actions/checkout@v3
+          name: Checkout the code
+
+        - name: Install MAUI Workload
+          run: dotnet workload install maui --ignore-failed-sources
+
+        - name: Restaurar dependencias
+          run: dotnet restore ${{ inputs.project-file }}
+
+        - name: Limpiar proyecto
+          run: dotnet clean ${{ inputs.project-file }}
+
+        - name: Instalar el certificado de Apple 
+          env:
+            IOS_CERTIFICATE_BASE64: ${{ secrets.p12-cert }}
+            P12_PASSWORD: ''
+            KEYCHAIN_PASSWORD: ${{ secrets.key-chan }}
+          run:  |
+            echo "1=================crea variables============================================="
+            CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+            KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+  
+            echo "2===========importando certificado en base 64 desde github secrets==========="
+            echo -n "$IOS_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+            
+            echo "3============Ruta y contenido del certificado decodificado==================="
+            ls $CERTIFICATE_PATH
+            cat $CERTIFICATE_PATH
+              
+            echo "4===========crea el llavero temporal========================================="
+            security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+            echo "5===========listar de llaveros==============================================="
+            echo "...Viendo llaveros con las firmas..."
+            security list-keychains -s "$KEYCHAIN_PATH" $(security list-keychains -d user | tr -d '"')
+            echo "...Viendo Todos los llaveros..."
+            security list-keychains
+            
+            echo "6===========desbloqueo del llavero==========================================="
+            security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+            security unlock-keychain -u -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH 
+            
+            echo "7===========establecer el llavero como predeterminado========================"
+            security default-keychain -s "$KEYCHAIN_PATH"
+
+            echo "8===========agregar certificado al llavero==================================="
+            security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+
+            echo "9===========ajustar permisos del llavero====================================="
+            if security find-certificate -a -c "" "$KEYCHAIN_PATH"; then
+              echo "...Se ajustan los permisos..."
+              security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+            else
+              echo "...No se encontraron certificados en el llavero..."
+            fi
+           
+            echo "10===========listas en el llavero de:======================================="
+            echo "....todas las identidades......."
+            security find-certificate -a "$KEYCHAIN_PATH"
+            
+            echo "....todas las identidades......."
+            security find-identity
+            
+            echo " ...firmas en el llavero local..."
+            security find-identity -p codesigning -v "$KEYCHAIN_PATH"
+
+            echo "....firmas en todos los llaveros"
+            security find-identity -p codesigning -v
+
+            echo "11===========Revisando info llavero temporal=================================="
+            security show-keychain-info $KEYCHAIN_PATH     
+              
+            echo "12===========identidades disponibles para firmar=============================="
+            DEV_ID="$(security find-identity -p codesigning -v)"
+            echo $DEV_ID
+
+            echo "13========Nombre de los certificados==========================================="
+            CERT_NAME=$(security find-identity -p codesigning -v | grep -oE '".*iPhone Distribution: NOTIONS GROUP S.A. \([A-Z0-9]+\)"')
+            DEV_ID=$(security find-identity -p codesigning -v | grep "iPhone Distribution: NOTIONS GROUP S.A. (8BU3XBJR6T)")
+            echo " desarrollo/distribucion:$CERT_NAME"
+                            
+            echo "13==fin=========================================="
+
+        - name: Instala el provisioning profile
+          env: 
+            IOS_PROVISION_PROFILE_BASE64: ${{ secrets.prov-prof }}            
+          run: |
+            echo "1=================crea variables============================================="
+            #PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+            PACKAGE_NAME_NO_DOT=$(echo "${{ inputs.package-name }}" | tr -d '.')
+            PP_PATH=${{ github.workspace }}/Certificados/${PACKAGE_NAME_NO_DOT}.mobileprovision
+            echo "Provisioning profile path: $PP_PATH"
+  
+            echo "2===========importando provisioning profile en base 64 desde github secrets=="
+            #echo -n "$IOS_PROVISION_PROFILE_BASE64" | base64 --decode -o $PP_PATH
+            
+            echo "....Ruta y contenido del perfil de aprovisionamiento decodificado:"
+            ls $PP_PATH
+            cat $PP_PATH
+                          
+            echo "12==========aplicando provisioning profile - configurar perfil de aprovisionamiento="
+            mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+            cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles/"${{ inputs.package-name }}".mobileprovision 
+            ls ~/Library/MobileDevice/Provisioning\ Profiles/"${{ inputs.package-name }}".mobileprovision
+            
+            echo "13===========imprimiendo el contenido del provisioning profile======================="
+            echo "13a..."
+            security cms -D -i ~/Library/MobileDevice/Provisioning\ Profiles/"${{ inputs.package-name }}".mobileprovision 
+                        
+            echo "13b..."
+            security cms -D -i $PP_PATH > $RUNNER_TEMP/profile.plist
+                       
+            echo "13c...mostrando contenido"
+            security cms -D -i $PP_PATH
+            
+            echo "15==========Obtener el UUID del perfil de aprovisionamiento====================="
+            PROVISIONING_PROFILE_UUID=$(security cms -D -i $PP_PATH | grep -A1 "UUID" | grep -o "[-a-zA-Z0-9]\{36\}")
+            echo " aprovisionamiento: $PROVISIONING_PROFILE_UUID"
+            
+            echo "15==fin=========================================="
+              
+        - name: Construye los proyectos
+          run: |        
+            dotnet build ./APPValidarBoleteriaNotions/APPValidarBoleteriaClientService/APPValidarBoleteriaClientService.csproj 
+            dotnet build ${{ inputs.project-file }} -c ${{ inputs.build-config }} -f ${{ inputs.dotnet-version-target }}-ios /p:CodesignKey="iPhone Distribution: NOTIONS GROUP S.A. (8BU3XBJR6T)" /p:CodesignProvision="${{ inputs.package-name }}" /p:SigningKeychain="$KEYCHAIN_PATH" 
+        
+        - name: Construye para el simulador iOS
+          run: |
+            dotnet build ${{ inputs.project-file }} -c ${{ inputs.build-config }} -f:${{ inputs.dotnet-version-target }}-ios -p:RuntimeIdentifier=iossimulator-x64 -p:PlatformTarget=x64
+
+        - name: Localiza la carpeta .app donde construyo
+          id: locate_app
+          run: |
+              APP_PATH=$(find ${{ github.workspace }}/${{ inputs.project-folder }}/bin/${{ inputs.build-config }}/${{ inputs.dotnet-version-target }}-ios/iossimulator-x64/ -name "*.app" | head -n 1)
+              echo "APP_PATH=$APP_PATH" >> $GITHUB_ENV
+
+        - name: Use the .app file with the simulator
+          run: |
+            echo "The .app file is located at: ${{ env.APP_PATH }}"
+            
+        - name: Comprime la carpeta .app
+          run: |
+            zip -r ${{ env.APP_PATH }}.zip ${{ env.APP_PATH }}   
+
+        - name: Upload Release Asset-paquete app-zip
+          id: upload-release-asset-app-zip
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ inputs.upload-url }}
+            asset_path: ${{ env.APP_PATH }}.zip
+            asset_name: ${{ inputs.package-name }}.app.zip
+            asset_content_type: application/zip     
+        
+        - name: Publica el iOS ipa
+          run: |          
+            dotnet publish ${{ inputs.project-file }} -c ${{ inputs.build-config }} -f:${{ inputs.dotnet-version-target }}-ios /p:ArchiveOnBuild=true /p:EnableAssemblyILStripping=false /p:CodesignKey="iPhone Distribution: NOTIONS GROUP S.A. (8BU3XBJR6T)" /p:CodesignProvision="${{ inputs.package-name }}" /p:SigningKeychain="$KEYCHAIN_PATH"
+ 
+        - name: Sube al Release Asset el paquete ipa
+          id: upload-release-asset-ipa
+          uses: actions/upload-release-asset@v1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ inputs.upload-url }}
+            asset_path: ${{ github.workspace }}/${{ inputs.project-folder }}/bin/${{ inputs.build-config }}/${{ inputs.dotnet-version-target }}-ios/ios-arm64/publish/APPNotions.ipa
+            asset_name: ${{ inputs.package-name }}.ipa
+            asset_content_type: application/octet-stream
